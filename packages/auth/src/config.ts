@@ -20,6 +20,7 @@ import * as schema from "@reactive-resume/db/schema";
 import { ResetPasswordEmail, VerifyEmail, VerifyEmailChange } from "@reactive-resume/email/templates/auth";
 import { sendEmail } from "@reactive-resume/email/transport";
 import { env } from "@reactive-resume/env/server";
+import { appName } from "@reactive-resume/utils/brand";
 import { rateLimitConfig, TRUSTED_IP_HEADERS } from "@reactive-resume/utils/rate-limit";
 import { generateId, toUsername } from "@reactive-resume/utils/string";
 import { isAllowedOAuthRedirectUri } from "@reactive-resume/utils/url-security.node";
@@ -154,7 +155,7 @@ const getAuthConfig = () => {
 	}
 
 	return betterAuth({
-		appName: "Reactive Resume",
+		appName,
 		baseURL: authBaseUrl,
 		secret: env.AUTH_SECRET,
 
@@ -214,7 +215,7 @@ const getAuthConfig = () => {
 			sendResetPassword: async ({ user, url }) => {
 				await sendEmail({
 					to: user.email,
-					subject: "Reset your password",
+					subject: `${appName}：重置密码`,
 					react: createElement(ResetPasswordEmail, { url }),
 				});
 			},
@@ -230,7 +231,7 @@ const getAuthConfig = () => {
 			sendVerificationEmail: async ({ user, url }) => {
 				await sendEmail({
 					to: user.email,
-					subject: "Verify your email",
+					subject: `${appName}：验证邮箱`,
 					react: createElement(VerifyEmail, { url }),
 				});
 			},
@@ -242,7 +243,7 @@ const getAuthConfig = () => {
 				sendChangeEmailConfirmation: async ({ user, newEmail, url }) => {
 					await sendEmail({
 						to: newEmail,
-						subject: "Verify your new email",
+						subject: `${appName}：确认新邮箱`,
 						react: createElement(VerifyEmailChange, { url, previousEmail: user.email, newEmail }),
 					});
 				},

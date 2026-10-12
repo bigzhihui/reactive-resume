@@ -6,6 +6,7 @@ import { m } from "motion/react";
 import { useState } from "react";
 import { BrandIcon } from "@reactive-resume/ui/components/brand-icon";
 import { Button } from "@reactive-resume/ui/components/button";
+import { appName, repositoryUrl, supportEmail } from "@reactive-resume/utils/brand";
 import { Copyright } from "@/components/ui/copyright";
 
 type FooterLinkItem = {
@@ -27,8 +28,10 @@ type SocialLink = {
 const getResourceLinks = (): FooterLinkItem[] => [
 	{ url: "https://docs.rxresu.me", label: t`Documentation` },
 	{ url: "https://opencollective.com/reactive-resume/donate", label: t`Sponsorships` },
-	{ url: "https://github.com/reactive-resume/reactive-resume", label: t`Source Code` },
+	{ url: repositoryUrl, label: t`Source Code` },
 	{ url: "https://docs.rxresu.me/changelog", label: t`Changelog` },
+	{ url: "/privacy", label: t`Privacy Policy` },
+	{ url: `mailto:${supportEmail}`, label: t`Contact` },
 ];
 
 const getCommunityLinks = (): FooterLinkItem[] => [
@@ -60,7 +63,7 @@ export function Footer() {
 					<BrandIcon variant="logo" className="size-10" />
 
 					<div className="space-y-2">
-						<h2 className="font-semibold text-lg tracking-tight">Reactive Resume</h2>
+						<h2 className="font-semibold text-lg tracking-tight">{appName}</h2>
 						<p className="max-w-xs text-muted-foreground text-sm leading-relaxed">
 							<Trans>
 								A free and open-source resume builder that makes it easy to create, update, and share your resume.

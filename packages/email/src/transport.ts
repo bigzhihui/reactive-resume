@@ -3,6 +3,7 @@ import type { ReactElement } from "react";
 import nodemailer from "nodemailer";
 import { render } from "react-email";
 import { env } from "@reactive-resume/env/server";
+import { appName, supportEmail } from "@reactive-resume/utils/brand";
 
 type SendEmailOptions = {
 	to: string | string[];
@@ -31,10 +32,11 @@ const getTransport = () => {
 
 export const sendEmail = async (options: SendEmailOptions) => {
 	const transport = getTransport();
-	const from = options.from ?? env.SMTP_FROM ?? "Reactive Resume <noreply@localhost>";
+	const from = options.from ?? env.SMTP_FROM ?? `${appName} <noreply@localhost>`;
 	const payload: SendMailOptions = {
 		to: options.to,
 		from,
+		replyTo: supportEmail,
 		subject: options.subject,
 		...(options.text === undefined ? {} : { text: options.text }),
 		...(options.html === undefined ? {} : { html: options.html }),

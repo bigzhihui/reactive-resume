@@ -142,7 +142,7 @@ msgstr "{sectionTitle} · 项目 {itemNumber} "
 
 #: src/features/homepage/page.tsx
 msgid "<0>Free forever and open source.</0><1/>No ads, paywalls, or tracking."
-msgstr "<0>永久免费，开放源代码。</0><1/>没有广告、付费墙或跟踪。"
+msgstr "<0>免费模板与 PDF 导出。</0><1/>在线编辑，随时保存。"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
 msgid "<0>Thank you for using Reactive Resume. I build this app mostly in my spare time, with help from open-source contributors around the world.</0><1>If it has been useful to you and you'd like to keep it free and open for everyone, please consider donating. Any amount helps.</1>"
@@ -222,11 +222,11 @@ msgstr "一套免费、无障碍的网页设计模式。"
 
 #: src/features/homepage/page.tsx
 msgid "A free, open-source resume builder. Put your experience on the page, without fighting the formatting."
-msgstr "免费开源的简历制作工具。把你的经历落到纸上，不必再和排版较劲。"
+msgstr "用十三月简历整理工作经历、项目与技能。选好模板，专注内容，免费导出 PDF。"
 
 #: src/features/homepage/site-footer.tsx
 msgid "A free, open-source resume builder. Yours to keep, yours to export, yours to host."
-msgstr "免费开源的简历制作工具。 简历归你所有：随时保存、导出，也可以自行部署。"
+msgstr "十三月简历，基于 Reactive Resume 开源项目。在线编辑、保存与导出，让简历制作更简单。"
 
 #: src/features/applications/components/application-ai-copilot.tsx
 msgid "A friendly nudge for the recruiter"
@@ -3621,7 +3621,7 @@ msgstr "把它们改得明显更大、更粗或全部大写。"
 
 #: src/features/homepage/page.tsx
 msgid "Make yourself <0/>look good<1/><2>on paper.</2>"
-msgstr "让你<0/>在纸面上<1/><2>脱颖而出。</2>"
+msgstr "让经历<0/>更出彩<1/><2>让机会靠近。</2>"
 
 #: src/libs/locale.ts
 msgid "Malay"
@@ -7399,3 +7399,84 @@ msgstr "缩小"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "祖鲁语"
+
+#: src/features/privacy/page.tsx
+msgid "A resume marked public can be viewed by people with its link. Check the visibility setting and any password protection before sharing. Copies already downloaded or forwarded by other people cannot be recalled by changing visibility or deleting your account."
+msgstr "标记为公开的简历可以通过链接访问。分享前请检查可见性和密码保护设置。其他人已下载或转发的副本，无法通过修改可见性或删除账号收回。"
+
+#: src/features/privacy/page.tsx
+msgid "Account and resume data"
+msgstr "账号与简历数据"
+
+#: src/features/homepage/site-footer.tsx
+#: src/routes/_home/-sections/footer.tsx
+msgid "Contact"
+msgstr "联系我们"
+
+#: src/features/privacy/page.tsx
+msgid "Cookies and browser storage keep you signed in and remember preferences such as language and theme. The server and infrastructure providers may process IP addresses, browser information, request times, and errors to operate and protect the service."
+msgstr "Cookie 与浏览器存储用于维持登录状态、记住语言和主题等偏好。服务器和基础设施服务商可能处理 IP 地址、浏览器信息、请求时间和错误信息，用于提供服务、排查故障与保护服务。"
+
+#: src/features/privacy/page.tsx
+msgid "Cookies, preferences, and service logs"
+msgstr "Cookie、偏好与服务日志"
+
+#: src/features/privacy/page.tsx
+msgid "If you configure an AI provider and use an AI feature, the content needed for that request is sent to the selected provider. Review that provider's data policy before using it. External documentation, donation, and community links lead to services with their own policies."
+msgstr "如果你配置 AI 服务商并使用 AI 功能，完成该请求所需的内容将发送给所选服务商。使用前请查看其数据政策。外部文档、捐赠和社区链接遵循各自服务的数据政策。"
+
+#: src/features/privacy/page.tsx
+msgid "Manage your data and contact us"
+msgstr "管理数据与联系我们"
+
+#: src/features/privacy/page.tsx
+msgid "Only include information that you want to use in your resume. Avoid uploading identity documents, passwords, or other unnecessary sensitive information."
+msgstr "请只填写用于简历展示的信息，不要上传身份证件、密码或其他不必要的敏感信息。"
+
+#: src/features/privacy/page.tsx
+msgid "Optional AI and external services"
+msgstr "可选 AI 功能与外部服务"
+
+#: src/features/privacy/page.tsx
+msgid "Public sharing and exports"
+msgstr "公开分享与导出"
+
+#: src/features/privacy/page.tsx
+msgid "Resend privacy policy"
+msgstr "查看 Resend 隐私政策"
+
+#: src/features/privacy/page.tsx
+msgid "This notice applies to this resume website and its account, resume, and email features."
+msgstr "本说明适用于本站的账号、简历与邮件功能。"
+
+#: src/features/privacy/page.tsx
+msgid "This service is operated as part of afeiii.com and is based on the open-source Reactive Resume project. It is hosted in Oracle Cloud's US West (Phoenix) region."
+msgstr "本站由 afeiii.com 维护，基于 Reactive Resume 开源项目运行，部署在 Oracle Cloud 美国西部（Phoenix）区域。"
+
+#: src/features/privacy/page.tsx
+msgid "Updated: October 12, 2026"
+msgstr "更新日期：2026 年 10 月 12 日"
+
+#: src/features/privacy/page.tsx
+msgid "Verification and password-reset emails"
+msgstr "验证与密码重置邮件"
+
+#: src/features/privacy/page.tsx
+msgid "We use Resend to send account verification, password-reset, and email-change messages. Resend processes the recipient address and the email content, including action links, to deliver these messages. We do not send your resume content in these account emails."
+msgstr "本站通过 Resend 发送邮箱验证、密码重置和更换邮箱邮件。Resend 为完成投递，会处理收件地址与邮件内容，包括操作链接。这些账号邮件不会发送你的简历内容。"
+
+#: src/features/privacy/page.tsx
+msgid "Who operates this service"
+msgstr "本站由谁维护"
+
+#: src/features/privacy/page.tsx
+msgid "You can edit and export your resumes and delete your account in account settings. If you need help accessing or deleting data, contact us. Operational backups, when present, may retain earlier copies until they are replaced."
+msgstr "你可以编辑、导出简历，并在账号设置中删除账号。如需访问或删除数据方面的帮助，请联系我们。若存在运行备份，其中的历史副本可能保留至备份更新。"
+
+#: src/features/privacy/page.tsx
+msgid "Your account name, username, email address, password hash, resume content, uploaded images, and saved application or cover-letter content are stored on our server and database to provide the features you use. Passwords are stored as hashes, not as readable text."
+msgstr "为提供你使用的功能，本站服务器和数据库会保存账号名称、用户名、邮箱、密码哈希、简历内容、上传图片，以及你保存的求职申请或求职信内容。密码以哈希形式保存，不保存可读明文。"
+
+#: src/features/homepage/page.tsx
+msgid "<0>Free templates and PDF export.</0><1/>Edit, save, and download your resume."
+msgstr "<0>免费模板与 PDF 导出。</0><1/>在线编辑，随时保存。"

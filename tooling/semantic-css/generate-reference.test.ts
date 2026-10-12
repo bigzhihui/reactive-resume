@@ -188,9 +188,14 @@ it("does not write any output when one source is invalid", async () => {
 });
 
 it("keeps every committed generated document synchronized", async () => {
-	const [jsonSchemaGuide, skillSchemaReference] = await readTargets(defaultDocumentationPaths);
+	const sources = await readTargets(defaultDocumentationPaths);
+	const [jsonSchemaGuide, skillSchemaReference] = sources.map((value) => value.replaceAll("\r\n", "\n"));
+	const generated = await buildGeneratedDocumentation(defaultDocumentationPaths);
 
-	expect(await buildGeneratedDocumentation(defaultDocumentationPaths)).toEqual({
+	expect({
+		jsonSchemaGuide: generated.jsonSchemaGuide.replaceAll("\r\n", "\n"),
+		skillSchemaReference: generated.skillSchemaReference.replaceAll("\r\n", "\n"),
+	}).toEqual({
 		jsonSchemaGuide,
 		skillSchemaReference,
 	});

@@ -36,6 +36,7 @@ import {
 	SidebarSeparator,
 	useSidebarState,
 } from "@reactive-resume/ui/components/sidebar";
+import { appName } from "@reactive-resume/utils/brand";
 import { getInitials } from "@reactive-resume/utils/string";
 import { Copyright } from "@/components/ui/copyright";
 import { useCommandPaletteStore } from "@/features/command-palette/store";
@@ -169,7 +170,7 @@ export function DashboardSidebar() {
 							render={
 								<Link to="/">
 									<BrandIcon variant="icon" className="size-6" />
-									<h1 className="sr-only">Reactive Resume</h1>
+									<h1 className="font-semibold group-data-[collapsible=icon]:sr-only">{appName}</h1>
 								</Link>
 							}
 						/>

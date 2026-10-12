@@ -7,6 +7,7 @@ import { ArrowDownIcon, ArrowRightIcon, ArrowUpRightIcon, GithubLogoIcon } from 
 import { Link } from "@tanstack/react-router";
 import { useInView } from "motion/react";
 import { lazy, Suspense, useRef, useState } from "react";
+import { appName } from "@reactive-resume/utils/brand";
 import { cn } from "@reactive-resume/utils/style";
 import { GithubStarsButton } from "@/components/input/github-stars-button";
 import { section, sectionHeading, sectionText, sectionTitle, textLink, wrap } from "./classes";
@@ -77,9 +78,10 @@ export function Homepage() {
 				<Link
 					to="/"
 					className={`${brandClass} text-[17px] max-[360px]:gap-[6px] max-[360px]:text-[13px] max-[540px]:text-[15px]`}
-					aria-label="Reactive Resume"
+					aria-label={appName}
 				>
 					<img src="/icon/dark.svg" alt="" width="34" height="34" className="block max-[540px]:size-[29px]" />
+					<span>{appName}</span>
 				</Link>
 				<nav
 					className="ml-auto flex gap-[30px] text-(--home-muted) text-[14px] max-[1100px]:gap-5"
@@ -107,7 +109,7 @@ export function Homepage() {
 					<div className="relative z-1 pb-[22px] max-[900px]:max-w-[590px]">
 						<h1
 							id="hero-title"
-							className="font-[Manrope_Variable,sans-serif] font-semibold text-[clamp(52px,5.85vw,82px)] leading-[1.035] tracking-[-0.064em] max-[1100px]:text-[64px] max-[540px]:text-[clamp(48px,11.65vw,63px)] max-[900px]:text-[clamp(55px,10vw,77px)]"
+							className="font-[Manrope_Variable,sans-serif] font-semibold text-[clamp(52px,5.85vw,82px)] leading-[1.18] tracking-[-0.064em] max-[1100px]:text-[64px] max-[540px]:text-[clamp(48px,11.65vw,63px)] max-[900px]:text-[clamp(55px,10vw,77px)]"
 						>
 							<Trans>
 								Make yourself <br className="max-[540px]:block max-[900px]:hidden" />
@@ -136,9 +138,9 @@ export function Homepage() {
 						</div>
 						<p className="mt-[17px] text-[#a5a5ab] text-[12px] leading-[1.9] max-[540px]:mt-[15px] max-[540px]:text-[11px]">
 							<Trans>
-								<strong className="font-medium text-[#d4d3cf]">Free forever and open source.</strong>
+								<strong className="font-medium text-[#d4d3cf]">Free templates and PDF export.</strong>
 								<br />
-								No ads, paywalls, or tracking.
+								Edit, save, and download your resume.
 							</Trans>
 						</p>
 					</div>

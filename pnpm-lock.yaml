@@ -1133,6 +1133,9 @@ importers:
       '@reactive-resume/env':
         specifier: workspace:*
         version: link:../env
+      '@reactive-resume/utils':
+        specifier: workspace:*
+        version: link:../utils
       nodemailer:
         specifier: ^10.0.10
         version: 10.0.10

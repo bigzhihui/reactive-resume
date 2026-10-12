@@ -19,6 +19,12 @@ import { domAnimation, LazyMotion, MotionConfig } from "motion/react";
 import { useEffect } from "react";
 import { Toaster } from "@reactive-resume/ui/components/toast";
 import { TooltipProvider } from "@reactive-resume/ui/components/tooltip";
+import {
+	appName,
+	appDescription as description,
+	appUrl as productionUrl,
+	appTitle as title,
+} from "@reactive-resume/utils/brand";
 import { BreakpointIndicator } from "@/components/layout/breakpoint-indicator";
 import { DonationToast } from "@/components/ui/donation-toast";
 import { DialogManager } from "@/dialogs/manager";
@@ -38,18 +44,12 @@ type RouterContext = {
 	flags: FeatureFlags;
 };
 
-const appName = "Reactive Resume";
-const tagline = "A free and open-source resume builder";
-const title = `${appName} — ${tagline}`;
-// Keep under ~120 characters so Google's mobile SERP snippet is not truncated at 3 lines.
-const description =
-	"Free, open-source resume builder. Create, update, and share your resume, with no ads and no paywall.";
 const iconContextValue: IconProps = { size: 16, weight: "regular" };
 
 export const Route = createRootRouteWithContext<RouterContext>()({
 	component: RootComponent,
 	head: () => {
-		const appUrl = typeof window !== "undefined" ? window.location.origin : "https://rxresu.me";
+		const appUrl = typeof window !== "undefined" ? window.location.origin : productionUrl;
 
 		return {
 			links: [
@@ -67,10 +67,10 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 				{ name: "viewport", content: "width=device-width, initial-scale=1" },
 				// Meta Tags
 				{ name: "theme-color", content: "#09090B" },
-				{ name: "application-name", content: "Reactive Resume" },
+				{ name: "application-name", content: appName },
 				{ name: "mobile-web-app-capable", content: "yes" },
 				{ name: "apple-mobile-web-app-capable", content: "yes" },
-				{ name: "apple-mobile-web-app-title", content: "Reactive Resume" },
+				{ name: "apple-mobile-web-app-title", content: appName },
 				{ name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
 				// Twitter Tags — X only reads these as `name`, not `property`
 				{ name: "twitter:image", content: `${appUrl}/opengraph/banner.jpg` },

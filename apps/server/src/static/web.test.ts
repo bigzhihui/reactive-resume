@@ -90,6 +90,24 @@ describe("web app fallback classification", () => {
 		expect(await dashboardResponse.text()).not.toContain('rel="canonical"');
 	});
 
+	it.each(["GET", "HEAD"])("serves the site privacy page for %s without private-data lookup", async (method) => {
+		vi.mocked(fs.readFile).mockResolvedValue(
+			'<html><head><title>Marketing</title><meta name="description" content="Marketing"></head><body></body></html>',
+		);
+		const response = await handleWebApp(new Request("https://attacker.example/privacy?tracking=1", { method }));
+		expect(response.status).toBe(200);
+		expect(response.headers.get("X-Robots-Tag")).toBeNull();
+		expect(mocks.getPublicResumeSocialMeta).not.toHaveBeenCalled();
+		const html = await response.text();
+		if (method === "HEAD") {
+			expect(html).toBe("");
+		} else {
+			expect(html).toContain("<title>隐私说明 - 十三月简历</title>");
+			expect(html).toContain('<link rel="canonical" href="https://rxresu.me/privacy">');
+			expect(html).not.toMatch(/attacker|tracking|Marketing/);
+		}
+	});
+
 	describe("the ATS checker page", () => {
 		const shell = `<html><head><title>Reactive Resume — A free and open-source resume builder</title><meta name="description" content="Marketing copy."></head><body></body></html>`;
 
@@ -108,7 +126,7 @@ describe("web app fallback classification", () => {
 
 			const html = await (await handleWebApp(new Request("https://example.com/ats-checker"))).text();
 
-			expect(html).toContain("<title>ATS Checker - Reactive Resume</title>");
+			expect(html).toContain("<title>ATS Checker - 十三月简历</title>");
 			expect(html).toContain('<link rel="canonical" href="https://rxresu.me/ats-checker">');
 			expect(html).toContain('<meta property="og:url" content="https://rxresu.me/ats-checker">');
 			expect(html).toContain('<meta property="og:image" content="https://rxresu.me/opengraph/ats-checker.png">');
@@ -146,7 +164,7 @@ describe("web app fallback classification", () => {
 			const html = await (await handleWebApp(new Request("https://example.com/jane/resume"))).text();
 
 			expect(mocks.getPublicResumeSocialMeta).toHaveBeenCalledWith({ username: "jane", slug: "resume" });
-			expect(html).toContain("<title>Jane Doe - Reactive Resume</title>");
+			expect(html).toContain("<title>Jane Doe - 十三月简历</title>");
 			expect(html).toContain('<meta name="description" content="Builds resilient distributed systems.">');
 			expect(html).not.toContain("Marketing copy.");
 			expect(html).toContain('<link rel="canonical" href="https://rxresu.me/jane/resume">');

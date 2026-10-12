@@ -1,6 +1,7 @@
 import { ORPCError } from "@orpc/client";
 import { ClientOnly, createFileRoute, lazyRouteComponent, redirect } from "@tanstack/react-router";
 import { getResumeSocialMeta } from "@reactive-resume/resume/social-meta";
+import { appName, appUrl as productionUrl } from "@reactive-resume/utils/brand";
 import { LoadingScreen } from "@/components/layout/loading-screen";
 import { NotFoundScreen } from "@/components/layout/not-found-screen";
 import { Homepage } from "@/features/homepage/page";
@@ -31,14 +32,14 @@ export const Route = createFileRoute("/_home/")({
 			const { canonicalUrl } = root;
 			if (root.status === "unavailable") {
 				return {
-					meta: [{ title: "Reactive Resume" }, createNoindexFollowMeta()],
+					meta: [{ title: appName }, createNoindexFollowMeta()],
 					links: [{ rel: "canonical", href: canonicalUrl }],
 				};
 			}
 			const social = getResumeSocialMeta(root.resume.data, root.resume.name || "Resume");
 			return {
 				meta: [
-					{ title: `${social.name} - Reactive Resume` },
+					{ title: `${social.name} - ${appName}` },
 					createNoindexFollowMeta(),
 					...createResumeSocialMeta({
 						canonicalUrl,
@@ -50,7 +51,7 @@ export const Route = createFileRoute("/_home/")({
 				links: [{ rel: "canonical", href: canonicalUrl }],
 			};
 		}
-		const appUrl = typeof window !== "undefined" ? window.location.origin : "https://rxresu.me";
+		const appUrl = typeof window !== "undefined" ? window.location.origin : productionUrl;
 		const canonicalUrl = getCanonicalRootUrl(appUrl);
 
 		return {

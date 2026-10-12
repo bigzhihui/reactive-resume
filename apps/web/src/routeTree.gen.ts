@@ -16,6 +16,7 @@ import { Route as DashboardRouteRouteImport } from "./routes/dashboard/route";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
 import { Route as HomeIndexRouteImport } from "./routes/_home/index";
 import { Route as HomeAtsCheckerRouteImport } from "./routes/_home/ats-checker";
+import { Route as HomePrivacyRouteImport } from "./routes/_home/privacy";
 import { Route as AgentIndexRouteImport } from "./routes/agent/index";
 import { Route as AgentThreadIdRouteImport } from "./routes/agent/$threadId";
 import { Route as AgentNewRouteImport } from "./routes/agent/new";
@@ -76,6 +77,11 @@ const HomeIndexRoute = HomeIndexRouteImport.update({
 const HomeAtsCheckerRoute = HomeAtsCheckerRouteImport.update({
   id: "/ats-checker",
   path: "/ats-checker",
+  getParentRoute: () => HomeRouteRoute,
+} as any);
+const HomePrivacyRoute = HomePrivacyRouteImport.update({
+  id: "/privacy",
+  path: "/privacy",
   getParentRoute: () => HomeRouteRoute,
 } as any);
 const AgentIndexRoute = AgentIndexRouteImport.update({
@@ -230,6 +236,7 @@ export interface FileRoutesByFullPath {
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/ats-checker": typeof HomeAtsCheckerRoute;
+  "/privacy": typeof HomePrivacyRoute;
   "/agent/$threadId": typeof AgentThreadIdRoute;
   "/agent/new": typeof AgentNewRoute;
   "/auth/consent": typeof AuthConsentRoute;
@@ -260,6 +267,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/$username/$slug": typeof UsernameSlugRoute;
   "/ats-checker": typeof HomeAtsCheckerRoute;
+  "/privacy": typeof HomePrivacyRoute;
   "/agent/$threadId": typeof AgentThreadIdRoute;
   "/agent/new": typeof AgentNewRoute;
   "/auth/consent": typeof AuthConsentRoute;
@@ -297,6 +305,7 @@ export interface FileRoutesById {
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRoute;
   "/_home/ats-checker": typeof HomeAtsCheckerRoute;
+  "/_home/privacy": typeof HomePrivacyRoute;
   "/agent/$threadId": typeof AgentThreadIdRoute;
   "/agent/new": typeof AgentNewRoute;
   "/auth/consent": typeof AuthConsentRoute;
@@ -335,6 +344,7 @@ export interface FileRouteTypes {
     | "/builder/$resumeId"
     | "/$username/$slug"
     | "/ats-checker"
+    | "/privacy"
     | "/agent/$threadId"
     | "/agent/new"
     | "/auth/consent"
@@ -365,6 +375,7 @@ export interface FileRouteTypes {
   to:
     | "/$username/$slug"
     | "/ats-checker"
+    | "/privacy"
     | "/agent/$threadId"
     | "/agent/new"
     | "/auth/consent"
@@ -401,6 +412,7 @@ export interface FileRouteTypes {
     | "/builder/$resumeId"
     | "/$username/$slug"
     | "/_home/ats-checker"
+    | "/_home/privacy"
     | "/agent/$threadId"
     | "/agent/new"
     | "/auth/consent"
@@ -489,6 +501,13 @@ declare module "@tanstack/react-router" {
       path: "/ats-checker";
       fullPath: "/ats-checker";
       preLoaderRoute: typeof HomeAtsCheckerRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/_home/privacy": {
+      id: "/_home/privacy";
+      path: "/privacy";
+      fullPath: "/privacy";
+      preLoaderRoute: typeof HomePrivacyRouteImport;
       parentRoute: typeof HomeRouteRoute;
     };
     "/agent/": {
@@ -685,11 +704,13 @@ declare module "@tanstack/react-router" {
 
 interface HomeRouteRouteChildren {
   HomeAtsCheckerRoute: typeof HomeAtsCheckerRoute;
+  HomePrivacyRoute: typeof HomePrivacyRoute;
   HomeIndexRoute: typeof HomeIndexRoute;
 }
 
 const HomeRouteRouteChildren: HomeRouteRouteChildren = {
   HomeAtsCheckerRoute: HomeAtsCheckerRoute,
+  HomePrivacyRoute: HomePrivacyRoute,
   HomeIndexRoute: HomeIndexRoute,
 };
 

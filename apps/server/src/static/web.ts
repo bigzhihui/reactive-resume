@@ -3,6 +3,14 @@ import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { env } from "@reactive-resume/env/server";
+import {
+	appDescription,
+	appName,
+	appTitle,
+	privacyDescription,
+	privacyTitle,
+	repositoryUrl,
+} from "@reactive-resume/utils/brand";
 
 function resolveWebDistPath() {
 	const candidates = [
@@ -26,7 +34,7 @@ const noindexShellPrefixes = ["/auth", "/dashboard", "/builder", "/agent", "/tem
  * Without an entry here the fallback below returns 404 for the path in production — the dev Vite
  * server serves the shell for anything, so this failure only ever shows up once deployed.
  */
-const indexableAppPaths = new Set(["/ats-checker"]);
+const indexableAppPaths = new Set(["/ats-checker", "/privacy"]);
 const reservedPublicResumeSegments = new Set([
 	"api",
 	"mcp",
@@ -38,6 +46,7 @@ const reservedPublicResumeSegments = new Set([
 	"agent",
 	"templates",
 	"ats-checker",
+	"privacy",
 ]);
 
 function isAssetPath(pathname: string): boolean {
@@ -67,41 +76,10 @@ const BASE_SECURITY_HEADERS = {
 		"default-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
 };
 
-const ROOT_TITLE = "Reactive Resume — A free and open-source resume builder";
+const ROOT_TITLE = appTitle;
 // Keep under ~120 characters so Google's mobile SERP snippet is not truncated at 3 lines.
-const ROOT_DESCRIPTION =
-	"Free, open-source resume builder. Create, update, and share your resume, with no ads and no paywall.";
+const ROOT_DESCRIPTION = appDescription;
 const ROOT_POSTER_PATH = "/videos/timelapse-v1.webp";
-const ROOT_FAQ_ITEMS = [
-	{
-		question: "Is Reactive Resume really free?",
-		answer:
-			"Yes. Reactive Resume is free to use, with no hidden costs, premium tiers, or subscription fees. It's open source, and it will stay free.",
-	},
-	{
-		question: "How is my data protected?",
-		answer:
-			"Your data is stored securely and never shared with third parties. If you want full control over it, you can self-host Reactive Resume on your own servers.",
-	},
-	{
-		question: "Can I export my resume to PDF?",
-		answer: "Yes. One click exports your resume to PDF, with your formatting and styling intact.",
-	},
-	{
-		question: "Is Reactive Resume available in multiple languages?",
-		answer:
-			"Yes. Pick your language on the settings page, or with the language switcher in the top right corner. If your language is missing, or the existing translation could be better, you can contribute to the translations on Crowdin.",
-	},
-	{
-		question: "What makes Reactive Resume different from other resume builders?",
-		answer:
-			"Reactive Resume is open source, private, and free. It shows no ads, doesn't track what you do, and doesn't lock features behind a paywall.",
-	},
-	{
-		question: "How do I share my resume?",
-		answer: "Share it with a public URL, put a password on that URL, or download the PDF and send it yourself.",
-	},
-] as const;
 
 function createRootSeoMarkup(canonicalUrl: string) {
 	const origin = new URL(canonicalUrl).origin;
@@ -111,12 +89,12 @@ function createRootSeoMarkup(canonicalUrl: string) {
 		"@graph": [
 			{
 				"@type": "WebSite",
-				name: "Reactive Resume",
+				name: appName,
 				url: canonicalUrl,
 			},
 			{
 				"@type": ["SoftwareApplication", "WebApplication"],
-				name: "Reactive Resume",
+				name: appName,
 				url: canonicalUrl,
 				description: ROOT_DESCRIPTION,
 				applicationCategory: "BusinessApplication",
@@ -127,24 +105,13 @@ function createRootSeoMarkup(canonicalUrl: string) {
 					price: "0",
 					priceCurrency: "USD",
 				},
-				codeRepository: "https://github.com/reactive-resume/reactive-resume",
+				codeRepository: repositoryUrl,
 			},
 			{
 				"@type": "Project",
-				name: "Reactive Resume",
+				name: appName,
 				url: canonicalUrl,
-				sameAs: ["https://github.com/reactive-resume/reactive-resume"],
-			},
-			{
-				"@type": "FAQPage",
-				mainEntity: ROOT_FAQ_ITEMS.map((item) => ({
-					"@type": "Question",
-					name: item.question,
-					acceptedAnswer: {
-						"@type": "Answer",
-						text: item.answer,
-					},
-				})),
+				sameAs: [repositoryUrl],
 			},
 		],
 	};
@@ -153,7 +120,7 @@ function createRootSeoMarkup(canonicalUrl: string) {
 		<link rel="canonical" href="${canonicalUrl}">
 		<link rel="preload" href="${ROOT_POSTER_PATH}" as="image" fetchpriority="high">
 		<meta property="og:type" content="website">
-		<meta property="og:site_name" content="Reactive Resume">
+		<meta property="og:site_name" content="${appName}">
 		<meta property="og:title" content="${ROOT_TITLE}">
 		<meta property="og:description" content="${ROOT_DESCRIPTION}">
 		<meta property="og:url" content="${canonicalUrl}">
@@ -166,7 +133,7 @@ function createRootSeoMarkup(canonicalUrl: string) {
 	`;
 }
 
-const ATS_CHECKER_TITLE = "ATS Checker - Reactive Resume";
+const ATS_CHECKER_TITLE = `ATS Checker - ${appName}`;
 // Keep under ~120 characters so Google's mobile SERP snippet is not truncated at 3 lines.
 const ATS_CHECKER_DESCRIPTION =
 	"Check whether software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.";
@@ -184,13 +151,13 @@ function createAtsCheckerSeoMarkup(origin: string) {
 		operatingSystem: "Web",
 		isAccessibleForFree: true,
 		offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-		isPartOf: { "@type": "WebSite", name: "Reactive Resume", url: `${origin}/` },
+		isPartOf: { "@type": "WebSite", name: appName, url: `${origin}/` },
 	};
 
 	return `
 		<link rel="canonical" href="${canonicalUrl}">
 		<meta property="og:type" content="website">
-		<meta property="og:site_name" content="Reactive Resume">
+		<meta property="og:site_name" content="${appName}">
 		<meta property="og:title" content="${ATS_CHECKER_TITLE}">
 		<meta property="og:description" content="${ATS_CHECKER_DESCRIPTION}">
 		<meta property="og:url" content="${canonicalUrl}">
@@ -225,7 +192,7 @@ async function createPublicResumeSeoMarkup(pathname: string, origin: string) {
 
 	const canonicalUrl = `${origin}/${username}/${slug}`;
 	const imageUrl = `${origin}/opengraph/banner.jpg`;
-	const pageTitle = escapeAttribute(`${meta.name} - Reactive Resume`);
+	const pageTitle = escapeAttribute(`${meta.name} - ${appName}`);
 	const title = escapeAttribute(meta.title);
 	const description = escapeAttribute(meta.description);
 
@@ -235,7 +202,7 @@ async function createPublicResumeSeoMarkup(pathname: string, origin: string) {
 		markup: `
 		<link rel="canonical" href="${canonicalUrl}">
 		<meta property="og:type" content="profile">
-		<meta property="og:site_name" content="Reactive Resume">
+		<meta property="og:site_name" content="${appName}">
 		<meta property="og:title" content="${title}">
 		<meta property="og:description" content="${description}">
 		<meta property="og:url" content="${canonicalUrl}">
@@ -311,7 +278,7 @@ export async function handleWebApp(request: Request) {
 		// Root configuration never discloses a target in the HTML shell. The public API
 		// gates data and browser metadata; shell requests must not count extra views.
 		const shell = html
-			.replace(/<title>[^<]*<\/title>/, "<title>Reactive Resume</title>")
+			.replace(/<title>[^<]*<\/title>/, `<title>${appName}</title>`)
 			.replace(/<meta\s+name="description"[^>]*>/, '<meta name="description" content="">');
 		const markup = `<link rel="canonical" href="${escapeAttribute(canonicalUrl)}" data-root-resume-shell><meta name="robots" content="noindex, follow" data-root-resume-shell>`;
 		return new Response(shell.replace("</head>", `${markup}</head>`), { headers });
@@ -328,6 +295,15 @@ export async function handleWebApp(request: Request) {
 			.replace(/<meta\s+name="description"[^>]*>/, `<meta name="description" content="${ATS_CHECKER_DESCRIPTION}">`);
 
 		return new Response(withTitle.replace("</head>", `${createAtsCheckerSeoMarkup(origin)}</head>`), { headers });
+	}
+
+	if (pathname === "/privacy") {
+		const privacyUrl = new URL("/privacy", env.APP_URL).toString();
+		const shell = html
+			.replace(/<title>[^<]*<\/title>/, `<title>${privacyTitle}</title>`)
+			.replace(/<meta\s+name="description"[^>]*>/, `<meta name="description" content="${privacyDescription}">`);
+		const markup = `<link rel="canonical" href="${escapeAttribute(privacyUrl)}"><meta property="og:site_name" content="${appName}"><meta property="og:title" content="${privacyTitle}"><meta property="og:description" content="${privacyDescription}"><meta property="og:url" content="${escapeAttribute(privacyUrl)}">`;
+		return new Response(shell.replace("</head>", `${markup}</head>`), { headers });
 	}
 
 	if (isPublicResumePath(pathname)) {

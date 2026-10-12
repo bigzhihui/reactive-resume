@@ -11,6 +11,7 @@ import {
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { m } from "motion/react";
+import { appName, repositoryUrl, supportEmail } from "@reactive-resume/utils/brand";
 import { cn } from "@reactive-resume/utils/style";
 import { wrap } from "./classes";
 
@@ -20,7 +21,7 @@ const licenseUrl = `${githubUrl}/blob/main/LICENSE`;
 type FooterLink = { label: string } & (
 	| { external: string }
 	| { anchor: string }
-	| { to: "/dashboard" | "/ats-checker" }
+	| { to: "/dashboard" | "/ats-checker" | "/privacy" }
 );
 type FooterColumn = { title: string; links: FooterLink[] };
 type SocialLink = { url: string; label: string; icon: Icon };
@@ -40,7 +41,7 @@ const getColumns = (): FooterColumn[] => [
 		links: [
 			{ external: "https://docs.rxresu.me", label: t`Documentation` },
 			{ external: "https://docs.rxresu.me/changelog", label: t`Changelog` },
-			{ external: githubUrl, label: t`Source Code` },
+			{ external: repositoryUrl, label: t`Source Code` },
 			{ external: "https://opencollective.com/reactive-resume/donate", label: t`Sponsorships` },
 		],
 	},
@@ -50,14 +51,15 @@ const getColumns = (): FooterColumn[] => [
 			{ external: "https://discord.gg/aSyA5ZSxpb", label: t`Discord` },
 			{ external: "https://reddit.com/r/reactiveresume", label: t`Subreddit` },
 			{ external: "https://crowdin.com/project/reactive-resume", label: t`Translations` },
-			{ external: `${githubUrl}/issues`, label: t`Report an issue` },
+			{ external: `${repositoryUrl}/issues`, label: t`Report an issue` },
 		],
 	},
 	{
 		title: t`Legal`,
 		links: [
-			{ external: "https://docs.rxresu.me/legal/privacy-policy", label: t`Privacy Policy` },
+			{ to: "/privacy", label: t`Privacy Policy` },
 			{ external: licenseUrl, label: t`MIT License` },
+			{ external: `mailto:${supportEmail}`, label: t`Contact` },
 		],
 	},
 ];
@@ -124,7 +126,7 @@ export function SiteFooter() {
 				<div className="max-[1100px]:col-span-full">
 					<Link to="/" className="inline-flex items-center gap-[11px] font-[550] text-[17px] tracking-[-0.04em]">
 						<img src="/icon/dark.svg" alt="" width="30" height="30" className="block" />
-						<span>Reactive Resume</span>
+						<span>{appName}</span>
 					</Link>
 					<p className="mt-[18px] max-w-[300px] text-(--home-muted) text-[14px] leading-[1.7]">
 						<Trans>A free, open-source resume builder. Yours to keep, yours to export, yours to host.</Trans>
@@ -203,7 +205,7 @@ export function SiteFooter() {
 					viewport={{ once: true, amount: 0.3 }}
 					transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
 				>
-					Reactive Resume
+					{appName}
 				</m.p>
 			</div>
 		</footer>

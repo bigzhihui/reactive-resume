@@ -74,6 +74,7 @@ describe("sendEmail", () => {
 			expect.objectContaining({
 				to: "a@b.com",
 				from: "noreply@example.com",
+				replyTo: "support@afeiii.com",
 				subject: "hi",
 				text: "body",
 			}),

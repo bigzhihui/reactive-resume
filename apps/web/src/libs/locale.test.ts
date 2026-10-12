@@ -2,7 +2,7 @@
 
 import { afterEach, describe, expect, it, vi } from "vitest";
 import Cookies from "js-cookie";
-import { changeLocale, formatRelativeTime, isLocale, resolveLocale } from "./locale";
+import { changeLocale, formatRelativeTime, getLocale, isLocale, resolveLocale } from "./locale";
 
 afterEach(() => {
 	vi.restoreAllMocks();
@@ -45,12 +45,23 @@ describe("resolveLocale", () => {
 		expect(resolveLocale("fr-FR")).toBe("fr-FR");
 	});
 
-	it("returns en-US default for invalid locale", () => {
-		expect(resolveLocale("xx-YY")).toBe("en-US");
+	it("returns zh-CN default for invalid locale", () => {
+		expect(resolveLocale("xx-YY")).toBe("zh-CN");
 	});
 
-	it("returns en-US default for empty string", () => {
-		expect(resolveLocale("")).toBe("en-US");
+	it("returns zh-CN default for empty string", () => {
+		expect(resolveLocale("")).toBe("zh-CN");
+	});
+});
+
+describe("getLocale", () => {
+	it("defaults new visitors to simplified Chinese", () => {
+		expect(getLocale()).toBe("zh-CN");
+	});
+
+	it("preserves the visitor's explicit language choice", () => {
+		Cookies.set("locale", "en-US");
+		expect(getLocale()).toBe("en-US");
 	});
 });
 

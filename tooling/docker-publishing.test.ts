@@ -5,9 +5,16 @@ import { join } from "node:path";
 import { expect, it } from "vitest";
 
 it("keeps smoke dispatches out of release publishing and production deployment", () => {
-	const workflow = readFileSync(new URL("../.github/workflows/docker-build.yml", import.meta.url), "utf8");
+	const workflow = readFileSync(new URL("../.github/workflows/docker-build.yml", import.meta.url), "utf8").replaceAll(
+		"\r\n",
+		"\n",
+	);
 	const mode = workflow.match(/ {8}run: \|\n([\s\S]*?)\n {2}build:/)?.[1];
 	if (!mode) throw new Error("Publishing mode script is missing");
+	const bash =
+		process.platform === "win32"
+			? join(execFileSync("git", ["--exec-path"], { encoding: "utf8" }).trim(), "../../..", "bin/bash.exe")
+			: "bash";
 	const directory = mkdtempSync(join(tmpdir(), "docker-publishing-"));
 
 	try {
@@ -19,8 +26,14 @@ it("keeps smoke dispatches out of release publishing and production deployment",
 			["workflow_dispatch", "refs/heads/main", "true", "release"],
 		]) {
 			const output = join(directory, `${event}-${release || "default"}-${expected}`);
-			execFileSync("bash", ["-eu", "-c", mode], {
-				env: { ...process.env, EVENT_NAME: event, GIT_REF: ref, RELEASE: release, GITHUB_OUTPUT: output },
+			execFileSync(bash, ["-eu", "-c", mode], {
+				env: {
+					...process.env,
+					EVENT_NAME: event,
+					GIT_REF: ref,
+					RELEASE: release,
+					GITHUB_OUTPUT: output.replaceAll("\\", "/"),
+				},
 			});
 			const values = Object.fromEntries(
 				readFileSync(output, "utf8")

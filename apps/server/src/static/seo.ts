@@ -1,4 +1,5 @@
 import { env } from "@reactive-resume/env/server";
+import { appDescription, appName } from "@reactive-resume/utils/brand";
 
 const DOCS_URL = "https://docs.rxresu.me";
 
@@ -45,6 +46,9 @@ export function handleSitemap(options?: StaticSeoOptions) {
 		"  <url>",
 		`    <loc>${baseUrl}/ats-checker</loc>`,
 		"  </url>",
+		"  <url>",
+		`    <loc>${baseUrl}/privacy</loc>`,
+		"  </url>",
 		"</urlset>",
 		"",
 	].join("\n");
@@ -57,9 +61,9 @@ export function handleSitemap(options?: StaticSeoOptions) {
 export function handleLlms(options?: StaticSeoOptions) {
 	const baseUrl = appUrl();
 	const body = [
-		"# Reactive Resume",
+		`# ${appName}`,
 		"",
-		"Reactive Resume is an open-source resume builder for creating, managing, and exporting resumes.",
+		appDescription,
 		"",
 		"## Links",
 		"",
