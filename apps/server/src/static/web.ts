@@ -46,7 +46,6 @@ const reservedPublicResumeSegments = new Set([
 	"agent",
 	"templates",
 	"ats-checker",
-	"privacy",
 ]);
 
 function isAssetPath(pathname: string): boolean {

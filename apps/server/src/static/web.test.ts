@@ -108,6 +108,11 @@ describe("web app fallback classification", () => {
 		}
 	});
 
+	it("keeps public resumes under a privacy username reachable", async () => {
+		await handleWebApp(new Request("https://example.com/privacy/my-resume"));
+		expect(mocks.getPublicResumeSocialMeta).toHaveBeenCalledWith({ username: "privacy", slug: "my-resume" });
+	});
+
 	describe("the ATS checker page", () => {
 		const shell = `<html><head><title>Reactive Resume — A free and open-source resume builder</title><meta name="description" content="Marketing copy."></head><body></body></html>`;
 
