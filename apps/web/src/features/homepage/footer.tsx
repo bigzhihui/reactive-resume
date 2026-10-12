@@ -2,11 +2,12 @@ import type { ReactNode } from "react";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { Link } from "@tanstack/react-router";
+import { appName, repositoryUrl, supportEmail } from "@reactive-resume/utils/brand";
 import { cn } from "@reactive-resume/utils/style";
 import { SCENE } from "./scroll";
 import { labelClass } from "./ui";
 
-const githubUrl = "https://github.com/reactive-resume/reactive-resume";
+const githubUrl = repositoryUrl;
 const licenseUrl = `${githubUrl}/blob/main/LICENSE`;
 const linkClass = "text-ink transition-colors hover:text-accent-text";
 
@@ -41,7 +42,7 @@ const getColumns = (): { id: string; title: string; links: FooterLink[] }[] => [
 			{ label: t`Discord`, href: "https://discord.gg/aSyA5ZSxpb" },
 			{ label: t`Subreddit`, href: "https://reddit.com/r/reactiveresume" },
 			{ label: t`Translations`, href: "https://crowdin.com/project/reactive-resume" },
-			{ label: t`Contact`, href: "mailto:amruth@rxresu.me" },
+			{ label: t`Contact`, href: `mailto:${supportEmail}` },
 			{ label: "LinkedIn", href: "https://www.linkedin.com/company/reactive-resume" },
 			{ label: "Amruth Pillai · X", href: "https://x.com/KingOKings" },
 			{ label: t`Report an issue`, href: `${githubUrl}/issues` },
@@ -51,7 +52,7 @@ const getColumns = (): { id: string; title: string; links: FooterLink[] }[] => [
 		id: "legal",
 		title: t`Legal`,
 		links: [
-			{ label: t`Privacy policy`, href: "https://docs.rxresu.me/legal/privacy-policy" },
+			{ label: t`Privacy policy`, href: "/privacy" },
 			{ label: t`MIT License`, href: licenseUrl },
 		],
 	},
@@ -81,7 +82,7 @@ export function LandingFooter() {
 					<img
 						loading="lazy"
 						src="/logo/light.svg"
-						alt="Reactive Resume"
+						alt={appName}
 						width={140}
 						height={140}
 						className="-ms-[18px] -mt-[22px] -mb-[18px] size-[140px] dark:hidden"
@@ -89,7 +90,7 @@ export function LandingFooter() {
 					<img
 						loading="lazy"
 						src="/logo/dark.svg"
-						alt="Reactive Resume"
+						alt={appName}
 						width={140}
 						height={140}
 						className="-ms-[18px] -mt-[22px] -mb-[18px] hidden size-[140px] dark:block"
@@ -107,7 +108,7 @@ export function LandingFooter() {
 								</a>
 							</Trans>
 						</p>
-						<p>v{__APP_VERSION__}</p>
+						<p>Reactive Resume · v{__APP_VERSION__}</p>
 					</div>
 				</div>
 
@@ -135,8 +136,8 @@ export function LandingFooter() {
 			<div aria-hidden="true" className="@container mx-auto mt-14 max-w-[1440px] px-(--gutter)">
 				<div className="h-[27cqw] overflow-hidden [mask-image:linear-gradient(to_bottom,#000_35%,transparent_100%)]">
 					<div className="font-anybody [transform:translateY(calc((1-clamp(0,(var(--p)-.1)/.8,1))*60%))] pt-[.12em] pb-[.06em] text-[17.5cqw] leading-[.84] font-extrabold tracking-[-.035em] whitespace-nowrap text-ink font-stretch-[78%] select-none [transition:transform_.35s_var(--ease)]">
-						<span className="block">Reactive</span>
-						<span className="block text-accent-text">Resume</span>
+						<span className="block">十三月</span>
+						<span className="block text-accent-text">简历</span>
 					</div>
 				</div>
 			</div>

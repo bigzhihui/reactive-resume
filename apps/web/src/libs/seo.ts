@@ -1,12 +1,11 @@
 import { t } from "@lingui/core/macro";
+import { appName } from "@reactive-resume/utils/brand";
 
 /**
  * The server writes every page's canonical link, hreflang alternates, social cards and site-wide structured data into
  * the HTML it sends (apps/server/src/static/web.ts), so crawlers that never run JavaScript see them. Routes only set
  * what changes as the visitor navigates: the title, the description and, where needed, `noindex`.
  */
-
-const appName = "Reactive Resume";
 
 export const createNoindexFollowMeta = () => ({ name: "robots", content: "noindex, follow" });
 

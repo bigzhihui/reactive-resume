@@ -1,6 +1,6 @@
 import type { TsdownPlugin } from "tsdown";
 import { readdirSync, readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { dirname, isAbsolute, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "tsdown";
 
@@ -57,7 +57,7 @@ const shouldBundle = (id: string) =>
 const shouldExternalizeThirdParty = (id: string) => {
 	if (shouldBundle(id)) return false;
 	// Subpath imports (`#…`) are resolved by the workspace package that declares them, so they're bundled with it.
-	if (id.startsWith("@/") || id.startsWith("#") || id.startsWith(".") || id.startsWith("/") || id.startsWith("\0"))
+	if (id.startsWith("@/") || id.startsWith("#") || id.startsWith(".") || isAbsolute(id) || id.startsWith("\0"))
 		return false;
 
 	return true;

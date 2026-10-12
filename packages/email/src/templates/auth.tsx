@@ -16,12 +16,13 @@ import {
 	Tailwind,
 	Text,
 } from "react-email";
+import { env } from "@reactive-resume/env/server";
+import { appName, supportEmail } from "@reactive-resume/utils/brand";
 
 // ponytail: server dev consumes this source through tsx, which emits React.createElement here.
 void React;
 
-const appName = "Reactive Resume";
-const logoUrl = "https://rxresu.me/icon/dark.svg";
+const logoUrl = new URL("/icon/dark.svg", env.APP_URL).toString();
 
 interface AuthEmailLayoutProps {
 	preview: string;
@@ -35,7 +36,7 @@ interface AuthEmailLayoutProps {
 
 function AuthEmailLayout({ preview, heading, intro, details, actionLabel, actionUrl, outro }: AuthEmailLayoutProps) {
 	return (
-		<Html lang="en">
+		<Html lang="zh-CN">
 			<Tailwind
 				config={{
 					presets: [pixelBasedPreset],
@@ -78,7 +79,7 @@ function AuthEmailLayout({ preview, heading, intro, details, actionLabel, action
 						</Section>
 
 						<Section className="mt-6">
-							<Heading className="font-heading text-2xl leading-0 font-medium tracking-tighter whitespace-break-spaces md:text-5xl">
+							<Heading className="font-heading text-2xl leading-normal font-medium tracking-tighter whitespace-break-spaces md:text-5xl">
 								{heading}
 							</Heading>
 
@@ -97,10 +98,8 @@ function AuthEmailLayout({ preview, heading, intro, details, actionLabel, action
 							</Button>
 
 							<Section className="mt-8">
-								<Text className="leading-0">
-									If the button does not work, copy and paste this link into your browser:
-								</Text>
-								<Link className="leading-0 text-zinc-200/60 underline underline-offset-2" href={actionUrl}>
+								<Text className="leading-relaxed">如果按钮无法打开，请将下面的链接复制到浏览器：</Text>
+								<Link className="leading-relaxed text-zinc-200/60 underline underline-offset-2" href={actionUrl}>
 									{actionUrl}
 								</Link>
 							</Section>
@@ -111,6 +110,9 @@ function AuthEmailLayout({ preview, heading, intro, details, actionLabel, action
 
 							<Hr className="my-10 border-zinc-700" />
 
+							<Text className="mt-8 text-xs leading-relaxed opacity-60">
+								联系与反馈：<Link href={`mailto:${supportEmail}`}>{supportEmail}</Link>
+							</Text>
 							<Text className="mt-8 text-xs leading-1 opacity-40">By the community, for the community.</Text>
 							<Text className="text-xs leading-1 opacity-40">
 								A passion project by{" "}
@@ -125,7 +127,7 @@ function AuthEmailLayout({ preview, heading, intro, details, actionLabel, action
 								.
 							</Text>
 
-							<Text className="font-heading mt-8 text-base font-medium tracking-tight opacity-80">Reactive Resume</Text>
+							<Text className="font-heading mt-8 text-base font-medium tracking-tight opacity-80">{appName}</Text>
 						</Section>
 					</Container>
 				</Body>
@@ -141,13 +143,13 @@ interface ResetPasswordEmailProps {
 export function ResetPasswordEmail({ url }: ResetPasswordEmailProps) {
 	return (
 		<AuthEmailLayout
-			preview={`Reset your ${appName} password`}
-			heading="Password Reset"
-			intro={`We received a request to reset your ${appName} password.`}
-			details="If this was not you, you can ignore this message and your password will remain unchanged."
-			actionLabel="Create New Password"
+			preview={`重置你的${appName}密码`}
+			heading="重置密码"
+			intro={`我们收到了重置你的${appName}账号密码的请求。`}
+			details="如果不是你本人操作，请忽略这封邮件，你的密码不会改变。"
+			actionLabel="设置新密码"
 			actionUrl={url}
-			outro="For security, only use links from emails sent by Reactive Resume."
+			outro={`请确认链接指向${env.APP_URL}，再进行操作。`}
 		/>
 	);
 }
@@ -159,13 +161,13 @@ interface VerifyEmailProps {
 export function VerifyEmail({ url }: VerifyEmailProps) {
 	return (
 		<AuthEmailLayout
-			preview={`Verify your email for ${appName}`}
-			heading="Verify Email"
-			intro={`Thanks for signing up for ${appName}. Please verify your email address to continue.`}
-			details="This confirms the address belongs to you, which keeps your account secure."
-			actionLabel="Verify Email"
+			preview={`验证你的${appName}邮箱`}
+			heading="验证邮箱"
+			intro={`欢迎使用${appName}。请验证你的邮箱地址，完成账号验证。`}
+			details="验证邮箱可帮助保护账号，并在忘记密码时找回账号。"
+			actionLabel="验证邮箱"
 			actionUrl={url}
-			outro="If you did not create this account, you can safely ignore this email."
+			outro="如果你没有注册这个账号，请忽略这封邮件。"
 		/>
 	);
 }
@@ -179,13 +181,13 @@ interface VerifyEmailChangeProps {
 export function VerifyEmailChange({ url, previousEmail, newEmail }: VerifyEmailChangeProps) {
 	return (
 		<AuthEmailLayout
-			preview={`Confirm your new ${appName} email address`}
-			heading="Confirm Email Change"
-			intro={`You asked to change your ${appName} email from ${previousEmail} to ${newEmail}.`}
-			details="The change takes effect once you confirm it here."
-			actionLabel="Verify New Email"
+			preview={`确认你的${appName}新邮箱`}
+			heading="确认更换邮箱"
+			intro={`你申请将${appName}的账号邮箱从 ${previousEmail} 更换为 ${newEmail}。`}
+			details="完成下面的验证后，新邮箱才会生效。"
+			actionLabel="验证新邮箱"
 			actionUrl={url}
-			outro="If you did not request this change, ignore this email. The address on the account will not change unless it is confirmed here."
+			outro="如果不是你本人申请，请忽略这封邮件。未完成验证时，账号邮箱不会改变。"
 		/>
 	);
 }

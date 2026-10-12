@@ -27,8 +27,8 @@ function useQuestions(): Question[] {
 	return [
 		{
 			id: "free",
-			question: t`Is Reactive Resume really free?`,
-			answer: t`Yes. Every feature is free: all ${templates} templates, PDF and Word downloads, the ATS checker, cover letters and the job tracker. There are no ads, no tracking and no paid tier. Donations pay for hosting and development.`,
+			question: t`Are resume templates and PDF downloads free?`,
+			answer: t`All ${templates} templates and PDF downloads are currently free. Optional AI services require a provider connection and may have their own charges.`,
 		},
 		{
 			id: "ats",

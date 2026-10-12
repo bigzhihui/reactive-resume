@@ -63,7 +63,7 @@ describe("web app fallback classification", () => {
 		expect(html).toContain(
 			'<meta property="og:description" content="Reactive Resume is a free and open-source resume builder that makes it easy to create, update, and share your resume.">',
 		);
-		expect(html).toContain('"contactType":"support","email":"amruth@rxresu.me"');
+		expect(html).toContain('"contactType":"support","email":"support@afeiii.com"');
 		expect(html).not.toContain("utm_source");
 
 		const dashboardResponse = await handleWebApp(new Request("https://example.com/dashboard"));
@@ -90,7 +90,7 @@ describe("web app fallback classification", () => {
 
 		// Only known locales name a file, so the parameter can't point anywhere else.
 		const unknown = await handleWebApp(new Request("https://example.com/?locale=../../index"));
-		expect(await unknown.text()).toContain('<div id="app">en-US</div>');
+		expect(await unknown.text()).toContain('<div id="app">zh-CN</div>');
 	});
 
 	describe("the ATS checker page", () => {
@@ -124,6 +124,25 @@ describe("web app fallback classification", () => {
 		});
 	});
 
+	it("serves this site's privacy page with canonical metadata for GET and HEAD", async () => {
+		vi.mocked(fs.readFile).mockResolvedValue("<html><head><title>App</title></head><body></body></html>");
+		const response = await handleWebApp(new Request("https://example.com/privacy"));
+		expect(response.status).toBe(200);
+		const html = await response.text();
+		expect(html).toContain("隐私说明 - 十三月简历");
+		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/privacy">');
+		const head = await handleWebApp(new Request("https://example.com/privacy", { method: "HEAD" }));
+		expect(head.status).toBe(200);
+		expect(await head.text()).toBe("");
+	});
+
+	it("keeps public resumes available for a user named privacy", async () => {
+		const response = await handleWebApp(new Request("https://example.com/privacy/my-resume"));
+		expect(response.status).toBe(200);
+		expect(response.headers.get("X-Robots-Tag")).toBe("noindex, follow");
+		expect(mocks.getPublicResumeSocialMeta).toHaveBeenCalled();
+	});
+
 	describe("public resume social cards", () => {
 		const shell = `<html><head><title>Reactive Resume — A free and open-source resume builder</title><meta name="description" content="Marketing copy."></head><body></body></html>`;
 
@@ -155,7 +174,7 @@ describe("web app fallback classification", () => {
 
 			const html = await (await handleWebApp(new Request("https://example.com/jane/resume"))).text();
 
-			expect(html).toContain("<title>Jane $&amp; $&#39; Doe - Reactive Resume</title>");
+			expect(html).toContain("<title>Jane $&amp; $&#39; Doe - 十三月简历</title>");
 			expect(html).toContain('<meta name="description" content="Costs $$ and $` nothing">');
 		});
 	});

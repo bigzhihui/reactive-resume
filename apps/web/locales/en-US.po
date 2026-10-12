@@ -13166,3 +13166,96 @@ msgstr "Zoom out"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "Zulu"
+
+
+#: src/features/privacy/page.tsx
+msgid "A resume marked public can be viewed by people with its link. Check the visibility setting and any password protection before sharing. Copies already downloaded or forwarded by other people cannot be recalled by changing visibility or deleting your account."
+msgstr "A resume marked public can be viewed by people with its link. Check the visibility setting and any password protection before sharing. Copies already downloaded or forwarded by other people cannot be recalled by changing visibility or deleting your account."
+
+#: src/features/privacy/page.tsx
+msgid "Account and resume data"
+msgstr "Account and resume data"
+
+#: src/features/privacy/page.tsx
+msgid "Cookies and browser storage keep you signed in and remember preferences such as language and theme. The server and infrastructure providers may process IP addresses, browser information, request times, and errors to operate and protect the service."
+msgstr "Cookies and browser storage keep you signed in and remember preferences such as language and theme. The server and infrastructure providers may process IP addresses, browser information, request times, and errors to operate and protect the service."
+
+#: src/features/privacy/page.tsx
+msgid "Cookies, preferences, and service logs"
+msgstr "Cookies, preferences, and service logs"
+
+#: src/features/privacy/page.tsx
+msgid "If you configure an AI provider and use an AI feature, the content needed for that request is sent to the selected provider. Review that provider's data policy before using it. External documentation, donation, and community links lead to services with their own policies."
+msgstr "If you configure an AI provider and use an AI feature, the content needed for that request is sent to the selected provider. Review that provider's data policy before using it. External documentation, donation, and community links lead to services with their own policies."
+
+#: src/features/privacy/page.tsx
+msgid "Manage your data and contact us"
+msgstr "Manage your data and contact us"
+
+#: src/features/privacy/page.tsx
+msgid "Only include information that you want to use in your resume. Avoid uploading identity documents, passwords, or other unnecessary sensitive information."
+msgstr "Only include information that you want to use in your resume. Avoid uploading identity documents, passwords, or other unnecessary sensitive information."
+
+#: src/features/privacy/page.tsx
+msgid "Optional AI and external services"
+msgstr "Optional AI and external services"
+
+#: src/features/privacy/page.tsx
+msgid "Public sharing and exports"
+msgstr "Public sharing and exports"
+
+#: src/features/privacy/page.tsx
+msgid "Resend privacy policy"
+msgstr "Resend privacy policy"
+
+#: src/features/privacy/page.tsx
+msgid "This notice applies to this resume website and its account, resume, and email features."
+msgstr "This notice applies to this resume website and its account, resume, and email features."
+
+#: src/features/privacy/page.tsx
+msgid "This service is operated as part of afeiii.com and is based on the open-source Reactive Resume project. It is hosted in Oracle Cloud's US West (Phoenix) region."
+msgstr "This service is operated as part of afeiii.com and is based on the open-source Reactive Resume project. It is hosted in Oracle Cloud's US West (Phoenix) region."
+
+#: src/features/privacy/page.tsx
+msgid "Updated: October 12, 2026"
+msgstr "Updated: October 12, 2026"
+
+#: src/features/privacy/page.tsx
+msgid "Verification and password-reset emails"
+msgstr "Verification and password-reset emails"
+
+#: src/features/privacy/page.tsx
+msgid "We use Resend to send account verification, password-reset, and email-change messages. Resend processes the recipient address and the email content, including action links, to deliver these messages. We do not send your resume content in these account emails."
+msgstr "We use Resend to send account verification, password-reset, and email-change messages. Resend processes the recipient address and the email content, including action links, to deliver these messages. We do not send your resume content in these account emails."
+
+#: src/features/privacy/page.tsx
+msgid "Who operates this service"
+msgstr "Who operates this service"
+
+#: src/features/privacy/page.tsx
+msgid "You can edit and export your resumes and delete your account in account settings. If you need help accessing or deleting data, contact us. Operational backups, when present, may retain earlier copies until they are replaced."
+msgstr "You can edit and export your resumes and delete your account in account settings. If you need help accessing or deleting data, contact us. Operational backups, when present, may retain earlier copies until they are replaced."
+
+#: src/features/privacy/page.tsx
+msgid "Your account name, username, email address, password hash, resume content, uploaded images, and saved application or cover-letter content are stored on our server and database to provide the features you use. Passwords are stored as hashes, not as readable text."
+msgstr "Your account name, username, email address, password hash, resume content, uploaded images, and saved application or cover-letter content are stored on our server and database to provide the features you use. Passwords are stored as hashes, not as readable text."
+
+#: src/features/homepage/page.tsx
+msgid "<0>Free templates and PDF export.</0><1/>Edit, save, and download your resume."
+msgstr "<0>Free templates and PDF export.</0><1/>Edit, save, and download your resume."
+
+
+msgid "Thirteen Month Resume is based on Reactive Resume. Write, design, save, and export your resume as a PDF."
+msgstr "Thirteen Month Resume is based on Reactive Resume. Write, design, save, and export your resume as a PDF."
+
+
+msgid "Are resume templates and PDF downloads free?"
+msgstr "Are resume templates and PDF downloads free?"
+
+
+msgid "All {templates} templates and PDF downloads are currently free. Optional AI services require a provider connection and may have their own charges."
+msgstr "All {templates} templates and PDF downloads are currently free. Optional AI services require a provider connection and may have their own charges."
+
+
+msgid "This website is based on Reactive Resume, an open-source project by Amruth Pillai and its contributors, licensed under the MIT License."
+msgstr "This website is based on Reactive Resume, an open-source project by Amruth Pillai and its contributors, licensed under the MIT License."

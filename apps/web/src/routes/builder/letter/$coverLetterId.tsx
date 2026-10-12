@@ -4,6 +4,7 @@ import { createFileRoute, redirect, useBlocker } from "@tanstack/react-router";
 import { useEffect } from "react";
 import z from "zod";
 import { toast } from "@reactive-resume/ui/components/toast";
+import { appName } from "@reactive-resume/utils/brand";
 import { LetterShell } from "./-components/letter-shell";
 import { letterWordsQueryOptions } from "@/features/letters/compose";
 import { useLetterEditorStore } from "@/features/letters/store";
@@ -15,7 +16,7 @@ const searchSchema = z.object({
 	mode: z.enum(["write", "design"]).optional().catch(undefined),
 	// Opens History on this version, read-only; Applications' "Open" on what was sent links here.
 	version: z.string().optional().catch(undefined),
-	// Opens the assistant on a conversation ("new" for a fresh one), or on a question to send (⌘K Ask).
+	// Opens the assistant on a conversation ("new" for a fresh one), or on a question to send (鈱楰 Ask).
 	assistant: z.string().optional().catch(undefined),
 	ask: z.string().max(2_000).optional().catch(undefined),
 	applicationId: z.string().optional().catch(undefined),
@@ -39,7 +40,7 @@ export const Route = createFileRoute("/builder/letter/$coverLetterId")({
 	},
 	head: ({ loaderData }) => ({
 		meta: loaderData
-			? [{ title: `${loaderData.name} - Reactive Resume` }, createNoindexFollowMeta()]
+			? [{ title: `${loaderData.name} - ${appName}` }, createNoindexFollowMeta()]
 			: [createNoindexFollowMeta()],
 	}),
 });

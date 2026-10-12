@@ -19,7 +19,8 @@
 		"@reactive-resume/env": "workspace:*",
 		"nodemailer": "^10.0.16",
 		"react": "catalog:",
-		"react-email": "^6.11.1"
+		"react-email": "^6.11.1",
+		"@reactive-resume/utils": "workspace:*"
 	},
 	"devDependencies": {
 		"@react-email/ui": "^6.11.1",

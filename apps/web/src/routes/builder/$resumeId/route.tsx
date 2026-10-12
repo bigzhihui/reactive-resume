@@ -2,6 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useEffect } from "react";
 import z from "zod";
+import { appName } from "@reactive-resume/utils/brand";
 import { EditorShell } from "./-components/editor-shell";
 import { useBuilderResumeUpdateSubscription, useResumeCleanup, useResumeStore } from "@/features/resume/builder/draft";
 import { EDITOR_MODES } from "@/features/resume/editor/store";
@@ -13,7 +14,7 @@ const searchSchema = z.object({
 	mode: z.enum(EDITOR_MODES).optional().catch(undefined),
 	// Opens History on this version, read-only; Applications' "Open" on what was sent links here.
 	version: z.string().optional().catch(undefined),
-	// Opens the assistant on a conversation ("new" for a fresh one), or on a question to send (⌘K Ask).
+	// Opens the assistant on a conversation ("new" for a fresh one), or on a question to send (鈱楰 Ask).
 	assistant: z.string().optional().catch(undefined),
 	ask: z.string().max(2_000).optional().catch(undefined),
 	// Prepare for next step keeps the application clicked, even when a base resume serves several jobs.
@@ -38,7 +39,7 @@ export const Route = createFileRoute("/builder/$resumeId")({
 	},
 	head: ({ loaderData }) => ({
 		meta: loaderData
-			? [{ title: `${loaderData.name} - Reactive Resume` }, createNoindexFollowMeta()]
+			? [{ title: `${loaderData.name} - ${appName}` }, createNoindexFollowMeta()]
 			: [createNoindexFollowMeta()],
 	}),
 });

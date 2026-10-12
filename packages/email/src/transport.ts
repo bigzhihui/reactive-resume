@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import nodemailer from "nodemailer";
 import { render } from "react-email";
 import { env } from "@reactive-resume/env/server";
+import { supportEmail } from "@reactive-resume/utils/brand";
 
 type SendEmailOptions = { to: string; subject: string; react: ReactElement };
 
@@ -35,6 +36,7 @@ export const sendEmail = async ({ to, subject, react }: SendEmailOptions) => {
 	const payload: SendMailOptions = {
 		to,
 		from: env.SMTP_FROM,
+		replyTo: supportEmail,
 		subject,
 		html: await render(react),
 		text: await render(react, { plainText: true }),
@@ -77,6 +79,7 @@ export async function sendCareerNotification({
 		await transport.sendMail({
 			to,
 			from: env.SMTP_FROM,
+			replyTo: supportEmail,
 			subject,
 			text: `${text}\n\n${link.toString()}`,
 			messageId: `<career-${createHash("sha256").update(key).digest("hex")}@reactive-resume.local>`,

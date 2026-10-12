@@ -3,6 +3,7 @@ import { useLingui } from "@lingui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@reactive-resume/ui/components/icon";
+import { appName } from "@reactive-resume/utils/brand";
 import { cn } from "@reactive-resume/utils/style";
 import { goToScene, prefersReducedMotion, SCENE, useLanding } from "./scroll";
 import { CtaLink } from "./ui";
@@ -57,7 +58,7 @@ export function LandingHeader() {
 					className={cn("hidden size-[30px] dark:block", night && "block")}
 				/>
 				{/* The wordmark stays in the DOM for screen readers and crawlers; the logomark is what shows. */}
-				<span className="sr-only">Reactive Resume</span>
+				<span className="text-sm font-semibold">{appName}</span>
 			</a>
 
 			<nav aria-label={t`Story`} className="mx-auto hidden items-center gap-0.5 min-[1240px]:flex">
