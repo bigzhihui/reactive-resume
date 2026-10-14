@@ -13,12 +13,29 @@ beforeEach(() => {
 		"AI_API_KEY",
 		"AI_BASE_URL",
 		"REDIS_URL",
+		"TURNSTILE_SITE_KEY",
+		"TURNSTILE_SECRET_KEY",
 	])
 		vi.stubEnv(name, undefined);
 });
 afterEach(() => {
 	vi.unstubAllEnvs();
 	vi.restoreAllMocks();
+});
+
+describe("Turnstile configuration", () => {
+	it.each(["TURNSTILE_SITE_KEY", "TURNSTILE_SECRET_KEY"])(
+		"rejects a lone %s instead of disabling verification",
+		async (key) => {
+			vi.stubEnv(key, "test-key");
+			await expect(import("./server")).rejects.toThrow("Turnstile requires both");
+		},
+	);
+	it("accepts a complete key pair", async () => {
+		vi.stubEnv("TURNSTILE_SITE_KEY", "test-site");
+		vi.stubEnv("TURNSTILE_SECRET_KEY", "test-secret");
+		expect((await import("./server")).env.TURNSTILE_SITE_KEY).toBe("test-site");
+	});
 });
 
 describe("server web access configuration", () => {

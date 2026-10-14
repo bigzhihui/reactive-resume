@@ -93,6 +93,8 @@ export const env = createEnv({
 
 		// Authentication
 		AUTH_SECRET: z.string().min(1),
+		TURNSTILE_SITE_KEY: z.string().trim().min(1).optional(),
+		TURNSTILE_SECRET_KEY: z.string().trim().min(1).optional(),
 		BETTER_AUTH_API_KEY: z.string().min(1).optional(),
 		// Domain verification token from the OpenAI plugin portal, served at /.well-known/openai-apps-challenge.
 		OPENAI_APPS_CHALLENGE_TOKEN: z.string().trim().min(1).optional(),
@@ -172,6 +174,10 @@ export const env = createEnv({
 	runtimeEnv: deploymentEnvironment(process.env),
 	emptyStringAsUndefined: true,
 });
+
+if (Boolean(env.TURNSTILE_SITE_KEY) !== Boolean(env.TURNSTILE_SECRET_KEY)) {
+	throw new Error("Turnstile requires both TURNSTILE_SITE_KEY and TURNSTILE_SECRET_KEY.");
+}
 
 if (
 	(env.WEB_ACCESS_PROVIDER || env.WEB_ACCESS_API_KEY || env.WEB_ACCESS_API_URL) &&

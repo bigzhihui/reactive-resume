@@ -13264,3 +13264,38 @@ msgstr "目前全部 {templates} 个模板和 PDF 导出免费。可选 AI 功�
 
 msgid "This website is based on Reactive Resume, an open-source project by Amruth Pillai and its contributors, licensed under the MIT License."
 msgstr "本站基于 Amruth Pillai 和社区贡献者开发的开源项目 Reactive Resume，遵循 MIT 许可证。"
+
+#. js-lingui-explicit-id
+#: src/features/auth/components/turnstile.tsx
+msgid "auth.securityCheck"
+msgstr "安全验证"
+
+#. js-lingui-explicit-id
+#: src/features/auth/components/turnstile.tsx
+msgid "auth.securityCheckFailed"
+msgstr "安全验证未能完成，请重试。"
+
+#. js-lingui-explicit-id
+#: src/features/auth/components/turnstile.tsx
+msgid "auth.retrySecurityCheck"
+msgstr "重新验证"
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+msgid "privacy.updated20261014"
+msgstr "更新日期：2026 年 10 月 14 日"
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+msgid "privacy.botProtection"
+msgstr "防止自动化滥用"
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+msgid "privacy.turnstile"
+msgstr "本站在注册和找回密码表单中使用 Cloudflare Turnstile 防止自动化滥用。Cloudflare 会为这项安全验证处理你的 IP 地址、浏览器特征等技术信息。"
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+msgid "privacy.cloudflarePolicy"
+msgstr "Cloudflare 隐私政策"

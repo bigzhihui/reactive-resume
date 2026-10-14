@@ -8,6 +8,7 @@ export type FeatureFlags = {
 	disableEmailAuth: boolean;
 	smtpEnabled: boolean;
 	careerSchedulingEnabled?: boolean;
+	turnstileSiteKey?: string | null;
 };
 
 // Mirrors isSmtpEnabled() in packages/email/src/transport.ts (kept local to avoid an api -> email dependency).
@@ -31,6 +32,7 @@ export const flagsRouter = {
 				disableSignups: z.boolean().describe("Whether new user signups are disabled on this instance."),
 				disableEmailAuth: z.boolean().describe("Whether email-based authentication is disabled on this instance."),
 				smtpEnabled: z.boolean().describe("Whether outbound email (SMTP) is configured on this instance."),
+				turnstileSiteKey: z.string().nullable().describe("Public Turnstile site key, or null when disabled."),
 				careerSchedulingEnabled: z
 					.boolean()
 					.describe("Whether scheduled career work is configured on this deployment."),
@@ -40,6 +42,7 @@ export const flagsRouter = {
 			disableSignups: env.FLAG_DISABLE_SIGNUPS,
 			disableEmailAuth: env.FLAG_DISABLE_EMAIL_AUTH,
 			smtpEnabled: isSmtpEnabled(),
+			turnstileSiteKey: env.TURNSTILE_SITE_KEY ?? null,
 			careerSchedulingEnabled: isCareerSchedulingEnabled(),
 		})),
 };

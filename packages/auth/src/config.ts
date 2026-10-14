@@ -25,6 +25,7 @@ import { rateLimitConfig } from "@reactive-resume/utils/rate-limit";
 import { generateId, toUsername } from "@reactive-resume/utils/string";
 import { timezoneSchema } from "@reactive-resume/utils/timezone";
 import { isAllowedOAuthRedirectUri } from "@reactive-resume/utils/url-security.node";
+import { createCaptchaPlugins } from "./captcha";
 import { createGithubProfileMapper, createProfileMapper } from "./oauth-profile";
 import { authRateLimitStorage } from "./rate-limit";
 import { getTrustedOrigins } from "./trusted-origins";
@@ -365,6 +366,11 @@ const getAuthConfig = () => {
 		},
 
 		plugins: [
+			...createCaptchaPlugins({
+				appUrl: authBaseUrl,
+				siteKey: env.TURNSTILE_SITE_KEY,
+				secretKey: env.TURNSTILE_SECRET_KEY,
+			}),
 			openAPI({ disableDefaultReference: true }),
 			jwt(),
 			admin(),

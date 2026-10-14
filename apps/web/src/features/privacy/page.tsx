@@ -10,7 +10,7 @@ export function PrivacyPage() {
 						<Trans>Privacy Policy</Trans>
 					</h1>
 					<p className="text-sm text-ink-3">
-						<Trans>Updated: October 12, 2026</Trans>
+						<Trans id="privacy.updated20261014">Updated: October 14, 2026</Trans>
 					</p>
 					<p>
 						<Trans>This notice applies to this resume website and its account, resume, and email features.</Trans>
@@ -75,6 +75,26 @@ export function PrivacyPage() {
 						rel="noopener noreferrer"
 					>
 						<Trans>Resend privacy policy</Trans>
+					</a>
+				</section>
+				<section className="space-y-3">
+					<h2 className="text-xl font-semibold">
+						<Trans id="privacy.botProtection">Protection against automated abuse</Trans>
+					</h2>
+					<p>
+						<Trans id="privacy.turnstile">
+							We use Cloudflare Turnstile on registration and password-reset forms to prevent automated abuse.
+							Cloudflare processes technical information such as your IP address and browser characteristics for this
+							security check.
+						</Trans>
+					</p>
+					<a
+						className="text-primary underline underline-offset-4"
+						href="https://www.cloudflare.com/privacypolicy/"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<Trans id="privacy.cloudflarePolicy">Cloudflare privacy policy</Trans>
 					</a>
 				</section>
 				<section className="space-y-3">

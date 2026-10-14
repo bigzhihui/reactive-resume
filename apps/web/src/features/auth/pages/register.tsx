@@ -13,6 +13,7 @@ import { Input } from "@reactive-resume/ui/components/input";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { cn } from "@reactive-resume/utils/style";
 import { SocialAuth } from "../components/social-auth";
+import { Turnstile } from "../components/turnstile";
 import { getAuthRedirectOptions, getOAuthSignInOptions, isOAuthRedirect } from "../redirect";
 import { PasswordInput } from "@/components/input/password-input";
 import { authClient } from "@/libs/auth/client";
@@ -37,30 +38,40 @@ const formSchema = z.object({
 
 type Props = {
 	disableEmailAuth: boolean;
+	turnstileSiteKey?: string | null;
 };
 
-export function RegisterPage({ disableEmailAuth }: Props) {
+export function RegisterPage({ disableEmailAuth, turnstileSiteKey }: Props) {
 	const { callbackURL, reauthenticate } = useSearch({ from: "/auth" });
 	const queryClient = useQueryClient();
 	const [submitted, setSubmitted] = useState(false);
+	const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+	const [captchaAttempt, setCaptchaAttempt] = useState(0);
 
 	const form = useAppForm({
 		defaultValues: { name: "", username: "", email: "", password: "" },
 		validators: { onSubmit: formSchema },
 		onSubmit: async ({ value }) => {
+			if (turnstileSiteKey && !captchaToken) return;
 			const toastId = toast.add({ type: "loading", description: t`Signing up...` });
 
 			const oauthOptions = getOAuthSignInOptions(callbackURL);
 			const createPrompt = new URLSearchParams(oauthOptions.oauth_query).get("prompt")?.split(" ").includes("create");
-			const { data, error } = await authClient.signUp.email({
-				name: value.name.trim(),
-				email: value.email,
-				password: value.password,
-				username: value.username,
-				displayUsername: value.username,
-				callbackURL: callbackURL ?? "/dashboard",
-				...(!createPrompt ? oauthOptions : {}),
-			});
+			const { data, error } = await authClient.signUp
+				.email({
+					name: value.name.trim(),
+					email: value.email,
+					password: value.password,
+					username: value.username,
+					displayUsername: value.username,
+					callbackURL: callbackURL ?? "/dashboard",
+					...(!createPrompt ? oauthOptions : {}),
+					fetchOptions: { headers: captchaToken ? { "x-captcha-response": captchaToken } : {} },
+				})
+				.finally(() => {
+					setCaptchaToken(null);
+					setCaptchaAttempt((attempt) => attempt + 1);
+				});
 
 			if (error) {
 				toast.add({
@@ -235,7 +246,11 @@ export function RegisterPage({ disableEmailAuth }: Props) {
 						)}
 					</form.Field>
 
-					<Button type="submit" className="w-full" disabled={isSubmitting}>
+					{turnstileSiteKey && (
+						<Turnstile siteKey={turnstileSiteKey} onToken={setCaptchaToken} resetKey={captchaAttempt} />
+					)}
+
+					<Button type="submit" className="w-full" disabled={isSubmitting || (!!turnstileSiteKey && !captchaToken)}>
 						<Trans comment="Primary action button label on registration form">Sign up</Trans>
 					</Button>
 				</form>

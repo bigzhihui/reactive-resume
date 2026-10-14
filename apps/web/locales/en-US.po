@@ -13259,3 +13259,38 @@ msgstr "All {templates} templates and PDF downloads are currently free. Optional
 
 msgid "This website is based on Reactive Resume, an open-source project by Amruth Pillai and its contributors, licensed under the MIT License."
 msgstr "This website is based on Reactive Resume, an open-source project by Amruth Pillai and its contributors, licensed under the MIT License."
+
+#. js-lingui-explicit-id
+#: src/features/auth/components/turnstile.tsx
+msgid "auth.securityCheck"
+msgstr "Security check"
+
+#. js-lingui-explicit-id
+#: src/features/auth/components/turnstile.tsx
+msgid "auth.securityCheckFailed"
+msgstr "Security check failed to load. Please try again."
+
+#. js-lingui-explicit-id
+#: src/features/auth/components/turnstile.tsx
+msgid "auth.retrySecurityCheck"
+msgstr "Retry security check"
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+msgid "privacy.updated20261014"
+msgstr "Updated: October 14, 2026"
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+msgid "privacy.botProtection"
+msgstr "Protection against automated abuse"
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+msgid "privacy.turnstile"
+msgstr "We use Cloudflare Turnstile on registration and password-reset forms to prevent automated abuse. Cloudflare processes technical information such as your IP address and browser characteristics for this security check."
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+msgid "privacy.cloudflarePolicy"
+msgstr "Cloudflare privacy policy"

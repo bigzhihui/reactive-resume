@@ -10,6 +10,7 @@ import { Icon } from "@reactive-resume/ui/components/icon";
 import { Input } from "@reactive-resume/ui/components/input";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { cn } from "@reactive-resume/utils/style";
+import { Turnstile } from "../components/turnstile";
 import { authClient } from "@/libs/auth/client";
 import { ENTER_CLASS } from "@/libs/motion";
 import { useAppForm } from "@/libs/tanstack-form";
@@ -18,19 +19,30 @@ const formSchema = z.object({
 	email: z.email(),
 });
 
-export function ForgotPasswordPage() {
+type ForgotPasswordPageProps = { turnstileSiteKey?: string | null };
+
+export function ForgotPasswordPage({ turnstileSiteKey }: ForgotPasswordPageProps) {
 	const [submitted, setSubmitted] = useState(false);
+	const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+	const [captchaAttempt, setCaptchaAttempt] = useState(0);
 
 	const form = useAppForm({
 		defaultValues: { email: "" },
 		validators: { onSubmit: formSchema },
 		onSubmit: async ({ value }) => {
+			if (turnstileSiteKey && !captchaToken) return;
 			const toastId = toast.add({ type: "loading", description: t`Sending password reset email...` });
 
-			const { error } = await authClient.requestPasswordReset({
-				email: value.email,
-				redirectTo: "/auth/reset-password",
-			});
+			const { error } = await authClient
+				.requestPasswordReset({
+					email: value.email,
+					redirectTo: "/auth/reset-password",
+					fetchOptions: { headers: captchaToken ? { "x-captcha-response": captchaToken } : {} },
+				})
+				.finally(() => {
+					setCaptchaToken(null);
+					setCaptchaAttempt((attempt) => attempt + 1);
+				});
 
 			if (error) {
 				toast.add({
@@ -112,7 +124,11 @@ export function ForgotPasswordPage() {
 					)}
 				</form.Field>
 
-				<Button type="submit" className="w-full" disabled={isSubmitting}>
+				{turnstileSiteKey && (
+					<Turnstile siteKey={turnstileSiteKey} onToken={setCaptchaToken} resetKey={captchaAttempt} />
+				)}
+
+				<Button type="submit" className="w-full" disabled={isSubmitting || (!!turnstileSiteKey && !captchaToken)}>
 					<Trans comment="Primary action button label on forgot-password form">Send Password Reset Email</Trans>
 				</Button>
 			</form>
