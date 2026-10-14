@@ -8,28 +8,28 @@ assignees: []
 body:
   - type: checkboxes
     attributes:
-      label: Existing issue
-      description: Search open and closed issues before submitting a new report.
+      label: 已有反馈
+      description: 提交前，请先搜索已打开和已关闭的反馈。
       options:
-        - label: I searched the existing issues and could not find a matching report.
+        - label: 我已搜索已有反馈，没有找到相同问题。
           required: true
 
   - type: dropdown
     id: variant
     attributes:
-      label: Product variant
-      description: Where does the problem occur?
+      label: 使用方式
+      description: 问题出现在本站，还是你自行部署的版本中？
       options:
-        - Cloud
-        - Self-hosted
+        - 在线站点（resume.afeiii.com）
+        - 自行部署
     validations:
       required: true
 
   - type: input
     id: version
     attributes:
-      label: Reactive Resume version
-      description: Find this in Settings or provide the container image tag or commit SHA.
+      label: 应用版本
+      description: 可在设置页查看，也可以提供容器镜像标签或提交 SHA。
       placeholder: 6.0.2
     validations:
       required: true
@@ -37,69 +37,69 @@ body:
   - type: dropdown
     id: area
     attributes:
-      label: Area
-      description: Choose the part of Reactive Resume most closely related to the problem.
+      label: 涉及功能
+      description: 请选择与问题最相关的功能。
       options:
-        - Resume builder & data
-        - Templates, preview & export
-        - Accounts & sharing
-        - AI & Agent
-        - Language & localization
-        - Self-hosting
-        - API & integrations
-        - Applications & cover letters
-        - Other / unsure
+        - 简历编辑与数据
+        - 模板、预览与导出
+        - 账号与分享
+        - AI 与助手
+        - 语言与中文界面
+        - 自托管部署
+        - API 与集成
+        - 申请记录与求职信
+        - 其他或不确定
     validations:
       required: true
 
   - type: input
     id: environment
     attributes:
-      label: Environment
-      description: Include your operating system and browser. For self-hosted installations, also include the deployment method.
-      placeholder: Firefox 143 on Ubuntu 26.04, deployed with Docker Compose
+      label: 使用环境
+      description: 请填写操作系统和浏览器；自行部署时，请补充部署方式。
+      placeholder: Windows 11、Chrome；或 Ubuntu 24.04、Docker Compose 部署
     validations:
       required: true
 
   - type: textarea
     id: summary
     attributes:
-      label: Summary
-      description: Briefly describe the problem and its impact.
+      label: 问题概述
+      description: 请简要说明问题及其影响。
     validations:
       required: true
 
   - type: textarea
     id: reproduction
     attributes:
-      label: Steps to reproduce
-      description: Provide the smallest reliable sequence that demonstrates the problem.
+      label: 复现步骤
+      description: 请提供可以稳定复现问题的最少操作步骤。
       placeholder: |
-        1. Open ...
-        2. Select ...
-        3. Observe ...
+        1. 打开……
+        2. 点击或填写……
+        3. 出现……
     validations:
       required: true
 
   - type: textarea
     id: expected
     attributes:
-      label: Expected behavior
+      label: 预期结果
     validations:
       required: true
 
   - type: textarea
     id: actual
     attributes:
-      label: Actual behavior
+      label: 实际结果
     validations:
       required: true
 
   - type: dropdown
     id: template
     attributes:
-      label: Template
-      description: Leave blank when the problem is not template-specific.
+      label: 使用的简历模板
+      description: 如果问题与特定模板无关，可以留空。
       options:
         - Azurill
         - Bronzor
@@ -122,5 +122,5 @@ body:
   - type: textarea
     id: logs
     attributes:
-      label: Logs and screenshots
-      description: Add relevant logs, screenshots, or a minimal reproduction. Remove secrets and personal resume data first.
+      label: 日志与截图
+      description: 可补充日志、截图或最小复现内容；请先移除密码、密钥、邮件操作链接和个人简历信息。
