@@ -8,7 +8,8 @@ import { convertLegacyStyleRules } from "./legacy-converter";
 
 const fixtureUrl = (name: string) => new URL(`./__fixtures__/legacy/${name}`, import.meta.url);
 const readFixture = (name: string): unknown => JSON.parse(readFileSync(fixtureUrl(`${name}.json`), "utf8"));
-const readExpected = (name: string): string => readFileSync(fixtureUrl(`${name}.expected.css`), "utf8");
+const readExpected = (name: string): string =>
+	readFileSync(fixtureUrl(`${name}.expected.css`), "utf8").replace(/\r\n/g, "\n");
 const fixtureNames = readdirSync(fixtureUrl(""))
 	.filter((file) => file.endsWith(".json"))
 	.map((file) => file.slice(0, -".json".length));

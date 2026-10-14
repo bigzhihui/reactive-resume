@@ -2,7 +2,7 @@ import type { auth } from "./config";
 
 export type AuthSession = {
 	session: typeof auth.$Infer.Session.session;
-	user: typeof auth.$Infer.Session.user;
+	user: typeof auth.$Infer.Session.user & { isAnonymous?: boolean };
 };
 
 // ponytail: plain union replaces z.enum solely used for type inference

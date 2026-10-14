@@ -2,6 +2,7 @@ import type { PdfFontRequest } from "./use-register-fonts";
 import type { ResumeData, Typography } from "@reactive-resume/schema/resume/data";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { getWebFontSource } from "@reactive-resume/fonts";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
@@ -265,7 +266,7 @@ describe("italic faces", () => {
 	});
 
 	it("are never asked for by a template's own styles", () => {
-		const templates = new URL("../templates", import.meta.url).pathname;
+		const templates = fileURLToPath(new URL("../templates", import.meta.url));
 		const sources = readdirSync(templates, { recursive: true, encoding: "utf8" }).filter(
 			(file) => /\.tsx?$/.test(file) && !/\.test\./.test(file),
 		);
