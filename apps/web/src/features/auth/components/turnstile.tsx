@@ -14,7 +14,6 @@ type TurnstileOptions = {
 };
 
 type TurnstileApi = {
-	ready: (callback: () => void) => void;
 	render: (container: HTMLElement, options: TurnstileOptions) => string;
 	remove: (widgetId: string) => void;
 };
@@ -22,29 +21,39 @@ type TurnstileApi = {
 declare global {
 	interface Window {
 		turnstile?: TurnstileApi;
+		onThirteenMonthTurnstileLoad?: () => void;
 	}
 }
 
 let scriptPromise: Promise<TurnstileApi> | null = null;
 
 function loadTurnstile(): Promise<TurnstileApi> {
-	if (window.turnstile) return Promise.resolve(window.turnstile);
+	if (window.turnstile && typeof window.turnstile.render === "function") return Promise.resolve(window.turnstile);
 	if (scriptPromise) return scriptPromise;
 
 	scriptPromise = new Promise<TurnstileApi>((resolve, reject) => {
+		let settled = false;
 		const script = document.createElement("script");
-		script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+		script.src =
+			"https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onThirteenMonthTurnstileLoad";
 		script.async = true;
 		const failed = () => {
+			if (settled) return;
+			settled = true;
 			clearTimeout(timeout);
+			delete window.onThirteenMonthTurnstileLoad;
 			script.remove();
 			reject(new Error("Turnstile script unavailable"));
 		};
 		const timeout = setTimeout(failed, 20_000);
 		script.onerror = failed;
-		script.onload = () => {
-			if (!window.turnstile) return failed();
+		// api.js can be a bootstrap loader; its native load event may precede the real API.
+		window.onThirteenMonthTurnstileLoad = () => {
+			if (settled) return;
+			if (!window.turnstile || typeof window.turnstile.render !== "function") return failed();
+			settled = true;
 			clearTimeout(timeout);
+			delete window.onThirteenMonthTurnstileLoad;
 			resolve(window.turnstile);
 		};
 		document.head.append(script);
@@ -83,29 +92,27 @@ export function Turnstile({ siteKey, onToken, resetKey }: TurnstileProps) {
 				if (!active) return;
 				setFailed(false);
 				api = loadedApi;
-				api.ready(() => {
-					if (!active || !container.current) return;
-					try {
-						widgetId = loadedApi.render(container.current, {
-							sitekey: siteKey,
-							action: "account",
-							theme: "auto",
-							size: "flexible",
-							callback: (token) => {
-								if (!active) return;
-								setFailed(false);
-								onToken(token);
-							},
-							"expired-callback": () => {
-								if (active) onToken(null);
-							},
-							"error-callback": fail,
-							"timeout-callback": fail,
-						});
-					} catch {
-						fail();
-					}
-				});
+				if (!container.current) return;
+				try {
+					widgetId = loadedApi.render(container.current, {
+						sitekey: siteKey,
+						action: "account",
+						theme: "auto",
+						size: "flexible",
+						callback: (token) => {
+							if (!active) return;
+							setFailed(false);
+							onToken(token);
+						},
+						"expired-callback": () => {
+							if (active) onToken(null);
+						},
+						"error-callback": fail,
+						"timeout-callback": fail,
+					});
+				} catch {
+					fail();
+				}
 			})
 			.catch(fail);
 

@@ -12,7 +12,7 @@ beforeEach(() => {
 	vi.clearAllMocks();
 	i18n.load("en", {});
 	i18n.activate("en");
-	window.turnstile = { ready: (callback) => callback(), render: renderWidget, remove: removeWidget };
+	window.turnstile = { render: renderWidget, remove: removeWidget };
 });
 afterEach(() => {
 	delete window.turnstile;
@@ -59,4 +59,21 @@ it("removes the widget on unmount", async () => {
 	await waitFor(() => expect(renderWidget).toHaveBeenCalledOnce());
 	view.unmount();
 	expect(removeWidget).toHaveBeenCalledWith("test-widget");
+});
+
+it("waits for Cloudflare's callback instead of the bootstrap script load event", async () => {
+	let script: HTMLScriptElement | undefined;
+	const append = vi.spyOn(document.head, "append").mockImplementation((...nodes) => {
+		script = nodes.find((node): node is HTMLScriptElement => node instanceof HTMLScriptElement);
+	});
+	window.turnstile = {} as NonNullable<Window["turnstile"]>;
+	render(<Turnstile siteKey="test-site-key" onToken={onToken} resetKey={0} />);
+	if (!script) throw new Error("Turnstile bootstrap script not added");
+	expect(script.src).toContain("onload=onThirteenMonthTurnstileLoad");
+	fireEvent.load(script);
+	expect(renderWidget).not.toHaveBeenCalled();
+	window.turnstile = { render: renderWidget, remove: removeWidget };
+	act(() => window.onThirteenMonthTurnstileLoad?.());
+	await waitFor(() => expect(renderWidget).toHaveBeenCalledOnce());
+	append.mockRestore();
 });
