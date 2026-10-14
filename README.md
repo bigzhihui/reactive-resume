@@ -1,3 +1,23 @@
+# 十三月简历
+
+这是基于 [Reactive Resume](https://github.com/reactive-resume/reactive-resume) 的中文定制版本，保留上游 MIT 许可证与作者署名。
+
+- 网站：[resume.afeiii.com](https://resume.afeiii.com)
+- 当前版本：v6.0.2
+- 线上定制源码：[brand/thirteen-month-v6](https://github.com/bigzhihui/reactive-resume/tree/brand/thirteen-month-v6)。日常定制修改在该分支完成。
+- 联系及问题反馈：[support@afeiii.com](mailto:support@afeiii.com)
+- 数据与邮件说明：[本站隐私政策](https://resume.afeiii.com/privacy)
+
+获取定制源码：
+
+```sh
+git clone --branch brand/thirteen-month-v6 https://github.com/bigzhihui/reactive-resume.git
+```
+
+## 上游项目文档
+
+以下保留 Reactive Resume 的功能、开发和部署文档。
+
 > [!IMPORTANT]
 > **Repository moved:** Reactive Resume now lives at **[`reactive-resume/reactive-resume`](https://github.com/reactive-resume/reactive-resume)** on GitHub.
 > **Docker Hub stays at `amruthpillai/reactive-resume`.** GHCR images publish to `ghcr.io/reactive-resume/reactive-resume`.

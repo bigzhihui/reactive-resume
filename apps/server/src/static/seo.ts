@@ -1,5 +1,6 @@
 import { env } from "@reactive-resume/env/server";
 import { templateSchema } from "@reactive-resume/schema/templates";
+import { sourceCodeUrl } from "@reactive-resume/utils/brand";
 import { getLocaleAlternates } from "@reactive-resume/utils/locale";
 
 const DOCS_URL = "https://docs.rxresu.me";
@@ -99,7 +100,7 @@ export function handleLlms(options?: StaticSeoOptions) {
 		"",
 		"## Community",
 		"",
-		"- [Source code on GitHub](https://github.com/reactive-resume/reactive-resume)",
+		`- [Source code on GitHub](${sourceCodeUrl})`,
 		"- [Discord](https://discord.gg/aSyA5ZSxpb)",
 		"- [Subreddit](https://www.reddit.com/r/reactiveresume)",
 		"- [Translations on Crowdin](https://crowdin.com/project/reactive-resume)",

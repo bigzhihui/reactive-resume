@@ -10,6 +10,7 @@ import {
 	appTitle,
 	appDescription,
 	repositoryUrl,
+	sourceCodeUrl,
 	supportEmail,
 	privacyTitle,
 	privacyDescription,
@@ -130,7 +131,7 @@ function homepageStructuredData(origin: string): StructuredData {
 				isAccessibleForFree: true,
 				offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 				license: `${githubUrl}/blob/main/LICENSE`,
-				codeRepository: githubUrl,
+				codeRepository: sourceCodeUrl,
 				publisher: { "@id": `${origin}/#organization` },
 				featureList: [
 					"Resume editor with a live page preview",

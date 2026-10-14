@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { templateSchema } from "@reactive-resume/schema/templates";
 import { Icon } from "@reactive-resume/ui/components/icon";
+import { feedbackUrl } from "@reactive-resume/utils/brand";
 import { localeSchema } from "@reactive-resume/utils/locale";
 import { cn } from "@reactive-resume/utils/style";
 import { prefersReducedMotion, SCENE, useLanding } from "./scroll";
@@ -14,7 +15,6 @@ import { CtaLink, Doodle, labelClass } from "./ui";
 import { orpc } from "@/libs/orpc/client";
 
 const crowdinUrl = "https://crowdin.com/project/reactive-resume";
-const githubUrl = "https://github.com/reactive-resume/reactive-resume";
 // The statistics service caches the totals for six hours.
 const statisticsStaleTime = 6 * 60 * 60 * 1000;
 // A fresh self-hosted install has a handful of users; a total that small reads as a joke, so it isn't shown.
@@ -67,13 +67,9 @@ function RollingNumber({ value, roll, delay }: RollingNumberProps) {
 export function Numbers() {
 	const inView = useLanding((state) => state.numbersInView);
 	const { data } = useQuery(orpc.statistics.getTotals.queryOptions({ staleTime: statisticsStaleTime }));
-	const { data: stars } = useQuery(
-		orpc.statistics.github.getStarCount.queryOptions({ staleTime: statisticsStaleTime }),
-	);
 	const rows = [
 		{ label: t`People using it`, detail: t`writing, tailoring and sending`, value: data?.users },
 		{ label: t`Resumes created`, detail: t`and counting`, value: data?.resumes },
-		{ label: t`Stars on GitHub`, detail: t`from developers who back it`, value: stars },
 	].filter((row) => row.value == null || row.value >= smallestTotalShown);
 	if (rows.length === 0) return null;
 
@@ -246,7 +242,7 @@ export function Support() {
 	] as const;
 	const pills: { href: string; icon: IconName; label: string }[] = [
 		{ href: crowdinUrl, icon: "translate", label: t`Translate the app` },
-		{ href: `${githubUrl}/issues`, icon: "bug", label: t`Report a bug` },
+		{ href: feedbackUrl, icon: "bug", label: t`Report a bug` },
 		{ href: "https://docs.rxresu.me/contributing/development", icon: "code", label: t`Contribute code` },
 	];
 

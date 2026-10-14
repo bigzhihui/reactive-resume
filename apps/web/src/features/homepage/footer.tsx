@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { Link } from "@tanstack/react-router";
-import { appName, repositoryUrl, supportEmail } from "@reactive-resume/utils/brand";
+import { appName, repositoryUrl, sourceCodeUrl, supportEmail, feedbackUrl } from "@reactive-resume/utils/brand";
 import { cn } from "@reactive-resume/utils/style";
 import { SCENE } from "./scroll";
 import { labelClass } from "./ui";
@@ -31,7 +31,7 @@ const getColumns = (): { id: string; title: string; links: FooterLink[] }[] => [
 			{ label: t`About`, href: "https://docs.rxresu.me/getting-started" },
 			{ label: t`Documentation`, href: "https://docs.rxresu.me" },
 			{ label: t`Changelog`, href: "https://docs.rxresu.me/changelog" },
-			{ label: t`Source code`, href: githubUrl },
+			{ label: t`Source code`, href: sourceCodeUrl },
 			{ label: t`Self-hosting`, href: "https://docs.rxresu.me" },
 		],
 	},
@@ -45,7 +45,7 @@ const getColumns = (): { id: string; title: string; links: FooterLink[] }[] => [
 			{ label: t`Contact`, href: `mailto:${supportEmail}` },
 			{ label: "LinkedIn", href: "https://www.linkedin.com/company/reactive-resume" },
 			{ label: "Amruth Pillai · X", href: "https://x.com/KingOKings" },
-			{ label: t`Report an issue`, href: `${githubUrl}/issues` },
+			{ label: t`Report an issue`, href: feedbackUrl },
 		],
 	},
 	{
