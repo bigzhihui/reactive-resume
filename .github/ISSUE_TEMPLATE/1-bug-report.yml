@@ -30,7 +30,7 @@ body:
     attributes:
       label: 应用版本
       description: 可在设置页查看，也可以提供容器镜像标签或提交 SHA。
-      placeholder: 6.0.2
+      placeholder: 6.0.3
     validations:
       required: true
 

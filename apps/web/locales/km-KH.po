@@ -118,6 +118,11 @@ msgstr "{0, plural, one {ទំនាក់ទំនង # មានអ៊ីម�
 msgid "{0, plural, one {# day} other {# days}}"
 msgstr "{0, plural, one {# ថ្ងៃ។} other {# ថ្ងៃ។}}"
 
+#. placeholder {0}: done.length
+#: src/features/documents/document-actions.tsx
+msgid "{0, plural, one {# document moved to Trash} other {# documents moved to Trash}}"
+msgstr "{0, plural, one {ឯកសារចំនួន # ត្រូវបានផ្លាស់ទីទៅធុងសំរាម} other {ឯកសារចំនួន # ត្រូវបានផ្លាស់ទីទៅធុងសំរាម}}"
+
 #. placeholder {0}: output.skipped.length
 #: src/features/assistant/conversation.tsx
 msgid "{0, plural, one {# edit couldn't be placed: its text changed. Ask again to redo it.} other {# edits couldn't be placed: their text changed. Ask again to redo them.}}"
@@ -222,6 +227,11 @@ msgstr "{0, plural, other {បានចាប់ផ្តើម # នាទី�
 #: src/features/career/knowledge/facts.tsx
 msgid "{0, plural, one {used in # saved item} other {used in # saved items}}"
 msgstr "{0, plural, other {បានប្រើក្នុងធាតុដែលបានរក្សាទុក #}}"
+
+#. placeholder {0}: characters.length
+#: src/libs/error-message.ts
+msgid "{0, plural, one {Your selected font can't display {list}. It shows as “?”. In Design, choose a font that has it.} other {Your selected font can't display {list}. They show as “?”. In Design, choose a font that has them.}}"
+msgstr "{0, plural, one {ពុម្ពអក្សរដែលអ្នកបានជ្រើសរើសមិនអាចបង្ហាញ {list} បានទេ។ វាបង្ហាញជា “?”។ នៅក្នុង រចនា សូមជ្រើសរើសពុម្ពអក្សរដែលមានតួអក្សរនេះ។} other {ពុម្ពអក្សរដែលអ្នកបានជ្រើសរើសមិនអាចបង្ហាញ {list} បានទេ។ ពួកវាបង្ហាញជា “?”។ នៅក្នុង រចនា សូមជ្រើសរើសពុម្ពអក្សរដែលមានតួអក្សរទាំងនេះ។}}"
 
 #. placeholder {0}: when(runAt)
 #: src/features/career/workspace/prepare.tsx
@@ -447,6 +457,10 @@ msgstr "{count, plural, one {ធាតុ #} other {ធាតុ #}}"
 msgid "{count, plural, one {Apply # change} other {Apply # changes}}"
 msgstr "{count, plural, other {អនុវត្តការផ្លាស់ប្តូរ #}}"
 
+#: src/features/documents/documents-page.tsx
+msgid "{count} selected"
+msgstr "បានជ្រើសរើស {count}"
+
 #: src/features/career/offers.tsx
 msgid "{days, plural, one {# office day a week} other {# office days a week}}"
 msgstr "{days, plural, other {# ថ្ងៃនៅការិយាល័យក្នុងមួយសប្តាហ៍}}"
@@ -466,6 +480,10 @@ msgstr "{days, plural, other {# ថ្ងៃនៅការិយាល័យ �
 #: src/features/settings/account/data.tsx
 msgid "{documents, plural, one {# document} other {# documents}}"
 msgstr "{documents, plural, one {ឯកសារ #} other {ឯកសារ #}}"
+
+#: src/features/documents/document-actions.tsx
+msgid "{done, plural, one {# document updated} other {# documents updated}}"
+msgstr "{done, plural, one {បានធ្វើបច្ចុប្បន្នភាពឯកសារចំនួន #} other {បានធ្វើបច្ចុប្បន្នភាពឯកសារចំនួន #}}"
 
 #. placeholder {0}: items.length
 #: src/features/career/workspace/apply.tsx
@@ -1501,6 +1519,18 @@ msgstr "Albanian"
 msgid "Alex Morgan"
 msgstr "Alex Morgan"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Align centre"
+msgstr "តម្រឹមកណ្តាល"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Align left"
+msgstr "តម្រឹមឆ្វេង"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Align right"
+msgstr "តម្រឹមស្តាំ"
+
 #: src/features/career/knowledge/facts.tsx
 #: src/features/career/workspace/saved.tsx
 #: src/features/documents/documents-page.tsx
@@ -1829,7 +1859,7 @@ msgstr "បានអនុវត្ត។ បានកំណត់ការត�
 msgid "Applied. The application is updated."
 msgstr "បានអនុវត្ត។ ពាក្យសុំត្រូវបានធ្វើបច្ចុប្បន្នភាព។"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Apply"
 msgstr "ដាក់ពាក្យ"
@@ -2146,6 +2176,10 @@ msgstr "ល្អបំផុតសម្រាប់ការដាក់ពា
 #: src/features/ats-checker/messages.ts
 msgid "Blocker"
 msgstr "ឧបសគ្គធំ"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Blue"
+msgstr "ខៀវ"
 
 #: src/routes/dashboard/applications/index.tsx
 msgid "Board"
@@ -2585,6 +2619,7 @@ msgid "Clear section"
 msgstr "ជម្រះផ្នែក"
 
 #: src/components/ui/combobox.tsx
+#: src/features/documents/documents-page.tsx
 msgid "Clear selection"
 msgstr "សម្អាតការជ្រើសរើស"
 
@@ -2648,6 +2683,10 @@ msgstr "បិទ"
 #: src/routes/dashboard/career/route.tsx
 msgid "Coach"
 msgstr "គ្រូបង្វឹក"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Code"
+msgstr "កូដ"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 #: src/routes/builder/letter/-components/design-panel.tsx
@@ -2890,6 +2929,10 @@ msgstr "មាតិកាត្រូវបានរៀបចំតាមទម
 msgid "Continue"
 msgstr "បន្ត"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "បន្តជាភ្ញៀវ"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "ចូលរួមចំណែកកូដ"
@@ -2981,6 +3024,10 @@ msgstr "ចម្លងវាឥឡូវនេះ។ ដើម្បីសុ�
 #: src/features/resume/public/public-resume.tsx
 msgid "Copy link"
 msgstr "ចម្លងតំណ"
+
+#: src/features/documents/document-actions.tsx
+msgid "Copy public link"
+msgstr "ចម្លងតំណសាធារណៈ"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -3113,6 +3160,10 @@ msgstr "មិនអាចផ្លាស់ប្តូរកាលវិភា
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "មិនអាចភ្ជាប់បានទេ។ ពិនិត្យសោ ហើយព្យាយាមម្តងទៀត។"
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "មិនអាចបន្តជាភ្ញៀវបានទេ។ សូមព្យាយាមម្តងទៀត។"
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3508,6 +3559,10 @@ msgstr "បង្កើត​ប្រវត្តិរូប​ថ្មី"
 msgid "Create a resume first, then ask about it."
 msgstr "បង្កើតប្រវត្តិរូបសង្ខេប បន្ទាប់មកសួរអំពីវា។"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "បង្កើតគណនី"
+
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
 msgstr "បង្កើត និងផ្លាស់ប្តូរឯកសារ និងពាក្យសុំការងាររបស់អ្នក។"
@@ -3677,8 +3732,8 @@ msgstr "សូមគោរពក្រុម Fieldnote"
 msgid "Dear hiring team,"
 msgstr "ជូនចំពោះក្រុមការងារជ្រើសរើសបុគ្គលិក"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Debrief"
 msgstr "សង្ខេបក្រោយសម្ភាសន៍"
@@ -3687,6 +3742,7 @@ msgstr "សង្ខេបក្រោយសម្ភាសន៍"
 msgid "Deep breath."
 msgstr "ដកដង្ហើមវែងៗ។"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Default"
 msgstr "លំនាំដើម"
@@ -4840,8 +4896,8 @@ msgstr "ដំណើរការលើកដំបូង"
 msgid "Fit"
 msgstr "សម"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: how well a job fits your experience"
 msgid "Fit"
@@ -4953,8 +5009,8 @@ msgid "Font Weights"
 msgstr "ទម្ងន់​ពុម្ពអក្សរ"
 
 #: src/libs/error-message.ts
-msgid "Fonts could not be loaded. Retry the export."
-msgstr "ពុម្ពអក្សរមិនអាចផ្ទុកបានទេ។ ព្យាយាមនាំចេញឡើងវិញ។"
+msgid "Fonts could not be loaded. Try again."
+msgstr "មិនអាចផ្ទុកពុម្ពអក្សរបានទេ។ សូមព្យាយាមម្តងទៀត។"
 
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "For"
@@ -4972,6 +5028,10 @@ msgstr "ឧទាហរណ៍ សូមកត់ត្រាថាអ្នក�
 #: src/features/career/workspace/fit.tsx
 msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "ឧទាហរណ៍៖ “{0}៖ ខ្ញុំបានធ្វើ … នៅ … ក្នុងឆ្នាំ 2024 ហើយវាបាននាំឱ្យ …”"
+
+#: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "សម្រាប់ LibreOffice និងកម្មវិធីកែសម្រួលកូដចំហផ្សេងទៀត។ ប្លង់ត្រូវបានធ្វើឱ្យសាមញ្ញ។"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
@@ -5203,9 +5263,17 @@ msgstr "ចំណាត់ថ្នាក់"
 msgid "Greek"
 msgstr "Greek"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Green"
+msgstr "បៃតង"
+
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Greeting"
 msgstr "ពាក្យស្វាគមន៍"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Grey"
+msgstr "ប្រផេះ"
 
 #: src/features/documents/documents-page.tsx
 msgid "Grid"
@@ -5232,6 +5300,18 @@ msgstr "បឋមកថា"
 msgctxt "Headings or Titles (H1, H2, H3, H4, H5, H6)"
 msgid "Heading"
 msgstr "ចំណងជើង"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Heading 1"
+msgstr "ចំណងជើង 1"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Heading 2"
+msgstr "ចំណងជើង 2"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Heading 3"
+msgstr "ចំណងជើង 3"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Heading changed"
@@ -5279,6 +5359,10 @@ msgstr "លាក់"
 #: src/features/career/today.tsx
 msgid "Hidden from New roles"
 msgstr "បានលាក់ពី “តួនាទីថ្មី”"
+
+#: src/features/resume/editor/write/outline.tsx
+msgid "Hidden sections"
+msgstr "ផ្នែកដែលបានលាក់"
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Hidden sections keep their content but aren't printed or shared. Fields save as you type."
@@ -5334,6 +5418,10 @@ msgstr "លាក់រូបថត"
 msgid "High"
 msgstr "ខ្ពស់។"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Highlight"
+msgstr "បន្លិច"
+
 #: src/libs/locale.ts
 msgid "Hindi"
 msgstr "Hindi"
@@ -5357,6 +5445,10 @@ msgstr "ប្រវត្តិសាស្ត្រ"
 #: src/features/command-palette/pages/navigation.tsx
 msgid "Home"
 msgstr "ទំព័រដើម"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Horizontal line"
+msgstr "បន្ទាត់ផ្តេក"
 
 #: src/features/homepage/sections.tsx
 msgid "Hosting and development are paid for by people like you. Optional tip:"
@@ -5564,6 +5656,10 @@ msgstr "នៅក្នុងក្រុមហ៊ុនល្អ។"
 #: src/features/ats-checker/messages.ts
 msgid "Increase line spacing so two lines are not merged into one."
 msgstr "បង្កើនចន្លោះបន្ទាត់ ដើម្បីកុំឱ្យបន្ទាត់ពីរបញ្ចូលគ្នាទៅជាមួយ។"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Indent"
+msgstr "បង្កើនការចូលបន្ទាត់"
 
 #: src/libs/locale.ts
 msgid "Indonesian"
@@ -5856,6 +5952,10 @@ msgstr "john.doe"
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"
 msgstr "JSON អាន"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Justify"
+msgstr "តម្រឹមសងខាង"
 
 #: src/libs/locale.ts
 msgid "Kannada"
@@ -6162,12 +6262,16 @@ msgstr "សំបុត្រ"
 
 #: src/features/assistant/document.ts
 #: src/features/documents/document-card.tsx
-#: src/features/resume/editor/design/style-groups.tsx
-#: src/routes/builder/$resumeId/-components/page-canvas.tsx
-#: src/routes/builder/letter/-components/letter-page.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Letter"
 msgstr "លិខិត"
+
+#: src/features/resume/editor/design/style-groups.tsx
+#: src/routes/builder/$resumeId/-components/page-canvas.tsx
+#: src/routes/builder/letter/-components/letter-page.tsx
+msgctxt "US Letter paper size (8.5 × 11 in), shown beside A4"
+msgid "Letter"
+msgstr "Letter"
 
 #: src/features/career/workspace/shell.tsx
 msgid "Letter · not sent yet"
@@ -6191,7 +6295,7 @@ msgstr "ទំព័រសំបុត្រ"
 
 #: src/features/documents/documents-page.tsx
 msgid "Letters"
-msgstr "អក្សរ"
+msgstr "លិខិត"
 
 #: src/features/resume/editor/write/entries.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -6270,6 +6374,7 @@ msgstr "ភ្ជាប់ពាក្យសុំការងារ"
 msgid "Link an application…"
 msgstr "ភ្ជាប់ពាក្យសុំការងារ…"
 
+#: src/features/documents/document-actions.tsx
 #: src/features/resume/public/public-resume.tsx
 #: src/features/resume/share/link-tab.tsx
 msgid "Link copied"
@@ -6453,10 +6558,11 @@ msgid "Locations"
 msgstr "ទីតាំង"
 
 #: src/features/documents/document-actions.tsx
+#: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Lock editing"
-msgstr "ការកែសម្រួលចាក់សោ"
+msgstr "ចាក់សោការកែសម្រួល"
 
 #: src/features/documents/document-card.tsx
 msgid "Locked"
@@ -6520,6 +6626,14 @@ msgstr "ធ្វើឱ្យវាកាន់តែជាក់លាក់"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "ធ្វើឱ្យវាខ្លីជាង"
+
+#: src/features/documents/documents-page.tsx
+msgid "Make private"
+msgstr "ធ្វើជាឯកជន"
+
+#: src/features/documents/documents-page.tsx
+msgid "Make public"
+msgstr "ធ្វើជាសាធារណៈ"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -6675,7 +6789,7 @@ msgstr "ផ្ញើសារទៅជំនួយការ"
 msgid "Message the coach"
 msgstr "ផ្ញើសារទៅគ្រូបង្វឹក"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Messages"
 msgstr "សារ"
@@ -6742,6 +6856,10 @@ msgstr "ទម្រង់ទាញយកច្រើនទៀត"
 #: src/features/career/coach.tsx
 msgid "More for {title}"
 msgstr "បន្ថែមទៀតសម្រាប់ {title}"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "More formatting"
+msgstr "ទម្រង់បន្ថែម"
 
 #: src/features/resume/editor/write/fields.tsx
 msgid "More options"
@@ -6839,6 +6957,7 @@ msgid "Move to Interview"
 msgstr "ផ្លាស់ទៅ សម្ភាសន៍"
 
 #: src/features/documents/document-actions.tsx
+#: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Move to Trash"
@@ -6857,6 +6976,12 @@ msgstr "ផ្លាស់ទីឡើងលើ"
 #: src/features/ats-checker/messages.ts
 msgid "Move your email and phone number to the top of page one."
 msgstr "ផ្លាស់ទីអ៊ីមែល និងលេខទូរស័ព្ទរបស់អ្នកទៅផ្នែកខាងលើនៃទំព័រទីមួយ។"
+
+#. placeholder {0}: done.length
+#. placeholder {1}: documents.length
+#: src/features/documents/document-actions.tsx
+msgid "Moved {0} of {1} to Trash. Locked documents were skipped."
+msgstr "បានផ្លាស់ទី {0} ក្នុងចំណោម {1} ទៅធុងសំរាម។ ឯកសារដែលបានចាក់សោត្រូវបានរំលង។"
 
 #. placeholder {0}: getStageLabel(entry.stage)
 #. placeholder {0}: getStageLabel(status)
@@ -7796,6 +7921,10 @@ msgstr "ឬនៅក្នុងពាក្យផ្ទាល់ខ្លួន
 msgid "Or upload a resume PDF"
 msgstr "ឬផ្ទុកឡើងឯកសារ PDF ប្រវត្តិរូបសង្ខេប"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Orange"
+msgstr "ទឹកក្រូច"
+
 #: src/features/resume/editor/write/entries.tsx
 msgid "Organization"
 msgstr "អង្គការ"
@@ -7832,6 +7961,10 @@ msgstr "ក្នុងចំណោម 100"
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Out of date: the text has changed since."
 msgstr "ហួសសម័យ៖ អត្ថបទបានផ្លាស់ប្តូរតាំងពីពេលនោះមក។"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Outdent"
+msgstr "បន្ថយការចូលបន្ទាត់"
 
 #: src/features/homepage/prepare.tsx
 msgid "Own and evolve a design system"
@@ -7885,6 +8018,10 @@ msgstr "តែមួយ។"
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Paper"
 msgstr "ក្រដាស"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Paragraph"
+msgstr "កថាខណ្ឌ"
 
 #: src/features/assistant/document.ts
 #: src/features/resume/editor/check/writing-tab.tsx
@@ -8227,8 +8364,8 @@ msgid "Practice questions are simulated, not from Fieldnote."
 msgstr "សំណួរហាត់សមគឺជាការក្លែងធ្វើ មិនមែនមកពី Fieldnote ទេ។"
 
 #: src/features/career/knowledge/stories.tsx
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/prepare.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Practise"
 msgstr "ហាត់សម"
@@ -8271,7 +8408,7 @@ msgid "Preferences"
 msgstr "ចំណង់ចំណូលចិត្ត"
 
 #: src/features/career/schedule-sheet.tsx
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Prepare"
@@ -8456,6 +8593,8 @@ msgstr "ផ្តល់ដោយម៉ាស៊ីនមេរបស់អ្ន
 msgid "Provider"
 msgstr "អ្នកផ្តល់សេវា"
 
+#: src/features/documents/document-card.tsx
+#: src/features/documents/documents-page.tsx
 #: src/features/homepage/share.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
@@ -8482,6 +8621,10 @@ msgstr "អត្ថបទផ្សព្វផ្សាយ"
 #: src/features/resume/editor/write/entries.tsx
 msgid "Publisher"
 msgstr "អ្នកបោះពុម្ពផ្សាយ"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Purple"
+msgstr "ស្វាយ"
 
 #: src/features/ats-checker/messages.ts
 msgid "Put a plain email address near the top of the first page. It is what most systems file you under."
@@ -8815,6 +8958,10 @@ msgstr "ចតុកោណ"
 #: src/components/level/combobox.tsx
 msgid "Rectangle (Full Width)"
 msgstr "ចតុកោណ (ទទឹង​ពេញ)"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Red"
+msgstr "ក្រហម"
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Redo resume change"
@@ -9530,7 +9677,7 @@ msgstr "បានរក្សាទុក"
 msgid "Saved"
 msgstr "បានរក្សាទុក"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: earlier results kept for this job"
 msgid "Saved"
@@ -9792,14 +9939,24 @@ msgid "See below"
 msgstr "មើលខាងក្រោម"
 
 #: src/features/applications/components/list-view.tsx
+#: src/features/documents/document-actions.tsx
 msgid "Select"
 msgstr "ជ្រើសរើស"
+
+#. placeholder {0}: document.name
+#: src/features/documents/document-card.tsx
+msgid "Select {0}"
+msgstr "ជ្រើសរើស {0}"
 
 #. placeholder {0}: application.role
 #. placeholder {1}: application.company
 #: src/features/applications/components/list-view.tsx
 msgid "Select {0} at {1}"
 msgstr "ជ្រើសរើស {0} នៅ {1}"
+
+#: src/features/documents/documents-page.tsx
+msgid "Select all"
+msgstr "ជ្រើសរើសទាំងអស់"
 
 #: src/features/settings/integrations/components/ai-provider-picker.tsx
 msgid "Select an AI provider"
@@ -9808,6 +9965,10 @@ msgstr "ជ្រើសរើសអ្នកផ្តល់សេវា AI"
 #: src/components/ui/combobox.tsx
 msgid "Select..."
 msgstr "ជ្រើសរើស..."
+
+#: src/features/documents/documents-page.tsx
+msgid "Selected documents"
+msgstr "ឯកសារដែលបានជ្រើសរើស"
 
 #: src/features/homepage/footer.tsx
 msgid "Self-hosting"
@@ -9988,6 +10149,7 @@ msgstr "ចែករំលែកផ្នែក"
 msgid "Share via…"
 msgstr "ចែករំលែកតាមរយៈ…"
 
+#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
@@ -10096,6 +10258,10 @@ msgstr "បង្ហាញពួកគេម្តងទៀត"
 msgid "Shown in your timezone."
 msgstr "បង្ហាញតាមតំបន់ពេលវេលារបស់អ្នក។"
 
+#: src/features/documents/document-actions.tsx
+msgid "Shows the tags they all share. Tags you add go on every document; tags you remove come off every one. Locked documents are left as they are."
+msgstr "បង្ហាញស្លាកដែលឯកសារទាំងអស់មានដូចគ្នា។ ស្លាកដែលអ្នកបន្ថែមនឹងត្រូវដាក់លើឯកសារនីមួយៗ ហើយស្លាកដែលអ្នកដកចេញនឹងត្រូវដកចេញពីឯកសារទាំងអស់។ ឯកសារដែលបានចាក់សោនឹងនៅដដែល។"
+
 #. Layout editor column label for the secondary sidebar area
 #: src/features/homepage/sheet.tsx
 #: src/features/resume/editor/design/template-group.tsx
@@ -10121,6 +10287,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "របារចំហៀងត្រូវបានអានជាញឹកញយ ឬលាយបញ្ចូលទៅក្នុងជួរឈរមេ។"
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "ចូល"
@@ -10195,8 +10362,8 @@ msgid "Single-column ruled form inspired by the Japanese rirekisho: a bordered h
 msgstr "ទម្រង់ជួរឈរតែមួយដែលត្រូវបានបំផុសគំនិតដោយប្រវត្តិរូបសង្ខេប rirekisho របស់ជប៉ុន៖ បឋមកថាធ្វើពីវាលដែលមានព្រំដែន ហើយគ្រប់ផ្នែកទាំងអស់ត្រូវបានបង្ហាញជាតារាងដែលមានរបារចំណងជើងរឹង។ បង្រួម និងងាយស្រួលស្កេន ស័ក្តិសមសម្រាប់ការងារវិស្វកម្ម ការងារប្រតិបត្តិការ ឬពាក្យសុំការងារនៅក្នុងប្រទេសជប៉ុន។"
 
 #: src/dialogs/resume/template/data.ts
-msgid "Single-column set like a magazine feature: a large display name under an uppercase kicker, the summary as an italic standfirst and italic section headings; refined for writers, designers, and communications roles."
-msgstr "ប្លង់ជួរឈរតែមួយដែលត្រូវបានបំផុសគំនិតដោយអត្ថបទទស្សនាវដ្តីមួយ៖ ឈ្មោះរបស់អ្នកក្នុងប្រភេទធំនៅខាងក្រោមក្បាលខ្លីជាអក្សរធំ សេចក្តីសង្ខេបជាអក្សរទ្រេត និងចំណងជើងផ្នែកជាអក្សរទ្រេត។ ការរចនាដ៏ល្អសម្រាប់អ្នកនិពន្ធ អ្នករចនា និងអ្នកជំនាញផ្នែកទំនាក់ទំនង។"
+msgid "Single-column set like a magazine feature: a large display name under an uppercase kicker and the summary as a larger standfirst; refined for writers, designers, and communications roles."
+msgstr "ប្លង់ជួរឈរតែមួយដូចអត្ថបទពិសេសក្នុងទស្សនាវដ្តី៖ ឈ្មោះធំនៅក្រោមបន្ទាត់ខ្លីជាអក្សរធំ ហើយសេចក្តីសង្ខេបជាកថាខណ្ឌណែនាំដែលធំជាង។ កែលម្អសម្រាប់អ្នកនិពន្ធ អ្នករចនា និងតួនាទីទំនាក់ទំនង។"
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with a magenta left border accent; compact and efficient for entry-level or internship applications."
@@ -10320,10 +10487,6 @@ msgstr "ព័ត៌មានលម្អិតការងារមួយចំ
 msgid "Some lines are stored out of reading order."
 msgstr "បន្ទាត់ខ្លះត្រូវបានផ្ទុកក្រៅលំដាប់អាន។"
 
-#: src/libs/error-message.ts
-msgid "Some PDF text could not be rendered. Choose a font containing these characters, then retry the export."
-msgstr "អត្ថបទ PDF មួយចំនួនមិនអាចបង្ហាញបានទេ។ ជ្រើសរើសពុម្ពអក្សរដែលមានតួអក្សរទាំងនេះ បន្ទាប់មកព្យាយាមនាំចេញម្តងទៀត។"
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Some systems mishandle images, and photos are discouraged in some countries."
 msgstr "ប្រព័ន្ធខ្លះគ្រប់គ្រងរូបភាពខុស ហើយរូបថតត្រូវបានលើកទឹកចិត្តនៅក្នុងប្រទេសខ្លះ។"
@@ -10341,6 +10504,7 @@ msgid "Some text is rotated."
 msgstr "អត្ថបទខ្លះត្រូវបានបង្វិល។"
 
 #: src/components/layout/error-screen.tsx
+#: src/features/resume/preview/preview.browser.tsx
 msgid "Something went wrong"
 msgstr "មានអ្វីមួយខុសប្រក្រតី"
 
@@ -10655,6 +10819,10 @@ msgstr "រកមិនឃើញរឿង"
 msgid "Strengthen"
 msgstr "ចំណុចត្រូវពង្រឹង"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Strikethrough"
+msgstr "បន្ទាត់ឆូត"
+
 #: src/features/resume/editor/write/improve.tsx
 msgid "Stronger verb"
 msgstr "កិរិយាសព្ទខ្លាំងជាង"
@@ -10805,12 +10973,18 @@ msgstr "ស្លាក"
 #: src/features/applications/components/import-applications-sheet.tsx
 #: src/features/career/knowledge/stories.tsx
 #: src/features/documents/document-actions.tsx
+#: src/features/documents/documents-page.tsx
 msgid "Tags"
 msgstr "ស្លាក"
 
 #: src/dialogs/resume/index.tsx
 msgid "Tags can be used to categorize your resume by keywords."
 msgstr "ស្លាក​អាច​ត្រូវ​បាន​ប្រើ ដើម្បី​ចាត់ថ្នាក់​ប្រវត្តិរូប​របស់​អ្នក​តាម​ពាក្យ​គន្លឹះ។"
+
+#. placeholder {0}: documents.length
+#: src/features/documents/document-actions.tsx
+msgid "Tags for {0} documents"
+msgstr "ស្លាកសម្រាប់ឯកសារចំនួន {0}"
 
 #: src/features/ats-checker/messages.ts
 msgid "Tags give software an explicit reading order. Enable them when exporting, if your tool offers it."
@@ -10942,9 +11116,17 @@ msgstr "កំពុងសាកល្បង…"
 msgid "Text"
 msgstr "អត្ថបទ"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Text alignment"
+msgstr "ការតម្រឹមអត្ថបទ"
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Text Color"
 msgstr "ពណ៌​អត្ថបទ"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Text colour"
+msgstr "ពណ៌អត្ថបទ"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Text comes out in the order a person reads it, at a size and spacing that survive."
@@ -10977,6 +11159,10 @@ msgstr "អត្ថបទស្ថិតនៅតំបន់ក្បាលទ
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Text size"
 msgstr "ទំហំអត្ថបទ"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Text style"
+msgstr "រចនាប័ទ្មអត្ថបទ"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Text this close to the edge can be cut off. Use at least {minimum} pt."
@@ -11697,7 +11883,7 @@ msgstr "ការបកប្រែ"
 #: src/features/documents/trash-page.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "Trash"
-msgstr "ធុងសំរាមកែច្នៃ"
+msgstr "ធុងសំរាម"
 
 #: src/features/documents/trash-page.tsx
 msgid "Trash is empty"
@@ -11727,6 +11913,7 @@ msgstr "សាកល្បងគំរូមួយ។"
 #: src/features/career/workspace/shell.tsx
 #: src/features/documents/library-error.tsx
 #: src/features/resume/editor/write/improve.tsx
+#: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx
@@ -11876,6 +12063,10 @@ msgstr "រចនាប័ទ្ម​អក្សរ"
 msgid "Ukrainian"
 msgstr "Ukrainian"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Underline"
+msgstr "គូសបន្ទាត់ពីក្រោម"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Underline links"
 msgstr "គូសបន្ទាត់ក្រោមតំណ"
@@ -11891,6 +12082,7 @@ msgstr "គូសបន្ទាត់ក្រោមតំណ"
 #: src/features/resume/editor/design/fit.ts
 #: src/features/resume/editor/design/template-group.tsx
 #: src/features/resume/editor/proposals/proposals.ts
+#: src/features/resume/editor/webmcp.ts
 #: src/features/resume/editor/write/entry-card.tsx
 #: src/features/resume/editor/write/section-row.tsx
 #: src/features/settings/ai/api-keys.tsx
@@ -11929,6 +12121,7 @@ msgstr "កំពុង​ផ្ដាច់​គណនី {providerName} រ�
 #. Primary action button label to unlock a password-protected resume
 #: src/features/auth/pages/resume-password.tsx
 #: src/features/documents/document-actions.tsx
+#: src/features/documents/documents-page.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Unlock"
 msgstr "ដោះ​សោ"
@@ -12001,6 +12194,10 @@ msgstr "បានធ្វើបច្ចុប្បន្នភាព"
 #: src/features/applications/components/list-view.tsx
 msgid "Updated {0}"
 msgstr "បានធ្វើបច្ចុប្បន្នភាព {0}"
+
+#: src/features/documents/document-actions.tsx
+msgid "Updated {done} of {total}. Locked documents, and letters for public links, were skipped."
+msgstr "បានធ្វើបច្ចុប្បន្នភាព {done} ក្នុងចំណោម {total}។ ឯកសារដែលបានចាក់សោ និងលិខិតអមសម្រាប់តំណសាធារណៈ ត្រូវបានរំលង។"
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Updating your password..."
@@ -12669,11 +12866,6 @@ msgstr "ក្នុងរយៈពេលមួយត្រីមាស អត�
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "បើគ្មានទេ អ្នកបំពេញអ្នកទទួលដោយខ្លួនឯង ហើយការព្រាងប្រើតែប្រវត្តិរូបសង្ខេបរបស់អ្នក។"
 
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
-
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."
 msgstr "ពាក្យរត់បញ្ចូលគ្នានៅពេលអត្ថបទត្រូវបានស្រង់ចេញ។"
@@ -12892,6 +13084,10 @@ msgstr "អ្នកគ្មានអ៊ីនធឺណិតទេ។ ភ្�
 msgid "You're up to date"
 msgstr "អ្នកបានតាមទាន់គ្រប់យ៉ាងហើយ"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "អ្នកកំពុងប្រើគណនីភ្ញៀវ"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -12948,6 +13144,14 @@ msgstr "កម្មវិធីរុករករបស់អ្នកមិន
 #: src/features/career/workspace/practise.tsx
 msgid "Your browser turns your speech into text. Depending on the browser, its maker may process the audio (Google in Chrome, Apple in Safari)."
 msgstr "កម្មវិធីរុករករបស់អ្នកបំលែងការនិយាយរបស់អ្នកទៅជាអត្ថបទ។ អាស្រ័យលើកម្មវិធីរុករក អ្នកផលិតវាអាចដំណើរការសំឡេង (Google ក្នុង Chrome, Apple ក្នុង Safari)។"
+
+#: src/features/letters/webmcp.ts
+msgid "Your browser's AI agent edited this letter."
+msgstr "ភ្នាក់ងារ AI នៃកម្មវិធីរុករករបស់អ្នកបានកែសម្រួលលិខិតនេះ។"
+
+#: src/features/resume/editor/webmcp.ts
+msgid "Your browser's AI agent edited this resume."
+msgstr "ភ្នាក់ងារ AI នៃកម្មវិធីរុករករបស់អ្នកបានកែសម្រួលប្រវត្តិរូបសង្ខេបនេះ។"
 
 #: src/features/career/workspace/practise.tsx
 msgid "Your browser's dictation stopped. Try again, or type your answer."
@@ -13131,6 +13335,10 @@ msgstr "ប្រវត្តិរូបសង្ខេបរបស់អ្ន
 msgid "Your resume, live at"
 msgstr "ប្រវត្តិរូបសង្ខេបរបស់អ្នក, រស់នៅ"
 
+#: src/libs/error-message.ts
+msgid "Your selected font can't display some characters. They show as “?”. In Design, choose a font that has them."
+msgstr "ពុម្ពអក្សរដែលអ្នកបានជ្រើសរើសមិនអាចបង្ហាញតួអក្សរមួយចំនួនបានទេ។ ពួកវាបង្ហាញជា “?”។ នៅក្នុង រចនា សូមជ្រើសរើសពុម្ពអក្សរដែលមានតួអក្សរទាំងនោះ។"
+
 #: src/features/career/coach.tsx
 msgid "your stories"
 msgstr "រឿងរបស់អ្នក"
@@ -13146,6 +13354,10 @@ msgstr "វេនរបស់អ្នក។"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "ការណែនាំខ្លួនរយៈពេលពីរនាទីរបស់អ្នក"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "ការងាររបស់អ្នកនឹងបាត់បង់ នៅពេលអ្នកចាកចេញ ឬវគ្គបញ្ចប់។ បង្កើតគណនី ឬចូល ដើម្បីរក្សាប្រវត្តិរូបសង្ខេប លិខិតអម និងពាក្យសុំរបស់អ្នក។"
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

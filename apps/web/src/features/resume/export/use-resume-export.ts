@@ -4,6 +4,7 @@ import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import { t } from "@lingui/core/macro";
 import { useCallback, useState } from "react";
 import { buildDocx } from "@reactive-resume/docx";
+import { buildOdt } from "@reactive-resume/odt";
 import { getResumeSectionTitle } from "@reactive-resume/pdf/section-title";
 import { getResumeExportData } from "@reactive-resume/resume/export-sections";
 import { buildMarkdown } from "@reactive-resume/resume/markdown";
@@ -11,14 +12,14 @@ import { toast } from "@reactive-resume/ui/components/toast";
 import { downloadWithAnchor } from "@reactive-resume/utils/file";
 import { createResumePdfBlob } from "./pdf-document";
 import { resolvePublicResumePdfBlob } from "@/features/resume/public/public-pdf";
-import { getReadableErrorMessage } from "@/libs/error-message";
+import { getLostCharactersMessage, getReadableErrorMessage } from "@/libs/error-message";
 import { client } from "@/libs/orpc/client";
 import { createSectionTitleResolverForLocale } from "@/libs/resume/section-title-locale";
 
 /**
  * Section titles are stored empty by default and resolved (locale-aware) at render time. PDF does
- * this via an injected resolver; DOCX and Markdown reuse the same resolution here so their section
- * headings aren't blank. Returns a `(sectionId) => title` function.
+ * this via an injected resolver; DOCX, ODT and Markdown reuse the same resolution here so their
+ * section headings aren't blank. Returns a `(sectionId) => title` function.
  */
 const createSectionTitleResolver = async (data: ResumeData) => {
 	const resolveSectionTitle = await createSectionTitleResolverForLocale(data.metadata.page.locale);
@@ -42,7 +43,7 @@ type DownloadPdfOptions = {
 	includeCoverLetterHeader?: boolean;
 };
 
-export type ExportFormat = "pdf" | "docx" | "md" | "json";
+export type ExportFormat = "pdf" | "docx" | "odt" | "md" | "json";
 
 // Characters Windows and macOS won't take in a file name.
 const UNSAFE_FILE_NAME_CHARACTERS = /[\\/:*?"<>|]/g;
@@ -62,6 +63,10 @@ export function getDefaultFileName(resume: ExportableResume, target: ResumeExpor
 	return [...words(resume.name || resume.slug), ...(target === "cover-letter" ? suffix : [])].join("-") || "Resume";
 }
 
+// The file still downloads, with "?" for each character no font can draw.
+const warnLostCharacters = (characters: string[]) =>
+	toast.add({ type: "warning", id: "pdf-lost-characters", description: getLostCharactersMessage(characters) });
+
 /** Builds one export file. It throws when the file can't be made, so each caller decides how to say so. */
 export async function createExportFile(
 	resume: ExportableResume,
@@ -75,11 +80,14 @@ export async function createExportFile(
 
 	const data = getResumeExportData(resume.data, target);
 	if (format === "pdf") {
-		return createResumePdfBlob(data, undefined, target === "cover-letter" ? options : undefined);
+		return createResumePdfBlob(data, undefined, target === "cover-letter" ? options : undefined, {
+			onLostCharacters: warnLostCharacters,
+		});
 	}
 
 	const resolveTitle = await createSectionTitleResolver(data);
 	if (format === "md") return new Blob([buildMarkdown(data, resolveTitle)], { type: "text/markdown" });
+	if (format === "odt") return buildOdt(data, resolveTitle);
 	return buildDocx(data, resolveTitle);
 }
 
@@ -174,7 +182,7 @@ export function useResumeExport(resume: ExportableResume | undefined, exportOpti
 		const makeBlob = () =>
 			exportOptions.publicResumePdf
 				? resolvePublicResumePdfBlob({ data: resume.data, ...exportOptions.publicResumePdf })
-				: createResumePdfBlob(resume.data);
+				: createResumePdfBlob(resume.data, undefined, undefined, { onLostCharacters: warnLostCharacters });
 		try {
 			printPdf(await makeBlob());
 		} catch (error) {

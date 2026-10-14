@@ -1,9 +1,11 @@
 import type { PdfFontRequest } from "./use-register-fonts";
 import type { ResumeData, Typography } from "@reactive-resume/schema/resume/data";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { getWebFontSource } from "@reactive-resume/fonts";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { resolvePdfFonts, resumeContentScripts } from "./use-register-fonts";
+import { resolvePdfFonts, resumeContentScripts, resumeUsesItalic } from "./use-register-fonts";
 
 const typography = {
 	body: {
@@ -63,6 +65,9 @@ describe("resolvePdfFonts", () => {
 				src: cjkFallbackSource,
 			}),
 		);
+		// Each Noto CJK face is ~15 MB: the 500 body and 600 heading draw with the nearest face (#3593).
+		const cjkWeights = new Set(registered.filter((font) => font.family === "Noto Serif SC").map((font) => font.weight));
+		expect([...cjkWeights].sort()).toEqual([400, 700]);
 	});
 
 	it("registers the family's true Bold face when the stored weights stop below it (#3310)", () => {
@@ -100,6 +105,36 @@ describe("resolvePdfFonts", () => {
 		);
 		// Emoji is not CJK: no Simplified-Chinese safety net, no per-character breaking.
 		expect(registered).not.toContainEqual(expect.objectContaining({ family: "Noto Serif SC" }));
+	});
+
+	it("registers the Noto Sans Symbols fallback for arrows without downloading Symbols 2", () => {
+		const { registered, registerFonts } = withRegistry();
+		const pdfTypography = registerFonts(typography, "en-US", false, new Set(["arrows"]));
+		expect(pdfTypography.body.fontFamily).toEqual(["IBM Plex Serif", "Noto Sans Symbols", "Noto Serif"]);
+		expect(registered).toContainEqual({
+			family: "Noto Sans Symbols",
+			weight: 400,
+			italic: false,
+			src: getWebFontSource("Noto Sans Symbols", "400", false),
+		});
+		expect(registered).not.toContainEqual(expect.objectContaining({ family: "Noto Sans Symbols 2" }));
+	});
+
+	it("registers the Noto Sans Symbols 2 fallback for text symbols like stars", () => {
+		const symbolsSource = getWebFontSource("Noto Sans Symbols 2", "400", false);
+		const { registered, registerFonts } = withRegistry();
+
+		const pdfTypography = registerFonts(typography, "en-US", false, new Set(["symbols"]));
+
+		expect(pdfTypography.body.fontFamily).toEqual(["IBM Plex Serif", "Noto Sans Symbols 2", "Noto Serif"]);
+		expect(registered).toContainEqual(
+			expect.objectContaining({
+				family: "Noto Sans Symbols 2",
+				weight: 400,
+				italic: false,
+				src: symbolsSource,
+			}),
+		);
 	});
 
 	it("registers the fallback family's true Bold face when primary bold exceeds stored weights (#3310)", () => {
@@ -181,6 +216,20 @@ describe("resumeContentScripts", () => {
 		expect(scripts.size).toBe(1);
 	});
 
+	it("detects text-symbol arrows for the dedicated arrows fallback (#3608)", () => {
+		// U+2192 (→) needs Noto Sans Symbols; Symbols 2 does not contain it.
+		const scripts = resumeContentScripts(withSummary("Hours → Minutes"));
+		expect(scripts.has("arrows")).toBe(true);
+		// The arrow is a text symbol, not emoji or any other script.
+		expect(scripts.size).toBe(1);
+		// U+21E6 (⇦) is outside Noto Sans Symbols, so it stays on Symbols 2.
+		expect(resumeContentScripts(withSummary("⇦"))).toEqual(new Set(["symbols"]));
+	});
+
+	it("keeps pictographic arrows on the emoji fallback without extra text-symbol fonts", () => {
+		expect(resumeContentScripts(withSummary("↔️ ↩️"))).toEqual(new Set(["emoji"]));
+	});
+
 	it("detects multiple scripts in mixed content", () => {
 		const scripts = resumeContentScripts(withSummary("안녕 翠翠 سلام こんにちは پژوهشگر שלום สวัสดี"));
 		expect(scripts.has("hangul")).toBe(true);
@@ -193,5 +242,36 @@ describe("resumeContentScripts", () => {
 
 	it("returns an empty set for Latin-only content", () => {
 		expect(resumeContentScripts(withSummary("Reactive Resume")).size).toBe(0);
+	});
+});
+
+describe("italic faces", () => {
+	const withSummary = (html: string, stylesheet?: string) => {
+		const data = structuredClone(defaultResumeData);
+		data.summary.content = html;
+		if (stylesheet) data.metadata.stylesheet = { mode: "semantic", source: { languageVersion: 1, text: stylesheet } };
+		return data;
+	};
+
+	// Without them, italic text has no face: CJK italics print as "?" (#3593 follow-up).
+	it.each([
+		["plain text", withSummary("<p>Plain</p>"), false],
+		["rich-text emphasis", withSummary("<p>An <em>emphasised</em> word</p>"), true],
+		["a stylesheet", withSummary("<p>Plain</p>", "summary { font-style: italic; }"), true],
+	])("are registered only when the resume uses italics: %s", (_, data, italic) => {
+		expect(resumeUsesItalic(data)).toBe(italic);
+		const fonts = resolvePdfFonts(typography, "en-US", false, undefined, resumeUsesItalic(data)).fonts;
+		expect(fonts.some((font) => font.italic)).toBe(italic);
+	});
+
+	it("are never asked for by a template's own styles", () => {
+		const templates = new URL("../templates", import.meta.url).pathname;
+		const sources = readdirSync(templates, { recursive: true, encoding: "utf8" }).filter(
+			(file) => /\.tsx?$/.test(file) && !/\.test\./.test(file),
+		);
+		const italic = sources.filter((file) =>
+			/fontStyle:\s*["']italic["']/.test(readFileSync(join(templates, file), "utf8")),
+		);
+		expect(italic).toEqual([]);
 	});
 });

@@ -7,6 +7,7 @@
 		"./brand": "./src/brand.ts",
 		"./color": "./src/color.ts",
 		"./file": "./src/file.ts",
+		"./link": "./src/link.ts",
 		"./locale": "./src/locale.ts",
 		"./monorepo.node": "./src/monorepo.node.ts",
 		"./rate-limit": "./src/rate-limit.ts",
@@ -27,7 +28,7 @@
 		"@uiw/color-convert": "catalog:",
 		"cn": "^0.4.0",
 		"unique-names-generator": "^4.7.1",
-		"uuid": "^14.0.2",
+		"uuid": "^14.0.3",
 		"zod": "catalog:"
 	},
 	"devDependencies": {

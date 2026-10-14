@@ -118,6 +118,11 @@ msgstr "{0, plural, one {Η επαφή # έχει μη έγκυρο email ή δ�
 msgid "{0, plural, one {# day} other {# days}}"
 msgstr "{0, plural, one {# ημέρα} other {# ημέρες}}"
 
+#. placeholder {0}: done.length
+#: src/features/documents/document-actions.tsx
+msgid "{0, plural, one {# document moved to Trash} other {# documents moved to Trash}}"
+msgstr "{0, plural, one {# έγγραφο μετακινήθηκε στον Κάδο απορριμμάτων} other {# έγγραφα μετακινήθηκαν στον Κάδο απορριμμάτων}}"
+
 #. placeholder {0}: output.skipped.length
 #: src/features/assistant/conversation.tsx
 msgid "{0, plural, one {# edit couldn't be placed: its text changed. Ask again to redo it.} other {# edits couldn't be placed: their text changed. Ask again to redo them.}}"
@@ -222,6 +227,11 @@ msgstr "{0, plural, one {Ξεκίνησε πριν από # λεπτό} other {�
 #: src/features/career/knowledge/facts.tsx
 msgid "{0, plural, one {used in # saved item} other {used in # saved items}}"
 msgstr "{0, plural, one {χρησιμοποιείται σε # αποθηκευμένο στοιχείο} other {χρησιμοποιείται σε # αποθηκευμένα στοιχεία}}"
+
+#. placeholder {0}: characters.length
+#: src/libs/error-message.ts
+msgid "{0, plural, one {Your selected font can't display {list}. It shows as “?”. In Design, choose a font that has it.} other {Your selected font can't display {list}. They show as “?”. In Design, choose a font that has them.}}"
+msgstr "{0, plural, one {Η γραμματοσειρά που επιλέξατε δεν μπορεί να εμφανίσει τον χαρακτήρα {list}. Εμφανίζεται ως “?”. Στην καρτέλα Σχεδιασμός, επιλέξτε μια γραμματοσειρά που τον περιέχει.} other {Η γραμματοσειρά που επιλέξατε δεν μπορεί να εμφανίσει τους χαρακτήρες {list}. Εμφανίζονται ως “?”. Στην καρτέλα Σχεδιασμός, επιλέξτε μια γραμματοσειρά που τους περιέχει.}}"
 
 #. placeholder {0}: when(runAt)
 #: src/features/career/workspace/prepare.tsx
@@ -447,6 +457,10 @@ msgstr "{count, plural, one {Εισαγωγή #} other {Εγγραφές #}}"
 msgid "{count, plural, one {Apply # change} other {Apply # changes}}"
 msgstr "{count, plural, one {Εφαρμογή # αλλαγής} other {Εφαρμογή # αλλαγών}}"
 
+#: src/features/documents/documents-page.tsx
+msgid "{count} selected"
+msgstr "{count} επιλεγμένα"
+
 #: src/features/career/offers.tsx
 msgid "{days, plural, one {# office day a week} other {# office days a week}}"
 msgstr "{days, plural, one {# ημέρα γραφείου την εβδομάδα} other {# ημέρες γραφείου την εβδομάδα}}"
@@ -466,6 +480,10 @@ msgstr "{days, plural, one {# ημέρα γραφείου, στο όριό σα�
 #: src/features/settings/account/data.tsx
 msgid "{documents, plural, one {# document} other {# documents}}"
 msgstr "{documents, plural, one {Έγγραφο #} other {έγγραφα #}}"
+
+#: src/features/documents/document-actions.tsx
+msgid "{done, plural, one {# document updated} other {# documents updated}}"
+msgstr "{done, plural, one {# έγγραφο ενημερώθηκε} other {# έγγραφα ενημερώθηκαν}}"
 
 #. placeholder {0}: items.length
 #: src/features/career/workspace/apply.tsx
@@ -1501,6 +1519,18 @@ msgstr "Αλβανικά"
 msgid "Alex Morgan"
 msgstr "Alex Morgan"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Align centre"
+msgstr "Στοίχιση στο κέντρο"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Align left"
+msgstr "Στοίχιση αριστερά"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Align right"
+msgstr "Στοίχιση δεξιά"
+
 #: src/features/career/knowledge/facts.tsx
 #: src/features/career/workspace/saved.tsx
 #: src/features/documents/documents-page.tsx
@@ -1829,7 +1859,7 @@ msgstr "Εφαρμόστηκε. Η επανεπικοινωνία ορίστηκ
 msgid "Applied. The application is updated."
 msgstr "Εφαρμόστηκε. Η αίτηση ενημερώθηκε."
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Apply"
 msgstr "Αίτηση"
@@ -2146,6 +2176,10 @@ msgstr "Το καλύτερο για αίτηση"
 #: src/features/ats-checker/messages.ts
 msgid "Blocker"
 msgstr "Εμπόδιο"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Blue"
+msgstr "Μπλε"
 
 #: src/routes/dashboard/applications/index.tsx
 msgid "Board"
@@ -2585,6 +2619,7 @@ msgid "Clear section"
 msgstr "Καθαρίστε το τμήμα"
 
 #: src/components/ui/combobox.tsx
+#: src/features/documents/documents-page.tsx
 msgid "Clear selection"
 msgstr "Εκκαθάριση επιλογής"
 
@@ -2648,6 +2683,10 @@ msgstr "Κλειστό"
 #: src/routes/dashboard/career/route.tsx
 msgid "Coach"
 msgstr "Σύμβουλος"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Code"
+msgstr "Κώδικας"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 #: src/routes/builder/letter/-components/design-panel.tsx
@@ -2890,6 +2929,10 @@ msgstr "Το περιεχόμενο είναι διατεταγμένο σε π�
 msgid "Continue"
 msgstr "Συνέχεια"
 
+#: src/features/auth/pages/login.tsx
+msgid "Continue as guest"
+msgstr "Συνέχεια ως επισκέπτης"
+
 #: src/features/homepage/sections.tsx
 msgid "Contribute code"
 msgstr "Συνεισφέρετε κώδικα"
@@ -2981,6 +3024,10 @@ msgstr "Αντιγράψτε το τώρα. Για την ασφάλειά σα�
 #: src/features/resume/public/public-resume.tsx
 msgid "Copy link"
 msgstr "Αντιγραφή συνδέσμου"
+
+#: src/features/documents/document-actions.tsx
+msgid "Copy public link"
+msgstr "Αντιγραφή δημόσιου συνδέσμου"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -3113,6 +3160,10 @@ msgstr "Δεν ήταν δυνατή η αλλαγή αυτού του προγ�
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "Δεν ήταν δυνατή η σύνδεση. Ελέγξτε το κλειδί και δοκιμάστε ξανά."
+
+#: src/features/auth/pages/login.tsx
+msgid "Couldn't continue as a guest. Please try again."
+msgstr "Δεν ήταν δυνατή η συνέχεια ως επισκέπτης. Δοκιμάστε ξανά."
 
 #: src/features/career/offers.tsx
 msgid "Couldn't copy the questions. Select the text and copy it manually."
@@ -3508,6 +3559,10 @@ msgstr "Δημιουργία νέου βιογραφικού σημειώματ�
 msgid "Create a resume first, then ask about it."
 msgstr "Δημιουργήστε πρώτα ένα βιογραφικό και μετά ρωτήστε το."
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create account"
+msgstr "Δημιουργία λογαριασμού"
+
 #: src/features/auth/pages/consent.tsx
 msgid "Create and change your documents and job applications."
 msgstr "Δημιουργήστε και αλλάξτε τα έγγραφα και τις αιτήσεις εργασίας σας."
@@ -3677,8 +3732,8 @@ msgstr "Αγαπητή ομάδα Fieldnote,"
 msgid "Dear hiring team,"
 msgstr "Αγαπητή ομάδα προσλήψεων,"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Debrief"
 msgstr "Απολογισμός"
@@ -3687,6 +3742,7 @@ msgstr "Απολογισμός"
 msgid "Deep breath."
 msgstr "Πάρτε μια βαθιά ανάσα."
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Default"
 msgstr "Προεπιλογή"
@@ -3986,7 +4042,7 @@ msgstr "Τεκμηρίωση"
 #: src/features/documents/documents-page.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "Documents"
-msgstr "Εγγραφα"
+msgstr "Έγγραφα"
 
 #: src/features/applications/components/detail/sent-documents.tsx
 #: src/features/career/workspace/shell.tsx
@@ -4840,8 +4896,8 @@ msgstr "Πρώτη εκτέλεση"
 msgid "Fit"
 msgstr "Προσαρμογή"
 
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: how well a job fits your experience"
 msgid "Fit"
@@ -4953,8 +5009,8 @@ msgid "Font Weights"
 msgstr "Βάρη γραμματοσειράς"
 
 #: src/libs/error-message.ts
-msgid "Fonts could not be loaded. Retry the export."
-msgstr "Δεν ήταν δυνατή η φόρτωση των γραμματοσειρών. Δοκιμάστε ξανά την εξαγωγή."
+msgid "Fonts could not be loaded. Try again."
+msgstr "Δεν ήταν δυνατή η φόρτωση των γραμματοσειρών. Δοκιμάστε ξανά."
 
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "For"
@@ -4972,6 +5028,10 @@ msgstr "Για παράδειγμα, σημειώστε σε ποιες εται
 #: src/features/career/workspace/fit.tsx
 msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
 msgstr "Για παράδειγμα: \"{0}: Έκανα … στην … το 2024 και αυτό οδήγησε σε …\""
+
+#: src/features/resume/share/download-tab.tsx
+msgid "For LibreOffice and other open-source editors. Layout is simplified."
+msgstr "Για το LibreOffice και άλλους επεξεργαστές ανοιχτού κώδικα. Η διάταξη είναι απλοποιημένη."
 
 #: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
@@ -5203,9 +5263,17 @@ msgstr "Βαθμός"
 msgid "Greek"
 msgstr "Ελληνικά"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Green"
+msgstr "Πράσινο"
+
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Greeting"
 msgstr "Προσφώνηση"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Grey"
+msgstr "Γκρι"
 
 #: src/features/documents/documents-page.tsx
 msgid "Grid"
@@ -5232,6 +5300,18 @@ msgstr "Επί κεφαλής"
 msgctxt "Headings or Titles (H1, H2, H3, H4, H5, H6)"
 msgid "Heading"
 msgstr "Επικεφαλίδα"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Heading 1"
+msgstr "Επικεφαλίδα 1"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Heading 2"
+msgstr "Επικεφαλίδα 2"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Heading 3"
+msgstr "Επικεφαλίδα 3"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Heading changed"
@@ -5279,6 +5359,10 @@ msgstr "Κρυφό"
 #: src/features/career/today.tsx
 msgid "Hidden from New roles"
 msgstr "Κρυφό από τις Νέες θέσεις"
+
+#: src/features/resume/editor/write/outline.tsx
+msgid "Hidden sections"
+msgstr "Κρυφές ενότητες"
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Hidden sections keep their content but aren't printed or shared. Fields save as you type."
@@ -5334,6 +5418,10 @@ msgstr "Απόκρυψη της φωτογραφίας"
 msgid "High"
 msgstr "Ψηλά"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Highlight"
+msgstr "Επισήμανση"
+
 #: src/libs/locale.ts
 msgid "Hindi"
 msgstr "Χίντι"
@@ -5357,6 +5445,10 @@ msgstr "Ιστορία"
 #: src/features/command-palette/pages/navigation.tsx
 msgid "Home"
 msgstr "Αρχική"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Horizontal line"
+msgstr "Οριζόντια γραμμή"
 
 #: src/features/homepage/sections.tsx
 msgid "Hosting and development are paid for by people like you. Optional tip:"
@@ -5564,6 +5656,10 @@ msgstr "Με καλή παρέα"
 #: src/features/ats-checker/messages.ts
 msgid "Increase line spacing so two lines are not merged into one."
 msgstr "Αυξήστε το διάστιχο ώστε δύο γραμμές να μη συγχωνεύονται σε μία."
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Indent"
+msgstr "Αύξηση εσοχής"
 
 #: src/libs/locale.ts
 msgid "Indonesian"
@@ -5856,6 +5952,10 @@ msgstr "john.doe"
 #: src/features/resume/import/read-file.ts
 msgid "JSON read"
 msgstr "JSON διαβάστηκε"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Justify"
+msgstr "Πλήρης στοίχιση"
 
 #: src/libs/locale.ts
 msgid "Kannada"
@@ -6162,12 +6262,16 @@ msgstr "επιστολή"
 
 #: src/features/assistant/document.ts
 #: src/features/documents/document-card.tsx
+#: src/routes/builder/letter/-components/write-panel.tsx
+msgid "Letter"
+msgstr "Επιστολή"
+
 #: src/features/resume/editor/design/style-groups.tsx
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/letter/-components/letter-page.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
+msgctxt "US Letter paper size (8.5 × 11 in), shown beside A4"
 msgid "Letter"
-msgstr "Letter"
+msgstr "US Letter"
 
 #: src/features/career/workspace/shell.tsx
 msgid "Letter · not sent yet"
@@ -6191,7 +6295,7 @@ msgstr "Σελίδα επιστολής"
 
 #: src/features/documents/documents-page.tsx
 msgid "Letters"
-msgstr "Γράμματα"
+msgstr "Επιστολές"
 
 #: src/features/resume/editor/write/entries.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
@@ -6270,6 +6374,7 @@ msgstr "Συνδέστε μια αίτηση εργασίας"
 msgid "Link an application…"
 msgstr "Συνδέστε μια αίτηση εργασίας…"
 
+#: src/features/documents/document-actions.tsx
 #: src/features/resume/public/public-resume.tsx
 #: src/features/resume/share/link-tab.tsx
 msgid "Link copied"
@@ -6453,6 +6558,7 @@ msgid "Locations"
 msgstr "Τοποθεσίες"
 
 #: src/features/documents/document-actions.tsx
+#: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Lock editing"
@@ -6520,6 +6626,14 @@ msgstr "Κάντε το πιο συγκεκριμένο"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "Κάντε το πιο σύντομο"
+
+#: src/features/documents/documents-page.tsx
+msgid "Make private"
+msgstr "Ορισμός ως ιδιωτικό"
+
+#: src/features/documents/documents-page.tsx
+msgid "Make public"
+msgstr "Ορισμός ως δημόσιο"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -6675,7 +6789,7 @@ msgstr "Στείλτε μήνυμα στον βοηθό"
 msgid "Message the coach"
 msgstr "Μήνυμα στον σύμβουλο"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Messages"
 msgstr "Μηνύματα"
@@ -6742,6 +6856,10 @@ msgstr "Περισσότερες μορφές λήψης"
 #: src/features/career/coach.tsx
 msgid "More for {title}"
 msgstr "Περισσότερα για {title}"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "More formatting"
+msgstr "Περισσότερη μορφοποίηση"
 
 #: src/features/resume/editor/write/fields.tsx
 msgid "More options"
@@ -6839,6 +6957,7 @@ msgid "Move to Interview"
 msgstr "Μετακίνηση στη Συνέντευξη"
 
 #: src/features/documents/document-actions.tsx
+#: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Move to Trash"
@@ -6857,6 +6976,12 @@ msgstr "Μετακινηθείτε προς τα πάνω"
 #: src/features/ats-checker/messages.ts
 msgid "Move your email and phone number to the top of page one."
 msgstr "Μετακινήστε το email και τον αριθμό τηλεφώνου σας στην κορυφή της πρώτης σελίδας."
+
+#. placeholder {0}: done.length
+#. placeholder {1}: documents.length
+#: src/features/documents/document-actions.tsx
+msgid "Moved {0} of {1} to Trash. Locked documents were skipped."
+msgstr "Μετακινήθηκαν {0} από {1} στον Κάδο απορριμμάτων. Τα κλειδωμένα έγγραφα παραλείφθηκαν."
 
 #. placeholder {0}: getStageLabel(entry.stage)
 #. placeholder {0}: getStageLabel(status)
@@ -7796,6 +7921,10 @@ msgstr "Ή με δικά σας λόγια…"
 msgid "Or upload a resume PDF"
 msgstr "Ή ανεβάστε ένα PDF βιογραφικού"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Orange"
+msgstr "Πορτοκαλί"
+
 #: src/features/resume/editor/write/entries.tsx
 msgid "Organization"
 msgstr "Οργανισμός"
@@ -7832,6 +7961,10 @@ msgstr "από 100"
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Out of date: the text has changed since."
 msgstr "Μη ενημερωμένο: το κείμενο έχει αλλάξει από τότε."
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Outdent"
+msgstr "Μείωση εσοχής"
 
 #: src/features/homepage/prepare.tsx
 msgid "Own and evolve a design system"
@@ -7885,6 +8018,10 @@ msgstr "σελίδα."
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Paper"
 msgstr "Χαρτί"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Paragraph"
+msgstr "Παράγραφος"
 
 #: src/features/assistant/document.ts
 #: src/features/resume/editor/check/writing-tab.tsx
@@ -8227,8 +8364,8 @@ msgid "Practice questions are simulated, not from Fieldnote."
 msgstr "Οι ερωτήσεις εξάσκησης είναι προσομοιωμένες και δεν προέρχονται από τη Fieldnote."
 
 #: src/features/career/knowledge/stories.tsx
+#: src/features/career/shared.tsx
 #: src/features/career/workspace/prepare.tsx
-#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Practise"
 msgstr "Εξάσκηση"
@@ -8271,7 +8408,7 @@ msgid "Preferences"
 msgstr "Προτιμήσεις"
 
 #: src/features/career/schedule-sheet.tsx
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Prepare"
@@ -8456,6 +8593,8 @@ msgstr "Παρέχεται από τον διακομιστή σας: {connected
 msgid "Provider"
 msgstr "Πάροχος"
 
+#: src/features/documents/document-card.tsx
+#: src/features/documents/documents-page.tsx
 #: src/features/homepage/share.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
@@ -8482,6 +8621,10 @@ msgstr "Δημοσιεύσεις"
 #: src/features/resume/editor/write/entries.tsx
 msgid "Publisher"
 msgstr "Εκδότης"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Purple"
+msgstr "Μωβ"
 
 #: src/features/ats-checker/messages.ts
 msgid "Put a plain email address near the top of the first page. It is what most systems file you under."
@@ -8815,6 +8958,10 @@ msgstr "Ορθογώνιο"
 #: src/components/level/combobox.tsx
 msgid "Rectangle (Full Width)"
 msgstr "Ορθογώνιο (πλήρους πλάτους)"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Red"
+msgstr "Κόκκινο"
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Redo resume change"
@@ -9530,7 +9677,7 @@ msgstr "σώθηκε"
 msgid "Saved"
 msgstr "Αποθηκεύτηκε"
 
-#: src/features/career/workspace/shell.tsx
+#: src/features/career/shared.tsx
 #: src/features/homepage/prepare.tsx
 msgctxt "Application workspace tab: earlier results kept for this job"
 msgid "Saved"
@@ -9792,14 +9939,24 @@ msgid "See below"
 msgstr "Δείτε παρακάτω"
 
 #: src/features/applications/components/list-view.tsx
+#: src/features/documents/document-actions.tsx
 msgid "Select"
-msgstr "Επιλέγω"
+msgstr "Επιλογή"
+
+#. placeholder {0}: document.name
+#: src/features/documents/document-card.tsx
+msgid "Select {0}"
+msgstr "Επιλογή {0}"
 
 #. placeholder {0}: application.role
 #. placeholder {1}: application.company
 #: src/features/applications/components/list-view.tsx
 msgid "Select {0} at {1}"
 msgstr "Επιλέξτε {0} στο {1}"
+
+#: src/features/documents/documents-page.tsx
+msgid "Select all"
+msgstr "Επιλογή όλων"
 
 #: src/features/settings/integrations/components/ai-provider-picker.tsx
 msgid "Select an AI provider"
@@ -9808,6 +9965,10 @@ msgstr "Επιλέξτε έναν πάροχο τεχνητής νοημοσύν
 #: src/components/ui/combobox.tsx
 msgid "Select..."
 msgstr "Επιλογή..."
+
+#: src/features/documents/documents-page.tsx
+msgid "Selected documents"
+msgstr "Επιλεγμένα έγγραφα"
 
 #: src/features/homepage/footer.tsx
 msgid "Self-hosting"
@@ -9988,6 +10149,7 @@ msgstr "Κοινή χρήση ενοτήτων"
 msgid "Share via…"
 msgstr "Κοινοποίηση μέσω…"
 
+#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
@@ -10096,6 +10258,10 @@ msgstr "Δείξτε τους ξανά"
 msgid "Shown in your timezone."
 msgstr "Εμφανίζεται στη ζώνη ώρας σας."
 
+#: src/features/documents/document-actions.tsx
+msgid "Shows the tags they all share. Tags you add go on every document; tags you remove come off every one. Locked documents are left as they are."
+msgstr "Εμφανίζει τις ετικέτες που έχουν όλα κοινές. Οι ετικέτες που προσθέτετε μπαίνουν σε κάθε έγγραφο· όσες αφαιρείτε αφαιρούνται από όλα. Τα κλειδωμένα έγγραφα μένουν ως έχουν."
+
 #. Layout editor column label for the secondary sidebar area
 #: src/features/homepage/sheet.tsx
 #: src/features/resume/editor/design/template-group.tsx
@@ -10121,6 +10287,7 @@ msgid "Sidebars are often read last, or mixed into the main column."
 msgstr "Οι πλευρικές γραμμές συχνά διαβάζονται τελευταίες ή αναμιγνύονται στην κύρια στήλη."
 
 #. Primary action button label on login form
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Sign in"
 msgstr "Σύνδεση"
@@ -10195,8 +10362,8 @@ msgid "Single-column ruled form inspired by the Japanese rirekisho: a bordered h
 msgstr "Μια μονόστηλη φόρμα εμπνευσμένη από το ιαπωνικό βιογραφικό rirekisho: μια κεφαλίδα από πεδία με περίγραμμα και κάθε τμήμα παρουσιάζεται ως πίνακας με μια σταθερή γραμμή τίτλου. Συμπαγές και εύκολο στη σάρωση, κατάλληλο για εργασίες μηχανικής, εργασίες λειτουργίας ή αιτήσεις εργασίας στην Ιαπωνία."
 
 #: src/dialogs/resume/template/data.ts
-msgid "Single-column set like a magazine feature: a large display name under an uppercase kicker, the summary as an italic standfirst and italic section headings; refined for writers, designers, and communications roles."
-msgstr "Μια διάταξη μονής στήλης εμπνευσμένη από ένα άρθρο περιοδικού: το όνομά σας σε μεγάλους τύπους κάτω από μια σύντομη επικεφαλίδα με κεφαλαία, μια περίληψη με πλάγιους χαρακτήρες και τις επικεφαλίδες των ενοτήτων με πλάγιους χαρακτήρες. Ένα εκλεπτυσμένο σχέδιο για συγγραφείς, σχεδιαστές και επαγγελματίες της επικοινωνίας."
+msgid "Single-column set like a magazine feature: a large display name under an uppercase kicker and the summary as a larger standfirst; refined for writers, designers, and communications roles."
+msgstr "Μονόστηλη σελιδοποίηση σαν άρθρο περιοδικού: μεγάλο όνομα σε γραμματοσειρά τίτλων κάτω από έναν επίτιτλο με κεφαλαία και η περίληψη ως μεγαλύτερο εισαγωγικό κείμενο· εκλεπτυσμένο για συγγραφείς, σχεδιαστές και ρόλους επικοινωνίας."
 
 #: src/dialogs/resume/template/data.ts
 msgid "Single-column with a magenta left border accent; compact and efficient for entry-level or internship applications."
@@ -10320,10 +10487,6 @@ msgstr "Ορισμένα στοιχεία της θέσης δεν ήταν δυ
 msgid "Some lines are stored out of reading order."
 msgstr "Ορισμένες γραμμές είναι αποθηκευμένες εκτός σειράς ανάγνωσης."
 
-#: src/libs/error-message.ts
-msgid "Some PDF text could not be rendered. Choose a font containing these characters, then retry the export."
-msgstr "Δεν ήταν δυνατή η απόδοση ορισμένου κειμένου PDF. Επιλέξτε μια γραμματοσειρά που περιέχει αυτούς τους χαρακτήρες και, στη συνέχεια, δοκιμάστε ξανά την εξαγωγή."
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Some systems mishandle images, and photos are discouraged in some countries."
 msgstr "Ορισμένα συστήματα χειρίζονται εσφαλμένα τις εικόνες και οι φωτογραφίες αποθαρρύνονται σε ορισμένες χώρες."
@@ -10341,6 +10504,7 @@ msgid "Some text is rotated."
 msgstr "Ορισμένο κείμενο είναι περιστραμμένο."
 
 #: src/components/layout/error-screen.tsx
+#: src/features/resume/preview/preview.browser.tsx
 msgid "Something went wrong"
 msgstr "Κάτι πήγε στραβά"
 
@@ -10655,6 +10819,10 @@ msgstr "Η ιστορία δεν βρέθηκε"
 msgid "Strengthen"
 msgstr "Προς ενίσχυση"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Strikethrough"
+msgstr "Διακριτή διαγραφή"
+
 #: src/features/resume/editor/write/improve.tsx
 msgid "Stronger verb"
 msgstr "Ισχυρότερο ρήμα"
@@ -10805,12 +10973,18 @@ msgstr "Ετικέτα"
 #: src/features/applications/components/import-applications-sheet.tsx
 #: src/features/career/knowledge/stories.tsx
 #: src/features/documents/document-actions.tsx
+#: src/features/documents/documents-page.tsx
 msgid "Tags"
 msgstr "Ετικέτες"
 
 #: src/dialogs/resume/index.tsx
 msgid "Tags can be used to categorize your resume by keywords."
 msgstr "Οι ετικέτες μπορούν να χρησιμοποιηθούν για να κατηγοριοποιήσετε το βιογραφικό σας σημείωμα με βάση λέξεις-κλειδιά."
+
+#. placeholder {0}: documents.length
+#: src/features/documents/document-actions.tsx
+msgid "Tags for {0} documents"
+msgstr "Ετικέτες για {0} έγγραφα"
 
 #: src/features/ats-checker/messages.ts
 msgid "Tags give software an explicit reading order. Enable them when exporting, if your tool offers it."
@@ -10942,8 +11116,16 @@ msgstr "Δοκιμή…"
 msgid "Text"
 msgstr "Κείμενο"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Text alignment"
+msgstr "Στοίχιση κειμένου"
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Text Color"
+msgstr "Χρώμα κειμένου"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Text colour"
 msgstr "Χρώμα κειμένου"
 
 #: src/features/resume/editor/check/issues.ts
@@ -10977,6 +11159,10 @@ msgstr "Το κείμενο βρίσκεται στην περιοχή κεφα�
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Text size"
 msgstr "Μέγεθος κειμένου"
+
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Text style"
+msgstr "Στυλ κειμένου"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Text this close to the edge can be cut off. Use at least {minimum} pt."
@@ -11697,7 +11883,7 @@ msgstr "Μεταφράσεις"
 #: src/features/documents/trash-page.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "Trash"
-msgstr "Κάδος ανακύκλωσης"
+msgstr "Κάδος απορριμμάτων"
 
 #: src/features/documents/trash-page.tsx
 msgid "Trash is empty"
@@ -11727,6 +11913,7 @@ msgstr "Δοκιμάστε ένα δείγμα"
 #: src/features/career/workspace/shell.tsx
 #: src/features/documents/library-error.tsx
 #: src/features/resume/editor/write/improve.tsx
+#: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx
@@ -11876,6 +12063,10 @@ msgstr "Τυπογραφία"
 msgid "Ukrainian"
 msgstr "Ουκρανικά"
 
+#: src/features/resume/editor/write/rich-text-editor.tsx
+msgid "Underline"
+msgstr "Υπογράμμιση"
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Underline links"
 msgstr "Υπογράμμισε συνδέσμους"
@@ -11891,6 +12082,7 @@ msgstr "Υπογράμμισε συνδέσμους"
 #: src/features/resume/editor/design/fit.ts
 #: src/features/resume/editor/design/template-group.tsx
 #: src/features/resume/editor/proposals/proposals.ts
+#: src/features/resume/editor/webmcp.ts
 #: src/features/resume/editor/write/entry-card.tsx
 #: src/features/resume/editor/write/section-row.tsx
 #: src/features/settings/ai/api-keys.tsx
@@ -11929,6 +12121,7 @@ msgstr "Κατάργηση σύνδεσης του λογαριασμού σας
 #. Primary action button label to unlock a password-protected resume
 #: src/features/auth/pages/resume-password.tsx
 #: src/features/documents/document-actions.tsx
+#: src/features/documents/documents-page.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Unlock"
 msgstr "Ξεκλείδωμα"
@@ -12001,6 +12194,10 @@ msgstr "Ενημερώθηκε"
 #: src/features/applications/components/list-view.tsx
 msgid "Updated {0}"
 msgstr "Ενημερώθηκε το {0}"
+
+#: src/features/documents/document-actions.tsx
+msgid "Updated {done} of {total}. Locked documents, and letters for public links, were skipped."
+msgstr "Ενημερώθηκαν {done} από {total}. Τα κλειδωμένα έγγραφα και, για τους δημόσιους συνδέσμους, οι συνοδευτικές επιστολές παραλείφθηκαν."
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Updating your password..."
@@ -12669,11 +12866,6 @@ msgstr "Μέσα σε ένα τρίμηνο, η ενεργοποίηση πήγ�
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
 msgstr "Χωρίς ένα, συμπληρώνετε μόνοι σας τον παραλήπτη και η σύνταξη χρησιμοποιεί μόνο το βιογραφικό σας."
 
-#: src/features/homepage/share.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Word"
-msgstr "Word"
-
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."
 msgstr "Οι λέξεις ενώνονται όταν εξάγεται το κείμενο."
@@ -12892,6 +13084,10 @@ msgstr "Είστε εκτός σύνδεσης. Επανασυνδεθείτε �
 msgid "You're up to date"
 msgstr "Είστε ενημερωμένοι"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "You're using a guest account"
+msgstr "Χρησιμοποιείτε λογαριασμό επισκέπτη"
+
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "you’ve done,"
@@ -12948,6 +13144,14 @@ msgstr "Το πρόγραμμα περιήγησής σας δεν υποστη�
 #: src/features/career/workspace/practise.tsx
 msgid "Your browser turns your speech into text. Depending on the browser, its maker may process the audio (Google in Chrome, Apple in Safari)."
 msgstr "Το πρόγραμμα περιήγησής σας μετατρέπει την ομιλία σας σε κείμενο. Ανάλογα με το πρόγραμμα περιήγησης, ο κατασκευαστής του μπορεί να επεξεργαστεί τον ήχο (η Google στο Chrome, η Apple στο Safari)."
+
+#: src/features/letters/webmcp.ts
+msgid "Your browser's AI agent edited this letter."
+msgstr "Ο πράκτορας Τεχνητής Νοημοσύνης του προγράμματος περιήγησής σας επεξεργάστηκε αυτή τη συνοδευτική επιστολή."
+
+#: src/features/resume/editor/webmcp.ts
+msgid "Your browser's AI agent edited this resume."
+msgstr "Ο πράκτορας Τεχνητής Νοημοσύνης του προγράμματος περιήγησής σας επεξεργάστηκε αυτό το βιογραφικό."
 
 #: src/features/career/workspace/practise.tsx
 msgid "Your browser's dictation stopped. Try again, or type your answer."
@@ -13131,6 +13335,10 @@ msgstr "Το βιογραφικό σας χρησιμοποιεί τα «εγώ�
 msgid "Your resume, live at"
 msgstr "Το βιογραφικό σας, live στο"
 
+#: src/libs/error-message.ts
+msgid "Your selected font can't display some characters. They show as “?”. In Design, choose a font that has them."
+msgstr "Η γραμματοσειρά που επιλέξατε δεν μπορεί να εμφανίσει ορισμένους χαρακτήρες. Εμφανίζονται ως “?”. Στην καρτέλα Σχεδιασμός, επιλέξτε μια γραμματοσειρά που τους περιέχει."
+
 #: src/features/career/coach.tsx
 msgid "your stories"
 msgstr "οι ιστορίες σας"
@@ -13146,6 +13354,10 @@ msgstr "Σειρά σου"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your two-minute introduction"
 msgstr "Η δίλεπτη παρουσίασή σας"
+
+#: src/features/auth/components/guest-banner.tsx
+msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
+msgstr "Η εργασία σας θα χαθεί όταν αποσυνδεθείτε ή λήξει η συνεδρία. Δημιουργήστε λογαριασμό ή συνδεθείτε για να κρατήσετε τα βιογραφικά, τις συνοδευτικές επιστολές και τις αιτήσεις σας."
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

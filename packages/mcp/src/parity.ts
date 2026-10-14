@@ -1,4 +1,5 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { ToolAnnotations } from "@modelcontextprotocol/sdk/types.js";
 import type { AnyProcedure, InferRouterInitialContext, RouterClient } from "@orpc/server";
 import type { RequestAuthentication } from "@reactive-resume/api/context";
 import { call, ORPCError } from "@orpc/server";
@@ -27,7 +28,6 @@ const PARITY_PROCEDURES = {
 	"resume.update": router.resume.update,
 	"resume.statistics.getDailyById": router.resume.statistics.getDailyById,
 	"resume.statistics.recordDownload": router.resume.statistics.recordDownload,
-	"resume.updates.subscribe": router.resume.updates.subscribe,
 	"coverLetters.listVersions": router.coverLetters.listVersions,
 	"coverLetters.getVersion": router.coverLetters.getVersion,
 	"coverLetters.createVersion": router.coverLetters.createVersion,
@@ -133,7 +133,20 @@ const destructiveWrites = new Set([
 	"career.saveProfile",
 	"career.saveStory",
 	"career.saveSchedule",
+	"career.saveWorkspace",
 	"career.applyReply",
+	"agent.messages.stop",
+]);
+// Changes what a public resume link or uploaded file URL shows, or sends content to the user's AI provider.
+const openWorldPaths = new Set([
+	"resume.update",
+	"resume.restoreVersion",
+	"resume.removePassword",
+	"rest.fileUpload",
+	"coverLetters.draft",
+	"career.saveSchedule",
+	"agent.messages.send",
+	"statistics.github.getStarCount",
 ]);
 
 /** These workflows require browser interaction so secrets and security ceremonies stay with the user. */
@@ -145,6 +158,17 @@ const BROWSER_HANDOFFS = {
 	"auth.createApiKey": "api-keys",
 	"auth.deleteAccount": "account",
 } as const;
+
+const HANDOFF_TITLES: Record<string, string> = {
+	"aiProviders.create": "Add an AI provider in the app",
+	"aiProviders.update": "Edit an AI provider in the app",
+	"webAccess.save": "Set up web search in the app",
+	"resume.getRoot": "Open the dashboard",
+	"auth.createApiKey": "Create an API key in the app",
+	"auth.deleteAccount": "Delete your account in the app",
+	"resume.setPassword": "Set a resume's share password in the app",
+	"resume.verifyPassword": "Open a password-protected resume",
+};
 
 /** Resume share passwords are credentials too: owners set them and visitors enter them in the browser. */
 const RESUME_PASSWORD_HANDOFFS = {
@@ -173,29 +197,31 @@ type HandoffToolMeta = {
 	description: string;
 	inputSchema: z.ZodObject;
 	outputSchema: typeof handoffOutputSchema;
-	annotations: typeof handoffAnnotations;
+	annotations: ToolAnnotations;
+};
+// Directories show annotations.title as the tool's name, so every tool repeats its title there.
+const handoffMeta = (path: string, description: string, inputSchema: z.ZodObject): HandoffToolMeta => {
+	const title = HANDOFF_TITLES[path] ?? `Open ${path} in the app`;
+	return {
+		title,
+		description,
+		inputSchema,
+		outputSchema: handoffOutputSchema,
+		annotations: { title, ...handoffAnnotations },
+	};
 };
 const browserToolMeta: Record<string, HandoffToolMeta> = Object.fromEntries([
 	...Object.keys(BROWSER_HANDOFFS).map((path) => [
 		parityToolName(path),
-		{
-			title: `Open ${path} in the app`,
-			description:
-				"Complete this workflow in the authenticated browser. Provider keys, passwords, passkeys and other account credentials stay out of tool arguments. No change is made by this tool.",
-			inputSchema: z.object({}),
-			outputSchema: handoffOutputSchema,
-			annotations: handoffAnnotations,
-		},
+		handoffMeta(
+			path,
+			"Complete this workflow in the authenticated browser. Provider keys, passwords, passkeys and other account credentials stay out of tool arguments. No change is made by this tool.",
+			z.object({}),
+		),
 	]),
 	...Object.entries(RESUME_PASSWORD_HANDOFFS).map(([path, { description, inputSchema }]) => [
 		parityToolName(path),
-		{
-			title: `Open ${path} in the app`,
-			description,
-			inputSchema,
-			outputSchema: handoffOutputSchema,
-			annotations: handoffAnnotations,
-		},
+		handoffMeta(path, description, inputSchema),
 	]),
 ]);
 const accountToolMeta = {
@@ -206,7 +232,7 @@ const accountToolMeta = {
 		page: z.enum(["profile", "authentication", "api-keys", "preferences", "account"]).default("profile"),
 	}),
 	outputSchema: z.object({ url: z.url(), requiresBrowser: z.literal(true) }),
-	annotations: handoffAnnotations,
+	annotations: { title: "Open account settings", ...handoffAnnotations },
 };
 
 type ParityToolContract = {
@@ -262,9 +288,7 @@ export function parityToolContract(path: string, procedure: AnyProcedure): Parit
 			? accountExportOutputSchema
 			: streamingPaths.has(path)
 				? z.object({ events: z.array(z.string()), truncated: z.boolean() })
-				: path === "resume.updates.subscribe"
-					? toWireObjectSchema(requireZod(router.resume.getById["~orpc"].outputSchema))
-					: toWireObjectSchema(requireZod(definition.outputSchema));
+				: toWireObjectSchema(requireZod(definition.outputSchema));
 	const contract = { inputJson, inputSchema: boundedInput, outputSchema };
 	if (!contracts) {
 		contracts = new Map();
@@ -279,7 +303,7 @@ export const PARITY_TOOL_META: Record<
 	Pick<ReturnType<typeof parityToolContract>, "inputSchema" | "outputSchema"> & {
 		title: string;
 		description: string;
-		annotations: typeof handoffAnnotations;
+		annotations: ToolAnnotations;
 	}
 > = {
 	...Object.fromEntries(
@@ -288,14 +312,16 @@ export const PARITY_TOOL_META: Record<
 			const readOnly =
 				(route.method === "GET" || readOnlyPosts.has(path)) && !["resume.getBySlug", "aiProviders.list"].includes(path);
 			const contract = parityToolContract(path, procedure);
+			const title = route.summary ?? path;
 			return [
 				parityToolName(path),
 				{
-					title: route.summary ?? path,
-					description: `${PARITY_TOOL_DESCRIPTIONS[path] ?? route.description ?? route.summary ?? path}${path === "resume.updates.subscribe" ? " Returns an owned snapshot; poll updatedAt for changes over stateless MCP." : ""}${streamingPaths.has(path) ? " Returns collected stream chunks, at most 500,000 characters; use the thread getter to retrieve persisted assistant replies." : ""}${exportPaths.has(path) ? " Returns an authenticated REST download URL; send the same bearer token or API key to download. Rendering occurs when downloaded." : ""}`,
+					title,
+					description: `${sentence(PARITY_TOOL_DESCRIPTIONS[path] ?? route.description ?? route.summary ?? path)}${path.startsWith("agent.messages.") && streamingPaths.has(path) ? " Returns collected stream chunks, at most 500,000 characters; use the thread getter to retrieve persisted assistant replies." : ""}${exportPaths.has(path) ? " Returns a download link rather than the file. Opening it requires authentication as this account, so it suits API clients; the file is rendered when the link is opened." : ""}${path === "rest.documentExports.resume" ? " For a PDF link the user can open directly, use `download_resume_pdf`." : ""}`,
 					inputSchema: contract.inputSchema,
 					outputSchema: contract.outputSchema,
 					annotations: {
+						title,
 						readOnlyHint: readOnly,
 						destructiveHint:
 							!readOnly &&
@@ -304,10 +330,7 @@ export const PARITY_TOOL_META: Record<
 								/update|delete|purge|remove|restore|password|trash|set/i.test(path)),
 						idempotentHint: readOnly && !/draft|parse|test|search|improve|review/i.test(path),
 						openWorldHint:
-							path === "statistics.github.getStarCount" ||
-							path === "career.saveSchedule" ||
-							path === "agent.messages.send" ||
-							/ai|webAccess|storage|attachments|Exports|importResumeFile/i.test(path),
+							openWorldPaths.has(path) || /ai|webAccess|storage|attachments|Exports|importResumeFile/i.test(path),
 					},
 				},
 			];
@@ -316,6 +339,11 @@ export const PARITY_TOOL_META: Record<
 	...browserToolMeta,
 	open_account_settings: accountToolMeta,
 };
+
+/** Route summaries have no full stop; descriptions append further sentences. */
+function sentence(text: string) {
+	return /[.!?]$/.test(text) ? text : `${text}.`;
+}
 
 function requireZod(schema: unknown): z.ZodType {
 	if (!(schema instanceof z.ZodType)) throw new Error("MCP procedure requires a Zod contract.");
@@ -450,7 +478,7 @@ export function registerParityTools(
 						...(context.signal && { signal: context.signal }),
 					});
 				} else {
-					result = await getClientCall(client, path === "resume.updates.subscribe" ? "resume.getById" : path)(input);
+					result = await getClientCall(client, path)(input);
 				}
 				if (streamingPaths.has(path)) {
 					const events: string[] = [];

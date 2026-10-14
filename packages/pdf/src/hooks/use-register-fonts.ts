@@ -166,10 +166,11 @@ const thaiRegex = /[฀-๿]/;
 // same reason: without it, keycap-only content falls back to a font without
 // the enclosure mark and renders garbled.
 const emojiRegex = /[\u{1F1E6}-\u{1F1FF}]|\u{20E3}|\p{Extended_Pictographic}/u;
-// Geometric Shapes, Miscellaneous Symbols, Dingbats and Miscellaneous Symbols
-// and Arrows: text symbols like ★ (U+2605) that Latin fonts and Noto Emoji lack (#3581).
-// Pictographs in these blocks (☀, ✔, ⭐) are emoji and already resolve to Noto Emoji.
-const symbolsRegex = /(?!\p{Extended_Pictographic})[■-➿⬀-⯿]/u;
+// Basic arrows U+2190–U+2199 need Noto Sans Symbols; Symbols 2 has ★ but no → (#3608).
+const arrowsRegex = /(?!\p{Extended_Pictographic})[←-↙]/u;
+// The rest of the Arrows block, Geometric Shapes, Miscellaneous Symbols, Dingbats and Miscellaneous Symbols
+// and Arrows need Symbols 2 (#3581). Pictographs (☀, ✔, ⭐) use Noto Emoji instead.
+const symbolsRegex = /(?!\p{Extended_Pictographic})[↚-⇿■-➿⬀-⯿]/u;
 
 const scriptDetectors: { script: Script; regex: RegExp }[] = [
 	{ script: "hangul", regex: hangulRegex },
@@ -179,6 +180,7 @@ const scriptDetectors: { script: Script; regex: RegExp }[] = [
 	{ script: "hebrew", regex: hebrewRegex },
 	{ script: "thai", regex: thaiRegex },
 	{ script: "emoji", regex: emojiRegex },
+	{ script: "arrows", regex: arrowsRegex },
 	{ script: "symbols", regex: symbolsRegex },
 ];
 
@@ -213,16 +215,29 @@ export const resumeContentScripts = (data: ResumeData): Set<Script> => {
 	return scripts;
 };
 
+// Rich text italics: <em>, <i> and <cite> (see `text.tsx`).
+const italicTagRegex = /<(?:em|i|cite)[\s>]/i;
+
 /**
- * Resolves the typography for the PDF and lists the font faces it needs: the body and heading weights in normal and
- * italic, each family's true Bold, and one Noto fallback per writing system the content uses (#2986). Standard PDF
- * families need no files.
+ * Whether anything in the resume is set in italic: rich text, or a style rule or stylesheet the user wrote.
+ * Templates never set italic, so without these the italic faces (one file per weight) aren't downloaded; text
+ * that turns out italic anyway still draws, upright.
+ */
+export const resumeUsesItalic = (data: ResumeData): boolean =>
+	italicTagRegex.test(JSON.stringify([data.basics, data.summary, data.sections, data.customSections])) ||
+	/\bitalic\b/.test(JSON.stringify([data.metadata.styleRules, data.metadata.stylesheet]));
+
+/**
+ * Resolves the typography for the PDF and lists the font faces it needs: the body and heading weights (in italic
+ * too when the resume uses it), each family's true Bold, and one Noto fallback per writing system the content uses
+ * (#2986). Standard PDF families need no files.
  */
 export const resolvePdfFonts = (
 	typography: Typography,
 	locale: Locale,
 	hasCjkContent = false,
 	scripts?: Set<Script>,
+	usesItalic = true,
 ): { typography: PdfTypography; fonts: PdfFontRequest[] } => {
 	const fonts = new Map<string, PdfFontRequest>();
 	const pdfTypography = resolvePdfTypography(typography);
@@ -249,7 +264,8 @@ export const resolvePdfFonts = (
 		fonts.set(key, { family, weight: Number(normalizedWeight), italic, src: source });
 	};
 
-	for (const italic of [false, true]) {
+	const styles = usesItalic ? [false, true] : [false];
+	for (const italic of styles) {
 		registerFont(bodyFontFamily, bodyRange.lowest, italic);
 		registerFont(bodyFontFamily, bodyRange.highest, italic);
 		if (bodyBoldWeight) registerFont(bodyFontFamily, Number(bodyBoldWeight), italic);
@@ -271,16 +287,15 @@ export const resolvePdfFonts = (
 	const bodyFallbacks = getPdfFallbackFontFamilies(bodyFontFamily, { locale, scripts: fallbackScripts });
 	const headingFallbacks = getPdfFallbackFontFamilies(headingFontFamily, { locale, scripts: fallbackScripts });
 
-	const registerFallbacks = (families: string[], ranges: FontWeightRange[], storedWeights: readonly string[]) => {
+	// Fallbacks get Regular and Bold only; Forme draws other weights with the nearest face. A Noto CJK face is
+	// 10–15 MB, so every weight of the primary font made a CJK resume's first preview download ~60 MB (#3593).
+	const registerFallbacks = (families: string[], storedWeights: readonly string[]) => {
 		for (const family of families) {
-			const weights = new Set(ranges.flatMap(({ lowest, highest }) => [lowest, highest]));
+			const weights = new Set([400]);
 			const fallbackBoldWeight = resolveBoldFontWeight(family, storedWeights);
 			if (fallbackBoldWeight) weights.add(Number(fallbackBoldWeight));
 
-			for (const weight of weights) {
-				registerFont(family, weight, false);
-				registerFont(family, weight, true);
-			}
+			for (const weight of weights) for (const italic of styles) registerFont(family, weight, italic);
 		}
 	};
 
@@ -288,12 +303,8 @@ export const resolvePdfFonts = (
 		bodyFallbacks.length === headingFallbacks.length &&
 		bodyFallbacks.every((family, index) => family === headingFallbacks[index]);
 
-	if (sameStack) {
-		registerFallbacks(bodyFallbacks, [bodyRange, headingRange], pdfTypography.body.fontWeights);
-	} else {
-		registerFallbacks(bodyFallbacks, [bodyRange], pdfTypography.body.fontWeights);
-		registerFallbacks(headingFallbacks, [headingRange], pdfTypography.heading.fontWeights);
-	}
+	registerFallbacks(bodyFallbacks, pdfTypography.body.fontWeights);
+	if (!sameStack) registerFallbacks(headingFallbacks, pdfTypography.heading.fontWeights);
 
 	// Latin-only path: no fallback registered, return as-is.
 	if (bodyFallbacks.length === 0 && headingFallbacks.length === 0) {

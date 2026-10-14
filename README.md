@@ -10,7 +10,7 @@
 
 十三月简历（[resume.afeiii.com](https://resume.afeiii.com)）是一款中文在线简历工具，支持从零创建简历，也可以导入已有内容继续编辑。
 
-本项目基于 [Reactive Resume](https://github.com/reactive-resume/reactive-resume) **v6.0.2** 进行中文品牌与站点定制，保留原作者署名和 MIT 许可证。
+本项目基于 [Reactive Resume](https://github.com/reactive-resume/reactive-resume) **v6.0.3** 进行中文品牌与站点定制，保留原作者署名和 MIT 许可证。
 
 仓库默认分支为 [`brand/thirteen-month-v6`](https://github.com/bigzhihui/reactive-resume/tree/brand/thirteen-month-v6)，日常定制修改在该分支完成。
 
@@ -20,15 +20,15 @@
 
 ## 主要功能
 
-| 分类       | 功能                                                                                                                                                                 |
-| :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 简历编辑   | 个人资料、教育经历、工作经历、项目、技能、自定义栏目与自动保存                                                                                                       |
-| 模板与排版 | 17 个模板、字体、配色、间距、单双栏、A4 与 Letter 纸张                                                                                                               |
-| 导入与导出 | 导入已有简历，导出 PDF、Word、Markdown 与 JSON；具体格式和可选依赖见[导入说明](docs/guides/importing-resumes.mdx)与[导出说明](docs/guides/exporting-your-resume.mdx) |
-| 检查与分享 | ATS 可读性检查、关键词匹配、私有或公开简历、分享链接与密码保护                                                                                                       |
-| 求职管理   | 求职信、申请记录、文档版本与回收站                                                                                                                                   |
-| 账号与邮件 | 邮箱注册、验证邮件、密码重置与账号管理                                                                                                                               |
-| 可选 AI    | 使用用户自行连接的服务商与 API Key，辅助修改措辞、检查简历和准备求职材料                                                                                             |
+| 分类       | 功能                                                                                                                                                                                      |
+| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 简历编辑   | 个人资料、教育经历、工作经历、项目、技能、自定义栏目与自动保存                                                                                                                            |
+| 模板与排版 | 17 个模板、字体、配色、间距、单双栏、A4 与 Letter 纸张                                                                                                                                    |
+| 导入与导出 | 导入已有简历，导出 PDF、Word、OpenDocument（ODT）、Markdown 与 JSON；具体格式和可选依赖见[导入说明](docs/guides/importing-resumes.mdx)与[导出说明](docs/guides/exporting-your-resume.mdx) |
+| 检查与分享 | ATS 可读性检查、关键词匹配、私有或公开简历、分享链接与密码保护                                                                                                                            |
+| 求职管理   | 求职信、申请记录、文档版本与回收站                                                                                                                                                        |
+| 账号与邮件 | 邮箱注册、验证邮件、密码重置与账号管理                                                                                                                                                    |
+| 可选 AI    | 使用用户自行连接的服务商与 API Key，辅助修改措辞、检查简历和准备求职材料                                                                                                                  |
 
 基础简历编辑、模板与 PDF 导出免费。AI 功能需要独立配置服务商，相关用量可能由服务商收费。
 
@@ -50,13 +50,13 @@
 
 ## 本地开发
 
-环境要求：**Node.js 24、pnpm 12.10.1、Docker 与 Docker Compose**。
+环境要求：**Node.js 24、pnpm 12.11.2、Docker 与 Docker Compose**。
 
 ```sh
 git clone --branch brand/thirteen-month-v6 https://github.com/bigzhihui/reactive-resume.git
 cd reactive-resume
 
-npm install --global pnpm@12.10.1
+npm install --global pnpm@12.11.2
 pnpm install --frozen-lockfile
 cp .env.example .env.local
 ```
@@ -135,7 +135,7 @@ React 19、TanStack Router、Vite、TypeScript、Hono、Node.js 24、pnpm、Turb
 
 - [上游完整文档](https://docs.rxresu.me)
 - [v6 功能说明](docs/guides/whats-new-in-v6.mdx)
-- [上游使用说明](https://github.com/reactive-resume/reactive-resume/blob/v6.0.2/README.md)
+- [上游使用说明](https://github.com/reactive-resume/reactive-resume/blob/v6.0.3/README.md)
 - [支持上游作者](https://github.com/sponsors/AmruthPillai)
 
 ## 开源协议

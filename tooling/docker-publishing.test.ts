@@ -5,22 +5,33 @@ import { join } from "node:path";
 import { expect, it } from "vitest";
 
 it("keeps smoke dispatches out of release publishing and production deployment", () => {
-	const workflow = readFileSync(new URL("../.github/workflows/docker-build.yml", import.meta.url), "utf8");
+	const workflow = readFileSync(new URL("../.github/workflows/docker-build.yml", import.meta.url), "utf8").replace(
+		/\r\n/g,
+		"\n",
+	);
 	const mode = workflow.match(/ {8}run: \|\n([\s\S]*?)\n {2}build:/)?.[1];
 	if (!mode) throw new Error("Publishing mode script is missing");
 	const directory = mkdtempSync(join(tmpdir(), "docker-publishing-"));
 
 	try {
 		for (const [event, ref, release, expected] of [
-			["push", "refs/heads/main", "", "nightly"],
-			["push", "refs/tags/v6.0.0", "", "release"],
-			["workflow_dispatch", "refs/heads/main", "", "canary"],
-			["workflow_dispatch", "refs/heads/main", "false", "canary"],
-			["workflow_dispatch", "refs/heads/main", "true", "release"],
+			["workflow_dispatch", "refs/heads/brand/thirteen-month-v6", "", "nightly"],
+			["workflow_dispatch", "refs/heads/brand/thirteen-month-v6", "false", "nightly"],
+			["workflow_dispatch", "refs/heads/preview", "", "canary"],
+			["workflow_dispatch", "refs/heads/preview", "false", "canary"],
+			["workflow_dispatch", "refs/heads/brand/thirteen-month-v6", "true", "release"],
+			["workflow_dispatch", "refs/tags/v6.0.3", "true", "release"],
 		]) {
 			const output = join(directory, `${event}-${release || "default"}-${expected}`);
 			execFileSync("bash", ["-eu", "-c", mode], {
-				env: { ...process.env, EVENT_NAME: event, GIT_REF: ref, RELEASE: release, GITHUB_OUTPUT: output },
+				env: {
+					...process.env,
+					DEFAULT_REF: "refs/heads/brand/thirteen-month-v6",
+					EVENT_NAME: event,
+					GIT_REF: ref,
+					RELEASE: release,
+					GITHUB_OUTPUT: output,
+				},
 			});
 			const values = Object.fromEntries(
 				readFileSync(output, "utf8")
@@ -40,7 +51,10 @@ it("keeps smoke dispatches out of release publishing and production deployment",
 });
 
 it("validates release tags against the built version and distinguishes prereleases", () => {
-	const workflow = readFileSync(new URL("../.github/workflows/docker-build.yml", import.meta.url), "utf8");
+	const workflow = readFileSync(new URL("../.github/workflows/docker-build.yml", import.meta.url), "utf8").replace(
+		/\r\n/g,
+		"\n",
+	);
 	const script = workflow.match(
 		/      - name: Resolve publishing version and commit[\s\S]*?        run: \|\n([\s\S]*?)(?=\n      - name:)/,
 	)?.[1];
@@ -86,15 +100,13 @@ it("validates release tags against the built version and distinguishes prereleas
 });
 
 it.each([
-	["both registries", "", false, false, false, 0, 2],
-	["GHCR only", "", false, true, false, 0, 1],
-	["missing GHCR source", "ghcr.io/example/app", false, false, false, 1, 0],
-	["incomplete Docker Hub index", "", true, false, false, 1, 0],
-	["registry changes copied digest", "", false, false, true, 1, 1],
-])("promotes complete SHA indexes: %s", (_name, missing, incomplete, ghcrOnly, changed, status, copies) => {
+	["complete GHCR index", "", false, false, 0, 1],
+	["missing GHCR source", "ghcr.io/example/app", false, false, 1, 0],
+	["incomplete GHCR index", "", true, false, 1, 0],
+	["registry changes copied digest", "", false, true, 1, 1],
+])("promotes complete SHA indexes: %s", (_name, missing, incomplete, changed, status, copies) => {
 	const directory = mkdtempSync(join(tmpdir(), "docker-promotion-"));
 	const ghcr = "ghcr.io/example/app";
-	const hub = "docker.io/example/app";
 	const commit = "a".repeat(40);
 	const digest = `sha256:${"b".repeat(64)}`;
 	const log = join(directory, "copies");
@@ -119,7 +131,7 @@ case "$3" in
   inspect)
     [[ -z "$MISSING" || "$4" != "$MISSING:sha-$COMMIT_SHA" ]] || exit 1
     if [[ "$5" == "--raw" ]]; then
-      if [[ "$INCOMPLETE" == true && "$4" == docker.io/* ]]; then
+      if [[ "$INCOMPLETE" == true ]]; then
         cat "$FIXTURE/incomplete.json"
       else
         cat "$FIXTURE/complete.json"
@@ -142,7 +154,6 @@ esac
 `,
 			{ mode: 0o755 },
 		);
-		const images = ghcrOnly ? [ghcr] : [hub, ghcr];
 		const result = spawnSync("bash", [new URL("./docker/promote.sh", import.meta.url).pathname], {
 			encoding: "utf8",
 			env: {
@@ -152,7 +163,7 @@ esac
 				GHCR_IMAGE: ghcr,
 				GITHUB_OUTPUT: output,
 				DOCKER_METADATA_OUTPUT_JSON: JSON.stringify({
-					tags: images.flatMap((image) => [`${image}:latest`, `${image}:v6.0.0`]),
+					tags: [`${ghcr}:latest`, `${ghcr}:v6.0.0`],
 				}),
 				MISSING: missing,
 				INCOMPLETE: String(incomplete),
@@ -172,10 +183,8 @@ esac
 			expect(result.stdout).toContain("Digest changed while promoting");
 			expect(readFileSync(output, "utf8")).toBe("");
 		} else {
-			expect(copied).toEqual(images.flatMap((image) => [`${image}@${digest}`, `${image}:latest`, `${image}:v6.0.0`]));
-			expect(readFileSync(output, "utf8")).toBe(
-				`${ghcrOnly ? "" : `docker_digest=${digest}\n`}ghcr_digest=${digest}\n`,
-			);
+			expect(copied).toEqual([`${ghcr}@${digest}`, `${ghcr}:latest`, `${ghcr}:v6.0.0`]);
+			expect(readFileSync(output, "utf8")).toBe(`ghcr_digest=${digest}\n`);
 		}
 	} finally {
 		rmSync(directory, { recursive: true, force: true });

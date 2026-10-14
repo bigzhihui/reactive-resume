@@ -33,6 +33,7 @@ export const user = pg.pgTable(
 			precision: 6,
 			withTimezone: true,
 		}),
+		isAnonymous: pg.boolean("is_anonymous").notNull().default(false),
 		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 		updatedAt: pg
 			.timestamp("updated_at", { withTimezone: true })
@@ -106,7 +107,11 @@ export const account = pg.pgTable(
 			.defaultNow()
 			.$onUpdate(() => /* @__PURE__ */ new Date()),
 	},
-	(t) => [pg.index().on(t.userId)],
+	// Better Auth finds an account by provider and provider account on every social sign-in (#3593).
+	(t) => [
+		pg.index().on(t.userId),
+		pg.uniqueIndex("account_provider_id_account_id_unique").on(t.providerId, t.accountId),
+	],
 );
 
 export const verification = pg.pgTable(

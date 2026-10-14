@@ -48,6 +48,8 @@ export const PARITY_TOOL_DESCRIPTIONS: Record<string, string> = {
 		"Apply the chosen changes (by index) of a read employer message to its application: stage, follow-up, next-step note, or saving offer terms. This changes the application; it does not send an email.",
 	"career.workspace":
 		"Read an application's workspace: form answers, the submit checklist, questions to ask, evidence added from Fit, ticked plan rows and the pasted employer message.",
+	"coverLetters.draft":
+		"Write a draft of a cover letter's body with the user's AI provider, from the letter's linked resume and its application's job posting, using only facts from them. Returns the draft text as chunks in `events` to join in order; `truncated` is true past 500,000 characters. Nothing is saved: write the draft into the letter with `update_cover_letter`. Use variant `shorter` or `personal` with `previous` to revise an earlier draft.",
 	"career.saveWorkspace":
 		"Save parts of an application's workspace. Each key given replaces that whole key; keys left out keep their values.",
 	"career.trackOpportunity":
@@ -357,7 +359,7 @@ const BASE_TOOL_META = {
 		inputSchema: wireInput(
 			z.strictObject({
 				data: z
-					.unknown()
+					.looseObject({})
 					.describe("Complete ResumeData JSON (same shape as `read_resume` body or `resume://_meta/schema`)."),
 			}),
 		),
@@ -423,12 +425,12 @@ const BASE_TOOL_META = {
 		annotations: { ...WRITE_NON_IDEMPOTENT, destructiveHint: true, openWorldHint: true },
 	},
 	[T.updateResume]: {
-		title: "Update Resume (metadata)",
+		title: "Update Resume",
 		description: [
-			"Update resume display name, URL slug, tags, visibility, download settings, or full document data.",
-			"Prefer JSON Patch with expectedUpdatedAt for content edits to avoid overwriting concurrent changes.",
+			"Update a resume's settings (display name, URL slug, tags, public visibility, download buttons), or replace its whole content with `data`.",
+			`For content edits prefer \`${T.patchResume}\` with expectedUpdatedAt, which changes only what it targets and avoids overwriting concurrent changes.`,
 			`Locked resumes cannot be updated. Ask the user before unlocking with \`${T.unlockResume}\`.`,
-			"Use the account security workflow to manage password protection.",
+			"To set a share password, `api_resume_set_password` opens the resume in the app.",
 			"",
 			"Always returns your canonical share URL (`{app}/{username}/{slug}`). Anonymous viewers can use it only when `isPublic` is true; password protection from the web app still applies.",
 		].join("\n"),
@@ -910,7 +912,17 @@ const applicationDateFields = {
 		.describe("Follow-up timestamp with timezone offset."),
 };
 // Shared DTOs keep fields, validation and limits aligned with API contracts.
-export const TOOL_META = {
+// Directories show annotations.title as the tool's name, so every tool repeats its title there.
+function withAnnotationTitles<T extends Record<string, { title: string; annotations: ToolAnnotations }>>(meta: T): T {
+	return Object.fromEntries(
+		Object.entries(meta).map(([name, tool]) => [
+			name,
+			{ ...tool, annotations: { title: tool.title, ...tool.annotations } },
+		]),
+	) as T;
+}
+
+export const TOOL_META = withAnnotationTitles({
 	...BASE_TOOL_META,
 	[T.listResumes]: {
 		...BASE_TOOL_META[T.listResumes],
@@ -1024,4 +1036,4 @@ export const TOOL_META = {
 		inputSchema: wireInput(applicationDto.bulkDelete.input.strict()),
 		outputSchema: toWireObjectSchema(applicationDto.bulkDelete.output),
 	},
-} as const;
+} as const);
