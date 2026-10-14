@@ -4,14 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       release:
-        description: Promote existing SHA image (branch updates latest; release tag also updates semver) and redeploy production
+        description: Promote an already-built commit image (branch updates latest; release tag also updates semver)
         type: boolean
         default: false
-  push:
-    branches:
-      - main
-    tags:
-      - "v*"
 
 concurrency:
   # Preserve builds for every pushed commit, even when newer commits arrive.
@@ -20,7 +15,8 @@ concurrency:
 
 env:
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
-  DOCKER_IMAGE: docker.io/amruthpillai/reactive-resume
+  DOCKER_IMAGE: docker.io/${{ github.repository }}
+  DEFAULT_REF: refs/heads/${{ github.event.repository.default_branch }}
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
@@ -43,7 +39,7 @@ jobs:
           nightly=false
           release=false
           canary=false
-          if [[ "$EVENT_NAME" == "push" && "$GIT_REF" == "refs/heads/main" ]]; then
+          if [[ "$GIT_REF" == "$DEFAULT_REF" && "$RELEASE" != "true" ]]; then
             nightly=true
           elif [[ "$EVENT_NAME" == "workflow_dispatch" && "$RELEASE" != "true" ]]; then
             canary=true
@@ -196,10 +192,6 @@ jobs:
     timeout-minutes: 45
     runs-on: ${{ vars.USE_BLACKSMITH == 'true' && 'blacksmith-2vcpu-ubuntu-2404' || 'ubuntu-latest' }}
 
-    env:
-      DEPLOY: ${{ secrets.SSH_KEY != '' && secrets.SSH_HOST != '' && secrets.SSH_USER != '' }}
-      PURGE_CLOUDFLARE: ${{ secrets.CLOUDFLARE_ZONE_ID != '' && secrets.CLOUDFLARE_API_TOKEN != '' }}
-
     permissions:
       contents: read
       packages: write
@@ -317,8 +309,8 @@ jobs:
           fi
 
           if [[ "${{ needs.mode.outputs.nightly }}" == "true" ]]; then
-            main_sha=$(git -C "$GITHUB_WORKSPACE" ls-remote origin refs/heads/main | cut -f1)
-            if [[ "$main_sha" != "${{ steps.version.outputs.sha }}" ]]; then
+            default_sha=$(git -C "$GITHUB_WORKSPACE" ls-remote origin "$DEFAULT_REF" | cut -f1)
+            if [[ "$default_sha" != "${{ steps.version.outputs.sha }}" ]]; then
               DOCKER_METADATA_OUTPUT_JSON=$(jq '.tags |= map(select(endswith(":nightly") | not))' <<< "$DOCKER_METADATA_OUTPUT_JSON")
               FINAL_TAG="sha-${{ steps.version.outputs.sha }}"
             fi
@@ -332,10 +324,10 @@ jobs:
           docker buildx imagetools create \
             "${args[@]}" \
             --annotation "index:org.opencontainers.image.licenses=MIT" \
-            --annotation "index:org.opencontainers.image.title=Reactive Resume" \
+            --annotation "index:org.opencontainers.image.title=十三月简历" \
             --annotation "index:org.opencontainers.image.description=A free and open-source resume builder." \
             --annotation "index:org.opencontainers.image.vendor=Amruth Pillai" \
-            --annotation "index:org.opencontainers.image.url=https://rxresu.me" \
+            --annotation "index:org.opencontainers.image.url=https://resume.afeiii.com" \
             --annotation "index:org.opencontainers.image.documentation=https://docs.rxresu.me" \
             --annotation "index:org.opencontainers.image.source=https://github.com/${{ github.repository }}" \
             --annotation "index:org.opencontainers.image.version=${{ steps.version.outputs.version }}"
@@ -414,35 +406,3 @@ jobs:
                 "$image:${{ steps.published.outputs.final_tag }}"
             done
           done
-
-      - name: Redeploy Stack
-        if: ${{ needs.mode.outputs.release == 'true' && steps.version.outputs.prerelease != 'true' && env.DEPLOY == 'true' }}
-        uses: appleboy/ssh-action@v1
-        with:
-          key: ${{ secrets.SSH_KEY }}
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          script: |
-            cd docker
-            ./manage_stack.sh up reactive_resume
-
-      - name: Purge Cloudflare cache
-        if: ${{ needs.mode.outputs.release == 'true' && steps.version.outputs.prerelease != 'true' && env.PURGE_CLOUDFLARE == 'true' }}
-        env:
-          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: |
-          set -euo pipefail
-
-          response=$(curl -fsS --max-time 10 --retry 3 --retry-delay 5 --retry-connrefused -X POST \
-            "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
-            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
-            -H "Content-Type: application/json" \
-            --data '{"purge_everything":true}')
-
-          if [ "$(jq -r '.success' <<< "$response")" != "true" ]; then
-            echo "$response" | jq .
-            exit 1
-          fi
-
-          echo "Cloudflare cache purged successfully."

@@ -10,6 +10,7 @@ concurrency:
 
 jobs:
   crowdin-sync:
+    if: ${{ github.repository == 'reactive-resume/reactive-resume' }}
     runs-on: ${{ vars.USE_BLACKSMITH == 'true' && 'blacksmith-2vcpu-ubuntu-2404' || 'ubuntu-latest' }}
 
     permissions:

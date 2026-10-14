@@ -3,7 +3,7 @@ name: Cloudflare Compatibility
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, brand/thirteen-month-v6]
   workflow_dispatch:
 
 permissions:
@@ -14,6 +14,7 @@ env:
 
 jobs:
   worker:
+    if: ${{ github.repository == 'reactive-resume/reactive-resume' || github.event_name == 'workflow_dispatch' }}
     runs-on: ${{ vars.USE_BLACKSMITH == 'true' && 'blacksmith-32vcpu-ubuntu-2404' || 'ubuntu-latest' }}
     timeout-minutes: 20
     services:

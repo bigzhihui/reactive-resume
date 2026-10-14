@@ -1,34 +1,22 @@
-# Security Policy
+# 十三月简历安全联系说明
 
-## Supported Versions
+## 适用范围
 
-Reactive Resume provides security updates for version `5.0.x` and newer.
-Earlier major versions are no longer supported.
+本说明适用于本仓库默认分支 `brand/thirteen-month-v6` 与 <https://resume.afeiii.com>。当前定制基线为 Reactive Resume v6.0.2。
 
-| Version | Supported          |
-| ------- | ------------------ |
-| >= 5.0  | :white_check_mark: |
-| 4.x     | :x:                |
-| < 4.0   | :x:                |
+上游版本与补丁政策请参考 [Reactive Resume 安全说明](https://github.com/reactive-resume/reactive-resume/blob/main/SECURITY.md)。
 
-## Reporting a Vulnerability
+## 私下报告问题
 
-If you believe you have found a security vulnerability, please report it
-privately instead of opening a public issue.
+如果发现本站存在安全漏洞，请发送邮件至 [support@afeiii.com](mailto:support@afeiii.com)，标题建议使用“十三月简历安全问题”。
 
-Preferred reporting channels:
+请提供：
 
-- Use GitHub's private vulnerability reporting for this repository.
-- If that is unavailable, email `amruth@rxresu.me` with the subject
-  `Security Vulnerability: Reactive Resume`.
+- 问题位置与可能影响。
+- 最小复现步骤。
+- 涉及的版本、浏览器或部署环境。
+- 已移除个人资料与凭据的日志或截图。
 
-Please include as much detail as possible, including:
+请通过上述邮箱私下报告，避免在公开 Issue 中发布漏洞细节、个人简历、密码、认证令牌、API Key 或邮件操作链接。
 
-- A description of the vulnerability and its impact.
-- Steps to reproduce or a proof of concept.
-- Affected versions, configuration, or deployment details.
-- Any relevant logs, screenshots, or links.
-
-You can expect an initial response within 7 days. If the report is accepted,
-we will coordinate remediation and disclosure timing with you before publishing
-details publicly.
+维护者会根据问题影响安排核查与修复，并通过邮件沟通必要的补充信息及披露安排。

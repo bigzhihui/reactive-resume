@@ -1,6 +1,11 @@
 {
 	"name": "reactive-resume",
-	"description": "Reactive Resume is a free and open-source resume builder that makes it easy to create, update, and share your resume.",
+	"description": "十三月简历：基于 Reactive Resume 的中文在线简历制作、模板编辑与 PDF 导出工具。",
+	"homepage": "https://resume.afeiii.com",
+	"bugs": {
+		"url": "https://github.com/bigzhihui/reactive-resume/issues",
+		"email": "support@afeiii.com"
+	},
 	"version": "6.0.2",
 	"private": true,
 	"license": "MIT",
@@ -11,7 +16,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/reactive-resume/reactive-resume.git"
+		"url": "https://github.com/bigzhihui/reactive-resume.git"
 	},
 	"engines": {
 		"node": "24.x"

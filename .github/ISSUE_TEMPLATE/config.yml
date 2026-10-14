@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Questions and support
-    url: https://github.com/reactive-resume/reactive-resume/discussions/categories/q-a
-    about: Get help with setup, configuration, and using Reactive Resume.
-  - name: Security vulnerability
-    url: https://github.com/reactive-resume/reactive-resume/security/advisories/new
-    about: Report security vulnerabilities privately.
+  - name: 本站使用与联系
+    url: https://resume.afeiii.com/privacy
+    about: 查看本站数据说明；账号或私人问题请联系 support@afeiii.com。
+  - name: 私下报告安全问题
+    url: https://github.com/bigzhihui/reactive-resume/blob/brand/thirteen-month-v6/SECURITY.md
+    about: 安全问题请邮件联系 support@afeiii.com，避免公开敏感信息。

@@ -3,7 +3,7 @@ name: autofix.ci
 on:
   pull_request:
   push:
-    branches: ["main"]
+    branches: ["main", "brand/thirteen-month-v6"]
 
 permissions:
   contents: read
@@ -50,4 +50,5 @@ jobs:
         run: pnpm check
 
       - name: Autofix
+        if: ${{ github.repository == 'reactive-resume/reactive-resume' || vars.ENABLE_AUTOFIX == 'true' }}
         uses: autofix-ci/action@7a166d7532b277f34e16238930461bf77f9d7ed8

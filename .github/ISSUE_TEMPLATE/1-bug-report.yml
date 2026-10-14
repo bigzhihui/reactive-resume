@@ -1,6 +1,6 @@
-name: 🐞 Bug Report
+name: 🐞 问题反馈
 
-description: Report a reproducible problem with Reactive Resume
+description: 反馈十三月简历中可以复现的问题
 
 labels: ["bug", "status: needs triage"]
 assignees: []
@@ -30,7 +30,7 @@ body:
     attributes:
       label: Reactive Resume version
       description: Find this in Settings or provide the container image tag or commit SHA.
-      placeholder: 5.2.6
+      placeholder: 6.0.2
     validations:
       required: true
 
