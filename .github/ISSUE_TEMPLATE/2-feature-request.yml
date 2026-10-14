@@ -8,75 +8,75 @@ assignees: []
 body:
   - type: checkboxes
     attributes:
-      label: Existing issue
-      description: Search open and closed issues before submitting a new proposal.
+      label: 已有反馈
+      description: 提交前，请先搜索已打开和已关闭的建议。
       options:
-        - label: I searched the existing issues and could not find a matching proposal.
+        - label: 我已搜索已有建议，没有找到相同提议。
           required: true
 
   - type: dropdown
     id: variant
     attributes:
-      label: Product variant
-      description: Choose the primary environment for this proposal.
+      label: 使用方式
+      description: 这个建议主要针对本站，还是你自行部署的版本？
       options:
-        - Cloud
-        - Self-hosted
+        - 在线站点（resume.afeiii.com）
+        - 自行部署
     validations:
       required: true
 
   - type: dropdown
     id: area
     attributes:
-      label: Area
-      description: Choose the part of Reactive Resume most closely related to the proposal.
+      label: 涉及功能
+      description: 请选择与建议最相关的功能。
       options:
-        - Resume builder & data
-        - Templates, preview & export
-        - Accounts & sharing
-        - AI & Agent
-        - Language & localization
-        - Self-hosting
-        - API & integrations
-        - Applications & cover letters
-        - Other / unsure
+        - 简历编辑与数据
+        - 模板、预览与导出
+        - 账号与分享
+        - AI 与助手
+        - 语言与中文界面
+        - 自托管部署
+        - API 与集成
+        - 申请记录与求职信
+        - 其他或不确定
     validations:
       required: true
 
   - type: textarea
     id: problem
     attributes:
-      label: Problem
-      description: What user problem or limitation should Reactive Resume solve?
+      label: 当前问题
+      description: 希望十三月简历解决什么使用问题或限制？
     validations:
       required: true
 
   - type: textarea
     id: outcome
     attributes:
-      label: Desired outcome
-      description: Describe the behavior you want without prescribing an implementation.
+      label: 期望效果
+      description: 请说明你希望达到的效果。
     validations:
       required: true
 
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered
-      description: Describe current workarounds or alternatives. Write "None" if there are none.
+      label: 已考虑的替代方案
+      description: 请说明目前使用的解决办法或替代方案；没有时请填写“无”。
     validations:
       required: true
 
   - type: textarea
     id: scope
     attributes:
-      label: Proposed scope
-      description: Explain what should be included and what can remain out of scope.
+      label: 建议范围
+      description: 请说明这个建议需要覆盖哪些使用场景。
     validations:
       required: true
 
   - type: textarea
     id: context
     attributes:
-      label: Additional context
-      description: Add examples, mockups, or related issues when useful. Remove personal resume data first.
+      label: 补充信息
+      description: 可补充示例、界面草图或相关反馈；请先移除个人简历信息。
