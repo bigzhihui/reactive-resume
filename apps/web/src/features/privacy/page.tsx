@@ -17,6 +17,17 @@ export function PrivacyPage() {
 					</p>
 				</header>
 				<section className="space-y-3">
+					<h2 className="text-xl font-semibold">访问统计 / Website analytics</h2>
+					<p>
+						公开首页与说明页使用 Cloudflare Web Analytics 了解访问与加载性能，不使用统计
+						Cookie，不采集简历内容或文件名；不直接在账号、编辑器或公开简历页面加载。Analytics is limited to public
+						marketing pages; resume and account data are not collected.
+					</p>
+					<a href="https://afeiii.com/privacy/" className="underline">
+						访问统计说明 / Analytics notice
+					</a>
+				</section>
+				<section className="space-y-3">
 					<h2 className="text-xl font-semibold">
 						<Trans>Who operates this service</Trans>
 					</h2>

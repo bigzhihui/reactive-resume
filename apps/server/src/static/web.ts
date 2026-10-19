@@ -81,7 +81,7 @@ const BASE_SECURITY_HEADERS = {
 	"Referrer-Policy": "strict-origin-when-cross-origin",
 	// `wasm-unsafe-eval` lets the PDF engine (Forme, WebAssembly) start in the browser.
 	"Content-Security-Policy-Report-Only":
-		"default-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+		"default-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://challenges.cloudflare.com https://static.cloudflareinsights.com; connect-src 'self' https://challenges.cloudflare.com https://cloudflareinsights.com; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
 };
 
 const githubUrl = repositoryUrl;
