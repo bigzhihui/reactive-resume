@@ -77,6 +77,59 @@ function FooterLinkItem({ link }: { link: FooterLink }): ReactNode {
 export function LandingFooter() {
 	return (
 		<footer data-scene={SCENE.footer} className="relative overflow-hidden border-t border-line">
+			<nav
+				aria-label="十三月工具导航"
+				className="mx-auto flex max-w-[1440px] flex-wrap gap-x-6 gap-y-3 px-(--gutter) pt-8 font-ui text-sm"
+			>
+				<a
+					href="https://afeiii.com/"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="text-ink-3 hover:text-accent-text"
+				>
+					十三月主站
+				</a>
+				<a
+					href="https://tools.afeiii.com/"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="text-ink-3 hover:text-accent-text"
+				>
+					开发工具
+				</a>
+				<a
+					href="https://pdf.afeiii.com/"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="text-ink-3 hover:text-accent-text"
+				>
+					PDF 工具
+				</a>
+				<a
+					href="https://resume.afeiii.com/"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="text-ink-3 hover:text-accent-text"
+				>
+					在线简历
+				</a>
+				<a
+					href="https://check.afeiii.com/"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="text-ink-3 hover:text-accent-text"
+				>
+					网站检测
+				</a>
+				<a
+					href="https://convert.afeiii.com/"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="text-ink-3 hover:text-accent-text"
+				>
+					格式转换
+				</a>
+			</nav>
 			<div className="mx-auto grid max-w-[1440px] grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-x-8 gap-y-10 px-(--gutter) pt-16">
 				<div className="col-span-2 flex min-w-0 flex-col gap-3.5">
 					<img
