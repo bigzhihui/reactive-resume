@@ -1,6 +1,11 @@
 import type { E2EAccount } from "./data";
 import type { APIRequestContext, Browser, BrowserContext, Page } from "@playwright/test";
 
+// Upstream E2E locators use English; the public site's default remains Chinese.
+export async function setEnglishTestLocale(context: BrowserContext, baseURL: string) {
+	await context.addCookies([{ name: "locale", value: "en-US", url: baseURL }]);
+}
+
 async function assertAuthResponse(response: Awaited<ReturnType<APIRequestContext["post"]>>) {
 	if (response.ok()) return;
 
@@ -63,8 +68,10 @@ export async function createAuthenticatedContext(
 ): Promise<BrowserContext> {
 	await registerViaApi(request, account, baseURL);
 
-	return browser.newContext({
+	const context = await browser.newContext({
 		baseURL,
 		storageState: await request.storageState(),
 	});
+	await setEnglishTestLocale(context, baseURL);
+	return context;
 }

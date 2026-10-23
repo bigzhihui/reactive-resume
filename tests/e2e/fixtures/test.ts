@@ -1,7 +1,7 @@
 import type { E2EAccount } from "./data";
 import type { Page } from "@playwright/test";
 import { test as base, expect } from "@playwright/test";
-import { createAuthenticatedContext } from "./auth";
+import { createAuthenticatedContext, setEnglishTestLocale } from "./auth";
 import { createAccount } from "./data";
 import { deleteE2EUser } from "./db";
 
@@ -11,6 +11,11 @@ type Fixtures = {
 };
 
 export const test = base.extend<Fixtures>({
+	page: async ({ page, baseURL }, use) => {
+		await setEnglishTestLocale(page.context(), baseURL ?? "http://localhost:3000");
+		await use(page);
+	},
+
 	account: async ({ baseURL: _baseURL }, use, testInfo) => {
 		const account = createAccount(testInfo);
 

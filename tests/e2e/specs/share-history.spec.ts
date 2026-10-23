@@ -1,3 +1,4 @@
+import { setEnglishTestLocale } from "../fixtures/auth";
 import { createSampleResumeFromDashboard, getPublicUrl, makeResumePublic } from "../fixtures/resume";
 import { expect, test } from "../fixtures/test";
 
@@ -15,6 +16,7 @@ test("renames the public address and keeps the old one redirecting", async ({ br
 	expect(await getPublicUrl(page)).toMatch(/\/renamed-address$/);
 
 	const visitor = await browser.newPage();
+	await setEnglishTestLocale(visitor.context(), oldUrl);
 	try {
 		await visitor.goto(oldUrl);
 		await visitor.waitForURL(/\/renamed-address$/);

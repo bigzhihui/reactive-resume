@@ -1,3 +1,4 @@
+import { setEnglishTestLocale } from "../fixtures/auth";
 import { createSampleResumeFromDashboard, makeResumePublic } from "../fixtures/resume";
 import { expect, test } from "../fixtures/test";
 
@@ -18,6 +19,7 @@ test("password-protects a public resume and unlocks it as a visitor", async ({ b
 	await expect(requirePassword).toBeChecked();
 
 	const anonymous = await browser.newPage();
+	await setEnglishTestLocale(anonymous.context(), publicUrl);
 	try {
 		// Anonymous visitors hit the password gate first
 		await anonymous.goto(publicUrl);

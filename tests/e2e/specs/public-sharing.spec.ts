@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { setEnglishTestLocale } from "../fixtures/auth";
 import { createSampleResumeFromDashboard, makeResumePublic } from "../fixtures/resume";
 import { expect, test } from "../fixtures/test";
 
@@ -15,6 +16,7 @@ test("counts a visitor's PDF download without counting the preview", async ({ br
 	const publicUrl = await makeResumePublic(page);
 
 	const anonymous = await browser.newPage();
+	await setEnglishTestLocale(anonymous.context(), publicUrl);
 	try {
 		await anonymous.goto(publicUrl);
 		await expect(anonymous.getByRole("button", { name: "Download PDF" }).first()).toBeVisible();
