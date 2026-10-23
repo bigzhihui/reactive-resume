@@ -3,7 +3,7 @@ import type { APIRequestContext, Browser, BrowserContext, Page } from "@playwrig
 
 // Upstream E2E locators use English; the public site's default remains Chinese.
 export async function setEnglishTestLocale(context: BrowserContext, baseURL: string) {
-	await context.addCookies([{ name: "locale", value: "en-US", url: baseURL }]);
+	await context.addCookies([{ name: "locale", value: "en-US", url: new URL("/", baseURL).href }]);
 }
 
 async function assertAuthResponse(response: Awaited<ReturnType<APIRequestContext["post"]>>) {
