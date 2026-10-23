@@ -4,6 +4,19 @@ import { describe, expect, it, vi } from "vitest";
 import { Button } from "./button";
 
 describe("Button", () => {
+	it("preserves native submit types and omits button type from rendered anchors", () => {
+		const { rerender } = render(<Button type="submit">Save</Button>);
+		expect(screen.getByRole("button", { name: "Save" })).toHaveAttribute("type", "submit");
+		rerender(
+			<Button nativeButton={false} render={<a href="/docs" />}>
+				Docs
+			</Button>,
+		);
+		const anchor = screen.getByText("Docs").closest("a");
+		expect(anchor).toHaveAttribute("href", "/docs");
+		expect(anchor).not.toHaveAttribute("type");
+	});
+
 	it("shows a spinner, sets aria-busy and ignores clicks while loading", async () => {
 		const onClick = vi.fn();
 		render(

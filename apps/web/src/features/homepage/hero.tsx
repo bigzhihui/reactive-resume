@@ -151,8 +151,8 @@ export function Hero() {
 			<div className="min-[900px]:short:[--pw:min(24vw,40vh)] sticky top-0 h-svh overflow-hidden [--e2:clamp(0,(var(--p)-.16)/.6,1)] [--e:clamp(0,(var(--p)-.03)/.5,1)] [--pt:calc(144px+30vw+var(--pw)*.647)] [--pw:min(46vw,30vh)] motion-reduce:[--ld:1] min-[900px]:[--pt:50%] min-[900px]:[--pw:min(24vw,46vh)]">
 				<svg aria-hidden="true" width="0" height="0" className="absolute">
 					<filter id="landing-pencil" x="-5%" y="-5%" width="110%" height="110%">
-						<feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves={2} seed={4} />
-						<feDisplacementMap in="SourceGraphic" scale={3.5} />
+						<feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves={2} seed={4} result="pencil-noise" />
+						<feDisplacementMap in="SourceGraphic" in2="pencil-noise" scale={3.5} />
 					</filter>
 				</svg>
 

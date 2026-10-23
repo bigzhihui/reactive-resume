@@ -1,0 +1,33 @@
+{
+	"schema": 1,
+	"minimum_pages": 111,
+	"reason": "仅保留 Nu 26.10.12 对容器查询长度 cqw、CSS 数学/相对颜色与 SVG2 circle.pathLength 的已知限制。加载样式位置、图标尺寸、链接 type、滤镜输入及语言标签均已修复。新类别或数量增长仍失败；不能把静态通过等同登录、简历导出或收录通过。",
+	"nu_errors": {
+		"CSS: “font-size”: Unknown dimension.": 5940,
+		"CSS: “margin”: Unknown dimension.": 385,
+		"CSS: “padding”: Unknown dimension.": 4070,
+		"CSS: “border-bottom”: Unknown dimension.": 660,
+		"CSS: “--wipe”: Invalid type: “0, (var(--p) - 0.02) / 0.2”.": 55,
+		"CSS: “--wipe”: Invalid type: “0, (var(--p) - 0.03) / 0.2”.": 55,
+		"CSS: “padding-bottom”: Unknown dimension.": 275,
+		"CSS: “border-inline-start”: Unknown dimension.": 55,
+		"CSS: “mask-image”: Unknown dimension.": 55,
+		"CSS: “--wipe”: Invalid type: “0, (var(--p) - 0.08) / 0.2”.": 55,
+		"CSS: “--night-ink”: “calc(var(--nts) * 100%)” is not a “*invalid*” value.": 55,
+		"CSS: “--night-ink-2”: “calc(var(--nts) * 100%)” is not a “*invalid*” value.": 55,
+		"CSS: “--night-on-ink”: “calc(var(--nts) * 100%)” is not a “*invalid*” value.": 55,
+		"CSS: “--night-accent”: “calc(var(--nts) * 100%)” is not a “*invalid*” value.": 55,
+		"CSS: “--night-label”: “calc(var(--nts) * 100%)” is not a “*invalid*” value.": 55,
+		"CSS: “--night-chip”: “calc(var(--nts) * 100%)” is not a “*invalid*” value.": 55,
+		"CSS: “--night-chip-line”: “calc(var(--nts) * 100%)” is not a “*invalid*” value.": 55,
+		"CSS: “--night-line”: “calc(var(--nts) * 100%)” is not a “*invalid*” value.": 55,
+		"CSS: “--night-fill”: “calc(var(--nts) * 100%)” is not a “*invalid*” value.": 55,
+		"CSS: “--wipe”: Invalid type: “0, (var(--p) - 0.12) / 0.2”.": 55,
+		"Attribute “pathLength” not allowed on element “circle” at this point.": 55,
+		"CSS: “--wipe”: Invalid type: “0, (var(--p) - 0.3) / 0.2”.": 165,
+		"CSS: “opacity”: Invalid type: “0, (var(--p) - 0.35) * 8”.": 55,
+		"CSS: “opacity”: Invalid type: “0, (var(--p) - 0.41) * 8”.": 55,
+		"CSS: “opacity”: Invalid type: “0, (var(--p) - 0.47) * 8”.": 55,
+		"CSS: “--wipe”: Invalid type: “0, (var(--p) - 0.25) / 0.2”.": 55
+	}
+}

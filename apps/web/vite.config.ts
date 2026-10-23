@@ -43,7 +43,10 @@ async function prerenderPages() {
 		for (const locale of locales) {
 			const page = await renderPage(name, locale);
 			const html = shell
-				.replace(/<html lang="[^"]*">/, () => `<html lang="${locale}" dir="${page.dir}">`)
+				.replace(
+					/<html lang="[^"]*">/,
+					() => `<html lang="${locale === "sr-SP" ? "sr-RS" : locale}" dir="${page.dir}">`,
+				)
 				.replace(/<title>[^<]*<\/title>/, () => `<title>${escapeHtml(page.title)}</title>`)
 				.replace(
 					/<meta\s+name="description"[^>]*>/,
