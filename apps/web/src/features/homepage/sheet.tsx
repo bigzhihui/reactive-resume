@@ -199,7 +199,7 @@ type HeadingProps = {
 
 function Heading({ template, children, tick }: HeadingProps) {
 	return (
-		<h3
+		<div
 			className="mb-[1.2cqw] flex items-center justify-between leading-[1.3] text-(--accent-ink)"
 			style={template.heading}
 		>
@@ -210,7 +210,7 @@ function Heading({ template, children, tick }: HeadingProps) {
 				className="text-[oklch(0.5_0.12_150)] opacity-[clamp(0,calc((var(--chk,0)-var(--tick))*12),1)]"
 				style={{ fontSize: "2.5cqw", "--tick": tick } as CSSProperties}
 			/>
-		</h3>
+		</div>
 	);
 }
 

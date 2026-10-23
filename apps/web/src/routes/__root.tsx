@@ -64,7 +64,7 @@ function RootComponent() {
 
 	// The theme class is owned by ThemeProvider, which also follows the system appearance.
 	useEffect(() => {
-		document.documentElement.lang = locale;
+		document.documentElement.lang = locale === "sr-SP" ? "sr-RS" : locale;
 		document.documentElement.dir = dir;
 	}, [dir, locale]);
 

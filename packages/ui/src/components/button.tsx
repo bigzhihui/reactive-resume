@@ -48,6 +48,7 @@ type ButtonProps = ButtonPrimitive.Props &
 function Button({
 	className,
 	type = "button",
+	nativeButton = true,
 	variant = "primary",
 	size = "default",
 	loading = false,
@@ -58,7 +59,8 @@ function Button({
 	return (
 		<ButtonPrimitive
 			data-slot="button"
-			type={type}
+			type={nativeButton ? type : undefined}
+			nativeButton={nativeButton}
 			aria-busy={loading || undefined}
 			className={cn(buttonVariants({ variant, size, className }))}
 			onClick={loading ? (event) => event.preventDefault() : onClick}
