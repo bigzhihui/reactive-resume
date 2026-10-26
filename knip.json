@@ -9,7 +9,9 @@
 				"vite.config.ts",
 				"vitest.config.ts",
 				"src/features/homepage/prerender.tsx",
-				"public/afeiii-analytics.js"
+				"public/afeiii-analytics.js",
+				"public/engagement/feedbackfin.js",
+				"public/engagement/feedbackfin.css"
 			],
 			"vite": {
 				"config": []
