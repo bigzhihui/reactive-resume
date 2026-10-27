@@ -12,6 +12,7 @@ import { toast } from "@reactive-resume/ui/components/toast";
 import { downloadWithAnchor } from "@reactive-resume/utils/file";
 import { createResumePdfBlob } from "./pdf-document";
 import { resolvePublicResumePdfBlob } from "@/features/resume/public/public-pdf";
+import { usageEvent, usageOperation } from "@/lib/afeiii-usage";
 import { getLostCharactersMessage, getReadableErrorMessage } from "@/libs/error-message";
 import { client } from "@/libs/orpc/client";
 import { createSectionTitleResolverForLocale } from "@/libs/resume/section-title-locale";
@@ -68,7 +69,7 @@ const warnLostCharacters = (characters: string[]) =>
 	toast.add({ type: "warning", id: "pdf-lost-characters", description: getLostCharactersMessage(characters) });
 
 /** Builds one export file. It throws when the file can't be made, so each caller decides how to say so. */
-export async function createExportFile(
+async function createExportFileInternal(
 	resume: ExportableResume,
 	format: ExportFormat,
 	target: ResumeExportTarget = "resume",
@@ -89,6 +90,24 @@ export async function createExportFile(
 	if (format === "md") return new Blob([buildMarkdown(data, resolveTitle)], { type: "text/markdown" });
 	if (format === "odt") return buildOdt(data, resolveTitle);
 	return buildDocx(data, resolveTitle);
+}
+
+/** Record only the outcome of file generation, without inspecting or sending resume content. */
+export async function createExportFile(
+	resume: ExportableResume,
+	format: ExportFormat,
+	target: ResumeExportTarget = "resume",
+	options?: DownloadPdfOptions,
+): Promise<Blob> {
+	const usage = usageOperation("export");
+	try {
+		const blob = await createExportFileInternal(resume, format, target, options);
+		usage.success();
+		return blob;
+	} catch (error) {
+		usage.failure();
+		throw error;
+	}
 }
 
 /** Prints a PDF blob through a hidden iframe; if the browser blocks that, opens it in a new tab instead. */
@@ -122,6 +141,7 @@ export function useResumeExport(resume: ExportableResume | undefined, exportOpti
 		if (!resume) return;
 		try {
 			downloadWithAnchor(await createExportFile(resume, "json"), `${getDefaultFileName(resume)}.json`);
+			usageEvent("download", "export");
 		} catch {
 			toast.add({ type: "error", description: t`Could not generate the JSON. Please try again.` });
 		}
@@ -132,6 +152,7 @@ export function useResumeExport(resume: ExportableResume | undefined, exportOpti
 		try {
 			const blob = await createExportFile(resume, "md");
 			downloadWithAnchor(blob, `${getDefaultFileName(resume)}.md`);
+			usageEvent("download", "export");
 		} catch {
 			toast.add({ type: "error", description: t`Could not generate the Markdown. Please try again.` });
 		}
@@ -142,6 +163,7 @@ export function useResumeExport(resume: ExportableResume | undefined, exportOpti
 		try {
 			const blob = await createExportFile(resume, "docx");
 			downloadWithAnchor(blob, `${getDefaultFileName(resume)}.docx`);
+			usageEvent("download", "export");
 		} catch {
 			toast.add({ type: "error", description: t`Could not generate the DOCX. Please try again.` });
 		}
@@ -161,6 +183,7 @@ export function useResumeExport(resume: ExportableResume | undefined, exportOpti
 		try {
 			const blob = await makeBlob();
 			downloadWithAnchor(blob, `${getDefaultFileName(resume)}.pdf`);
+			usageEvent("download", "export");
 			if (exportOptions.publicResumePdf) {
 				// Statistics are best effort and must not delay or fail a completed browser download.
 				void client.resume.statistics.recordDownload(exportOptions.publicResumePdf.publicResume).catch(() => undefined);
