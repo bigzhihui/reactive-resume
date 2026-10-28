@@ -7,7 +7,7 @@ if (!destination) throw Error("Supply a new temporary validation directory");
 const root = resolve(destination);
 await mkdir(root); // Refuse to replace an existing directory.
 await cp("apps/web/dist", root, { recursive: true });
-for (const page of ["home", "ats-checker"]) {
+for (const page of ["home", "ats-checker", "privacy"]) {
 	const directory = `apps/web/dist-prerender/${page}`;
 	const pages = (await readdir(directory)).filter((name) => name.endsWith(".html"));
 	if (pages.length < 55) throw Error(`Missing localized public pages: ${page}`);

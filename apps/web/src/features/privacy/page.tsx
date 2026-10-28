@@ -7,7 +7,7 @@ export function PrivacyPage() {
 			<main id="main-content" className="mx-auto max-w-3xl space-y-8 px-5 pt-32 pb-16 leading-relaxed">
 				<header className="space-y-3">
 					<h1 className="text-3xl font-semibold">
-						<Trans>Privacy Policy</Trans>
+						<Trans id="privacy.title">Privacy Policy</Trans>
 					</h1>
 					<p className="text-sm text-ink-3">
 						<Trans id="privacy.updated20261014">Updated: October 14, 2026</Trans>

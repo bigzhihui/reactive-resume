@@ -13506,3 +13506,9 @@ msgstr "We use Cloudflare Turnstile on registration and password-reset forms to 
 #: src/features/privacy/page.tsx
 msgid "privacy.cloudflarePolicy"
 msgstr "Cloudflare privacy policy"
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+#: src/libs/seo.ts
+msgid "privacy.title"
+msgstr "Privacy Policy"

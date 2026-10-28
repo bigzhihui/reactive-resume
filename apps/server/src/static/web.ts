@@ -348,6 +348,18 @@ const prerenderedPages: Record<
 		structuredData: atsCheckerStructuredData,
 		fallback: (shell) => withMeta(shell, { title: ATS_CHECKER_TITLE, description: ATS_CHECKER_DESCRIPTION }),
 	},
+	"/privacy": {
+		name: "privacy",
+		meta: { title: privacyTitle, description: privacyDescription },
+		image: "/opengraph/banner.jpg",
+		structuredData: (origin) => ({
+			"@context": "https://schema.org",
+			"@type": "WebPage",
+			name: privacyTitle,
+			url: `${origin}/privacy`,
+		}),
+		fallback: (shell) => withMeta(shell, { title: privacyTitle, description: privacyDescription }),
+	},
 };
 
 // ponytail: GET and HEAD share the same routing logic; method determines body presence
@@ -403,16 +415,6 @@ export async function handleWebApp(request: Request, readFile: ReadWebFile = (pa
 		return new Response(
 			page.replace("</head>", () => `${markup}</head>`),
 			{ headers: { ...headers, Vary: "Cookie" } },
-		);
-	}
-
-	if (pathname === "/privacy") {
-		const origin = new URL(env.APP_URL).origin;
-		const page = withMeta(html, { title: privacyTitle, description: privacyDescription });
-		const markup = `<link rel="canonical" href="${origin}/privacy"><meta property="og:site_name" content="${appName}">`;
-		return new Response(
-			page.replace("</head>", () => `${markup}</head>`),
-			{ headers },
 		);
 	}
 

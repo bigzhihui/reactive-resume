@@ -13383,3 +13383,9 @@ msgstr "縮小"
 #: src/libs/locale.ts
 msgid "Zulu"
 msgstr "祖魯語"
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+#: src/libs/seo.ts
+msgid "privacy.title"
+msgstr "隱私說明"
