@@ -1,5 +1,5 @@
 /**
- * Renders the public marketing pages, the landing page and the ATS checker, to HTML, one file per locale, at build time
+ * Renders the public marketing pages, the landing page, ATS checker and privacy notice, to HTML, one file per locale, at build time
  * (see `prerenderPages` in vite.config.ts). The server sends the file for the visitor's locale, so every heading and
  * paragraph is in the first response and the page paints before any JavaScript runs; React renders the live page in
  * its place once the route has loaded.
@@ -17,9 +17,10 @@ import { renderToString } from "react-dom/server";
 import { isRTL, localeSchema } from "@reactive-resume/utils/locale";
 import { Homepage } from "./page";
 import { AtsCheckerPage } from "@/features/ats-checker/page";
+import { PrivacyPage } from "@/features/privacy/page";
 import { ThemeProvider } from "@/features/theme/provider";
 import { getLocaleMessages } from "@/libs/locale";
-import { getAtsCheckerMeta, getHomepageMeta } from "@/libs/seo";
+import { getAtsCheckerMeta, getHomepageMeta, getPrivacyMeta } from "@/libs/seo";
 import { Header } from "@/routes/_home/-sections/header";
 
 export const locales = localeSchema.options;
@@ -37,6 +38,16 @@ const pages = {
 			<>
 				<Header />
 				<AtsCheckerPage signedIn={false} importPending={false} />
+			</>
+		),
+	},
+	privacy: {
+		path: "/privacy",
+		meta: getPrivacyMeta,
+		render: () => (
+			<>
+				<Header />
+				<PrivacyPage />
 			</>
 		),
 	},

@@ -40,3 +40,9 @@ export const getAtsCheckerMeta = () => ({
 	// Keep under ~120 characters so Google's mobile SERP snippet is not truncated at 3 lines.
 	description: t`Check whether software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.`,
 });
+
+/** Shared by the privacy route and its static HTML, in the active locale. */
+export const getPrivacyMeta = () => ({
+	title: `${t({ id: "privacy.title", message: "Privacy Policy" })} - ${appName}`,
+	description: t`This notice applies to this resume website and its account, resume, and email features.`,
+});

@@ -13511,3 +13511,9 @@ msgstr "本站在注册和找回密码表单中使用 Cloudflare Turnstile 防�
 #: src/features/privacy/page.tsx
 msgid "privacy.cloudflarePolicy"
 msgstr "Cloudflare 隐私政策"
+
+#. js-lingui-explicit-id
+#: src/features/privacy/page.tsx
+#: src/libs/seo.ts
+msgid "privacy.title"
+msgstr "隐私说明"

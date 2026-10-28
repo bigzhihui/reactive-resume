@@ -25,7 +25,7 @@ const escapeHtml = (value: string) =>
 
 /**
  * Writes dist-prerender/<page>/<locale>.html: the built index.html with the page rendered into #app, in that locale's
- * language, direction, title and description. The server sends them for "/" and "/ats-checker"
+ * language, direction, title and description. The server sends them for "/", "/ats-checker" and "/privacy"
  * (apps/server/src/static/web.ts).
  */
 async function prerenderPages() {

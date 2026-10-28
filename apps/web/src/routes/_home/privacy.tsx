@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { appUrl, privacyDescription, privacyTitle } from "@reactive-resume/utils/brand";
+import { appUrl } from "@reactive-resume/utils/brand";
 import { PrivacyPage } from "@/features/privacy/page";
+import { getPrivacyMeta } from "@/libs/seo";
 
 export const Route = createFileRoute("/_home/privacy")({
 	component: PrivacyPage,
@@ -10,7 +11,7 @@ export const Route = createFileRoute("/_home/privacy")({
 			typeof window === "undefined" ? appUrl : window.location.origin,
 		).toString();
 		return {
-			meta: [{ title: privacyTitle }, { name: "description", content: privacyDescription }],
+			meta: [{ title: getPrivacyMeta().title }, { name: "description", content: getPrivacyMeta().description }],
 			links: [{ rel: "canonical", href: canonicalUrl }],
 		};
 	},

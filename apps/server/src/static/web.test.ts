@@ -136,6 +136,31 @@ describe("web app fallback classification", () => {
 		expect(await head.text()).toBe("");
 	});
 
+	it.each([
+		["zh-CN", "隐私说明"],
+		["en-US", "Privacy Policy"],
+	])("serves readable privacy content before scripts run in %s", async (locale, heading) => {
+		vi.mocked(fs.readFile).mockImplementation((path) => {
+			if (String(path).endsWith(`dist-prerender/privacy/${locale}.html`)) {
+				return Promise.resolve(
+					`<html><head><title>${heading}</title></head><body><main><h1>${heading}</h1><p>Account and resume data</p></main></body></html>`,
+				);
+			}
+			return Promise.resolve('<html><head><title>App</title></head><body><div id="app">Loading</div></body></html>');
+		});
+
+		const response = await handleWebApp(new Request(`https://example.com/privacy?locale=${locale}`));
+		const html = await response.text();
+		expect(html).toContain(`<h1>${heading}</h1>`);
+		expect(html).toContain("Account and resume data");
+		expect(html).not.toContain('id="app">Loading');
+		expect(html).toContain(
+			`<link rel="canonical" href="https://rxresu.me/privacy${locale === "zh-CN" ? "" : `?locale=${locale}`}"`,
+		);
+		expect(response.headers.get("Vary")).toBe("Cookie");
+		expect(response.headers.get("X-Robots-Tag")).toBeNull();
+	});
+
 	it("keeps public resumes available for a user named privacy", async () => {
 		const response = await handleWebApp(new Request("https://example.com/privacy/my-resume"));
 		expect(response.status).toBe(200);
