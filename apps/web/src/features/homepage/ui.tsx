@@ -6,8 +6,7 @@ import { Icon } from "@reactive-resume/ui/components/icon";
 import { cn } from "@reactive-resume/utils/style";
 
 /** A UI label: section kickers, scene numbers, small caps metadata. */
-export const labelClass =
-	"font-martian font-medium text-[11px] uppercase leading-[1.4] tracking-[.08em] font-stretch-[87.5%]";
+export const labelClass = "font-ui text-sm leading-5 font-medium tracking-[.04em] uppercase";
 
 type CtaLinkProps = { size: "header" | "hero" | "closing"; className?: string };
 
@@ -18,7 +17,7 @@ export function CtaLink({ size, className }: CtaLinkProps) {
 			to="/dashboard"
 			className={cn(
 				"inline-flex shrink-0 items-center rounded-full bg-accent font-ui font-semibold text-on-accent transition-[background-color,transform] duration-[160ms] ease-out-strong hover:bg-accent-hover motion-safe:active:[transform:scale(.97)]",
-				size === "header" && "h-[38px] px-4 text-sm",
+				size === "header" && "h-10 px-3 text-sm sm:px-4",
 				size === "hero" && "h-[54px] gap-2.5 px-6 text-base shadow-e2",
 				size === "closing" && "h-14 gap-2.5 px-7 text-[17px] shadow-e2",
 				className,

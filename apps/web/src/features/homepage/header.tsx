@@ -25,7 +25,7 @@ export function LandingHeader() {
 		<header
 			className={cn(
 				// The ink fades to light with Share's sky (--nt), so it never jumps against a half-dark background.
-				"night-ink fixed inset-x-0 top-0 z-70 flex h-16 items-center gap-7 ps-(--gutter) pe-[calc(var(--gutter)+30px)] whitespace-nowrap",
+				"night-ink fixed inset-x-0 top-0 z-70 flex h-16 items-center gap-3 ps-(--gutter) pe-[calc(var(--gutter)+30px)] whitespace-nowrap min-[900px]:gap-5",
 			)}
 		>
 			<div
@@ -51,8 +51,8 @@ export function LandingHeader() {
 					height={30}
 					className={cn("hidden size-[30px] dark:block", night && "block")}
 				/>
-				{/* The wordmark stays in the DOM for screen readers and crawlers; the logomark is what shows. */}
-				<span className="text-sm font-semibold">{appName}</span>
+				{/* Keep the localized name visible alongside the logomark. */}
+				<span className="text-base font-semibold">{appName}</span>
 			</a>
 
 			<nav aria-label={t`Story`} className="mx-auto hidden items-center gap-0.5 min-[1240px]:flex">
@@ -65,8 +65,8 @@ export function LandingHeader() {
 							aria-current={active ? "step" : undefined}
 							onClick={() => goToScene(scene, 0.04)}
 							className={cn(
-								"font-martian flex h-[34px] items-center gap-[7px] rounded-full px-[11px] text-[11px] leading-none font-medium tracking-[.08em] uppercase font-stretch-[87.5%] transition-opacity duration-300",
-								!active && "opacity-65 hover:opacity-100",
+								"flex h-10 items-center gap-[7px] rounded-full px-[11px] font-ui text-sm leading-5 font-medium transition-opacity duration-300",
+								!active && "opacity-90 hover:opacity-100 focus-visible:opacity-100",
 							)}
 						>
 							<span
@@ -95,7 +95,7 @@ function GithubLink() {
 			aria-label={t`Source code`}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="font-martian hidden h-[38px] items-center gap-2 rounded-md px-2.5 text-[12px] leading-none font-medium font-stretch-[87.5%] transition-colors hover:bg-hover lg:flex"
+			className="hidden h-10 items-center gap-2 rounded-md px-2.5 font-ui text-sm leading-5 font-medium transition-colors hover:bg-hover lg:flex"
 		>
 			<svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
 				<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />

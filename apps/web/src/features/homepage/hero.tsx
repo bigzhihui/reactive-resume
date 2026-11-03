@@ -189,7 +189,7 @@ export function Hero() {
 					className="start-[4vw] top-[61%] w-[6vw] [transform:translate(calc(var(--mx,0)*22px),calc(var(--my,0)*16px))_rotate(calc(16deg+var(--mx,0)*-4deg))_translateY(calc(var(--p)*-30px))] [transition:mask-position_1.4s_var(--ease)_1.3s,transform_1.1s_var(--ease)] max-[900px]:hidden"
 				/>
 
-				<p className={cn(labelClass, "absolute inset-x-(--gutter) top-[92px] z-2 text-ink-3")}>
+				<p className={cn(labelClass, "absolute inset-x-(--gutter) top-[92px] z-2 text-ink-2")}>
 					{t`An open-source resume builder`}
 				</p>
 
