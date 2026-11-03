@@ -34,6 +34,7 @@
 		"functions": ["clsx", "cva", "cn"]
 	},
 	"ignorePatterns": [
+		"apps/web/public/baidu_verify_codeva-z0otXKas6J.html",
 		"**/.turbo/**",
 		"**/.output/**",
 		"**/dist/**",
